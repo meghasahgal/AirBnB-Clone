@@ -666,7 +666,7 @@ Returns all the reviews written by the current user.
 - Request
 
   - Method: GET
-  - URL: /api/users/:userId/reviews
+  - URL: /api/reviews/:userId
   - Body: none
 
 - Successful Response
@@ -1045,7 +1045,7 @@ Return all the bookings that the current user has made.
 - Request
 
   - Method: GET
-  - URL: /api/users/:userId/bookings
+  - URL: /api/bookings/:userId
   - Body: none
 
 - Successful Response
