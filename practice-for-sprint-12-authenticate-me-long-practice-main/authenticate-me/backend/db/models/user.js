@@ -1,19 +1,59 @@
 'use strict';
-const {
-  Model, Validator} = require('sequelize');
+const bcrypt = require('bcryptjs');
+const {Model, Validator} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
+
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    toSafeObject() { //Method that the API routes for authentication will use to interact with the Users table; This method will return an object with only the User instance information that is safe to save to a JWT, like id, username, and email.
+      const { id, username, email } = this; // context will be the User instance
+      return { id, username, email };
+    }
+
+     validatePassword(password) {
+      return bcrypt.compareSync(password, this.hashedPassword.toString());
+    }
+
+     static getCurrentUserById(id) {
+      return User.scope("currentUser").findByPk(id);
+    }
+
+    //login
+     static async login({ credential, password }) {
+      const { Op } = require('sequelize');
+      const user = await User.scope('loginUser').findOne({
+        where: {
+          [Op.or]: {
+            username: credential,
+            email: credential
+          }
+        }
+      });
+      if (user && user.validatePassword(password)) {
+        return await User.scope('currentUser').findByPk(user.id);
+      }
+    }
+      //signup
+      static async signup({ username, email, password }) {
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        username,
+        email,
+        hashedPassword
+      });
+      return await User.scope('currentUser').findByPk(user.id);
+    }
+
+
+    
+
     static associate(models) {
       // define association here
     }
-  }
-  User.init({
-    username: {
+  };
+
+   User.init(
+    {
+      username: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -38,6 +78,23 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           len: [60, 60]
+        }
+      }
+    },
+    {
+      sequelize,
+      modelName: "User",
+      defaultScope: {
+        attributes: {
+          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+        }
+      },
+      scopes: {
+        currentUser: {
+          attributes: { exclude: ["hashedPassword"] }
+        },
+        loginUser: {
+          attributes: {}
         }
       }
     }
