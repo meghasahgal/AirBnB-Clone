@@ -2,9 +2,25 @@ const express = require('express')
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const router = express.Router();
+//The check function from express-validator will be used with the handleValidationErrors to validate the body of a request.
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+
+//middleware to check credential and password keys in body
+const validateLogin = [
+  check('credential')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a valid email or username.'),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a password.'),
+  handleValidationErrors
+];
 
 // Log in
-router.post('/', async (req, res, next) => {
+router.post('/', validateLogin, async (req, res, next) => {
+    //the body of the request to have a key of credential with either the username or email of a user and a key of password with the password of the user.
     const { credential, password } = req.body;
 
     const user = await User.login({ credential, password });
