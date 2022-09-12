@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "heroku": "^7.63.0",
+    "pg": "^8.8.0"
+  },
+  "name": "airbnb-clone",
+  "description": "## Database Schema Design",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "install": "npm --prefix backend install backend",
+    "dev:backend": "npm install --prefix backend start",
+    "sequelize": "npm run --prefix backend sequelize",
+    "sequelize-cli": "npm run --prefix backend sequelize-cli",
+    "start": "npm start --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meghasahgal/AirBnB-Clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meghasahgal/AirBnB-Clone/issues"
+  },
+  "homepage": "https://github.com/meghasahgal/AirBnB-Clone#readme"
+}
