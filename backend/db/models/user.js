@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       const user = await User.create({
         username,
         email,
-        hashedPassword,
+        password: hashedPassword,
         firstName,
         lastName
       });
