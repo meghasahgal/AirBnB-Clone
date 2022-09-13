@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 
+
 // Security Middleware
 if (!isProduction) {
   // enable cors only in development
@@ -51,6 +52,9 @@ app.use(
 const routes = require('./routes');
 
 // ...
+app.get('/', async(req,res)=>{
+  res.json("successfully created.")
+})
 
 app.use(routes); // Connect all the routes
 
