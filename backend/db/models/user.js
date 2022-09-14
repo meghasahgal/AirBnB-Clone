@@ -1,6 +1,6 @@
 'use strict';
 const bcrypt = require('bcryptjs');
-const {Model, Validator} = require('sequelize');
+const {Model, Validator, Op} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
 
   class User extends Model {
@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
 
     //login
      static async login({ credential, password }) {
-      const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
@@ -33,19 +32,41 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
       //signup
-      static async signup({ username, email, password, firstName, lastName }) {
-      const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({
+    //   static async signup({ username, email, password, firstName, lastName }) {
+    //   const hashedPassword = bcrypt.hashSync(password);
+    //   const user = await User.create({
+    //     username,
+    //     email,
+    //     password: hashedPassword,
+    //     firstName,
+    //     lastName
+    //   });
+    //   return await User.scope('currentUser').findByPk(user.id);
+    // }
+
+      static async signup({ username, email, password, firstName, lastName }){
+      try{
+        const hashedPassword = bcrypt.hashSync(password);
+        const user = await User.create({
         username,
         email,
         password: hashedPassword,
         firstName,
         lastName
       });
+      console.log("user:", user)
       return await User.scope('currentUser').findByPk(user.id);
+      }
+      //custom error 403 for duplicate user signups
+      catch(e)
+      {
+        if(e.name === 'SequelizeUniqueConstraintError'){
+          e.status === 403;
+          e.message === 'User already exists'
+        }
+        throw e;
+      }
     }
-
-
 
 
     static associate(models) {
@@ -93,7 +114,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
         validate: {
-          len: [60, 60]
+          len: [60, 60],
+          //notNull: true
         }
        },
 
