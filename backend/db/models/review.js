@@ -11,12 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Review.hasMany(models.Image, {foreignKey: 'reviewId'})
+      Review.belongsTo(models.User,{foreignKey: 'userId'})
+      Review.belongsTo(models.Spot,{foreignKey: 'spotId'})
+
+
     }
   }
   Review.init({
-     id: {type: DataTypes.INTEGER,
-         primaryKey:true
-    },
     url: DataTypes.STRING,
     review: DataTypes.STRING,
     stars: DataTypes.DECIMAL,
