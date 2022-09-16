@@ -4,7 +4,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
   return queryInterface.bulkInsert('Spots', [
       {
-        userId: '1',
+        userId: 1,
         address: '246 Hashed Password Way',
         city: 'New York',
         state: 'NY',
@@ -18,7 +18,7 @@ module.exports = {
         previewImage: 'wwww.techsavvyplace.com'
       },
       {
-        userId: '2',
+        userId: 2,
         address: '55 Apple Boulevard',
         city: 'San Francisco',
         state: 'CA',
@@ -32,7 +32,7 @@ module.exports = {
         previewImage: 'wwww.lowkeyhomeplace.com'
       },
       {
-        userId: '3',
+        userId: 3,
         address: '888 CodingAlong Dr',
         city: 'Chattanooga',
         state: 'TN',
@@ -44,7 +44,9 @@ module.exports = {
         price: 199,
         avgRating: 4.9,
         previewImage: 'wwww.codingalongplace.com'
-      }
+      },
+   
+
     ], {});
   },
 
