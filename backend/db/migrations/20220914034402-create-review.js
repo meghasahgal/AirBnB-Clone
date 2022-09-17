@@ -9,10 +9,6 @@ module.exports = {
         type: Sequelize.INTEGER
       },
 
-      url: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       review: {
         allowNull: false,
         type: Sequelize.STRING
@@ -21,25 +17,21 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL
       },
-      imageId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references:{
-          model: 'Images'
-        }
-      },
+  
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references:{
-          model: 'Users'
+          model: 'Users',
+          key: 'id'
         }
       },
       spotId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references:{
-          model: 'Spots'
+          model: 'Spots',
+          key: 'id'
         }
       },
       createdAt: {

@@ -2,11 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const { Spot, Booking, Image, Review, User } = require("../../db/models")
+const { Spot, Booking, Image, Review, User, sequelize } = require("../../db/models")
 
 //auth middleware
-const { requireAuth } = require("../../utils/auth");
-const { restoreUser } = require("../../utils/auth");
+const { requireAuth, restoreUser } = require("../../utils/auth");
+
 
 //login middleware
 //const { validateLogin } = require("./session")
@@ -29,9 +29,22 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
     return res.json(spots)
 })
 
-//get details of a spot from an id
+//get details of a spot from an id - need to refactor to add scope to exclude password on user
 router.get('/:spotId', async(req, res, next)=>{
-    const spot = await Spot.findByPk(req.params.spotId);
+    console.log(req.params.spotId)
+    const spot = await Spot.findByPk(req.params.spotId,{
+        attributes: {
+            include:[
+             [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
+             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
+             ]
+        },
+        include: [
+            {model: Image, as: 'SpotImages', attributes: {exclude: ['spotId', 'reviewId', 'createdAt', 'updatedAt']}},
+            {model: User, as: 'Owner', attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']} },
+            {model: Review, attributes: {exclude: ['id', 'review', 'stars', 'userId', 'spotId', 'createdAt', 'updatedAt']}}
+        ]
+    });
 
     if(!spot){
         res.status(404);
@@ -40,13 +53,15 @@ router.get('/:spotId', async(req, res, next)=>{
     	statusCode: 404
         })
     }
-    res.json(spot)
+ return res.json(spot)
 })
 
-//create a spot --need to add error
-router.post('/',requireAuth, async(req, res, next)=>{
+
+
+//create a spot --need to add validation error
+router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
     const userId = req.user.id
-    const {address, city, state, country, lat, lng, name, description, price} = req.body;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const newSpot = await Spot.create({
         userId,
         address,
@@ -65,17 +80,45 @@ router.post('/',requireAuth, async(req, res, next)=>{
     })
 })
 
-//edit a spot - need to add authorization re: user owning spot
-router.put('/:id', requireAuth, async(req, res)=>{
+//edit a spot - add validation error
+router.put('/:spotId', requireAuth, async(req, res)=>{
+    const userId = req.user.id;
+    const { spotId } = req.params
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+    //const spot = await Spot.findByPk(spotId)
+    const spot = await Spot.findByPk(spotId,{
+        attributes: ['id', 'userId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'description', 'price','createdAt', 'updatedAt']
+    })
+
+    //error if no spot found
+    if(!spot){
+        return res.json({
+            message: "Spot couldn't be found",
+            statusCode: 404,
+            })
+    }
+    //error if body validation error - need to add
+    let updatedSpot = await spot.update({
+        userId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description
+    })
+
+    res.json(updatedSpot)
 
 })
 
 
-//delete a spot by id - need to access the spot id
-router.delete('/:spotId', requireAuth, async(req,res)=>{
-    const userId = req.user.id
-    const { spotId }  = req.params
-    console.log(spotId, "spotId")
+//delete a spot by id - done
+router.delete('/:spotId', requireAuth, restoreUser, async(req,res)=>{
+    const userId = req.user.id;
+    const { spotId }  = req.params;
     const deletedSpot = await Spot.findByPk(spotId)
 
     if(!deletedSpot){
@@ -91,5 +134,46 @@ router.delete('/:spotId', requireAuth, async(req,res)=>{
          statusCode: 200
     })
 })
+
+
+
+//Add an Image to a Spot based on the Spot's id -
+router.post('/:spotId/images',requireAuth, async(req, res)=>{
+    const {url, preview} = req.body;
+    const { spotId } = req.params;
+
+    //const spot = await Spot.findByPk(spotId)
+    const spot = await Spot.findByPk(spotId)
+        //{
+    // include:
+    //      [{model: Image, as: 'SpotImages', attributes: {exclude: ['spotId', 'reviewId', 'createdAt', 'updatedAt']}},
+    // ]})
+    //res.json(spot)
+    // //error if no spot found
+       if(!spot){
+        res.json({
+            message: "Spot couldn't be found",
+	        statusCode: 404
+        })
+    }
+    //add image
+    const newImage = await spot.createSpotImage({
+        spotId,
+        url,
+        preview
+    })
+
+    const payload = {
+        id: newImage.id,
+        url: newImage.url,
+        preview: newImage.preview
+    }
+
+    return res.json(payload)
+})
+
+
+
+
 
 module.exports = router;

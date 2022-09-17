@@ -1,24 +1,38 @@
 'use strict';
+const { faker } = require('@faker-js/faker');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  return queryInterface.bulkInsert('Images', [
+     {
+        spotId:  1,
+        reviewId: 1,
+        url: faker.internet.url(),
+        preview: true,
+
+      },
+
+     {
+        spotId:  2,
+        reviewId: 2,
+        url: faker.internet.url(),
+        preview: true,
+     },
+
+      {
+        spotId:  3,
+        reviewId: 3,
+        url: faker.internet.url(),
+        preview: true,
+     },
+
+    ], {});
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+
+    await queryInterface.bulkDelete('Images', null, {});
+
+
   }
 };
