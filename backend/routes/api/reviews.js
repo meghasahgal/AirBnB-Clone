@@ -10,27 +10,17 @@ const { restoreUser } = require("../../utils/auth");
 
 
 //Get all Reviews of the Current User - not working?
-router.get('/current', requireAuth, async(req, res)=>{
+router.get('/current',restoreUser,requireAuth, async(req, res)=>{
     const userId = req.user.id
+    //console.log(userId)
     const reviews = await Review.findAll({
         where: {
-            userId
+            userId: userId
         }
     })
     return res.json(reviews)
 })
 
-//Get all Reviews by a Spot's id
-router.get('/:spotId/reviews',async(req, res)=>{
-    const { spotId } = req.params
-    console.log(spotId)
-    const reviews = await Review.findAll({
-        where: {
-            spotId: spotId
-        }
-     })
-     return res.json(reviews)
-    })
 
 
 //Create a review based on Spot's id

@@ -139,12 +139,12 @@ router.delete('/:spotId', requireAuth, restoreUser, async(req,res)=>{
 
 //Add an Image to a Spot based on the Spot's id -
 router.post('/:spotId/images',requireAuth, async(req, res)=>{
-    const {url, preview} = req.body;
+    const {url, previewImage} = req.body;
     const { spotId } = req.params;
 
     //const spot = await Spot.findByPk(spotId)
     const spot = await Spot.findByPk(spotId)
-        //{
+    //     {
     // include:
     //      [{model: Image, as: 'SpotImages', attributes: {exclude: ['spotId', 'reviewId', 'createdAt', 'updatedAt']}},
     // ]})
@@ -160,8 +160,9 @@ router.post('/:spotId/images',requireAuth, async(req, res)=>{
     const newImage = await spot.createSpotImage({
         spotId,
         url,
-        preview
+        preview: previewImage
     })
+
 
     const payload = {
         id: newImage.id,
@@ -170,8 +171,20 @@ router.post('/:spotId/images',requireAuth, async(req, res)=>{
     }
 
     return res.json(payload)
+
 })
 
+//Get all Reviews by a Spot's id - need to finish
+router.get('/:spotId/reviews',async(req, res)=>{
+    const { spotId } = req.params
+    console.log(spotId)
+    const reviews = await Review.findAll({
+        where: {
+            spotId: spotId
+        }
+     })
+     return res.json(reviews)
+    })
 
 
 
