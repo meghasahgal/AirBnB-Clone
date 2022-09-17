@@ -23,23 +23,6 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
 
 
 
-//Create a review based on Spot's id
-router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
-    const userId = req.user.id
-    const { review, stars } = req.body;
-    const { spotId } = req.params;
-    const newReview = await Review.create({
-        spotId,
-        userId,
-        review,
-        stars
-    })
-    res.status(201),
-    res.json({
-      newReview
-    })
-})
-
 
 
 module.exports = router;

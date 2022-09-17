@@ -187,6 +187,56 @@ router.get('/:spotId/reviews',async(req, res)=>{
     })
 
 
+//Create a review based on Spot's id
+router.post('/:spotId/reviews',requireAuth, restoreUser, async(req, res, next)=>{
+    const userId = req.user.id
+    const { review, stars } = req.body;
+    const { spotId } = req.params;
+    //find spot
+    const spot = await Spot.findByPk(spotId)
+    // const spot = await Spot.findByPk(spotId,{
+    //     include: {
+    //         model: Review
+    //     },
+    //     where: {
+    //         id: spotId
+    //     }
+    // })
+    console.log(spot, "spot")
+    //if no spot found, return error
+    if(!spot){
+    res.json({
+            message: "Spot couldn't be found",
+	        statusCode: 404
+        })
+    }
+    //check if current user has an existing review for that spot
+    const hasExistingReview = await Review.findByPk(spotId,{
+        where: {
+            userId: userId
+        }
+    })
+    //if user has an existing review, return an error
+    console.log(hasExistingReview, "hasexistingReview")
+    if(hasExistingReview){
+        res.json({
+            message: "User already has a review for this spot",
+            statusCode: 403
+        })
+    }
+    //else create a new review
+    const newReview = await Review.create({
+        spotId,
+        userId,
+        review,
+        stars
+    })
+    res.status(201),
+    res.json({
+      newReview
+    })
+})
+
 
 
 module.exports = router;
