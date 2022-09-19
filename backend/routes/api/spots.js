@@ -81,7 +81,7 @@ router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
 })
 
 //edit a spot - add validation error
-router.put('/:spotId', requireAuth, async(req, res)=>{
+router.put('/:spotId', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id;
     const { spotId } = req.params
     const { address, city, state, country, lat, lng, name, description, price } = req.body
@@ -119,7 +119,11 @@ router.put('/:spotId', requireAuth, async(req, res)=>{
 router.delete('/:spotId', requireAuth, restoreUser, async(req,res)=>{
     const userId = req.user.id;
     const { spotId }  = req.params;
-    const deletedSpot = await Spot.findByPk(spotId)
+    const deletedSpot = await Spot.findByPk(spotId,{
+        where:{
+            userId:userId
+        }
+    })
 
     if(!deletedSpot){
         res.json({
@@ -138,11 +142,16 @@ router.delete('/:spotId', requireAuth, restoreUser, async(req,res)=>{
 
 
 //Add an Image to a Spot based on the Spot's id - done
-router.post('/:spotId/images',requireAuth, async(req, res)=>{
+router.post('/:spotId/images',requireAuth, restoreUser, async(req, res)=>{
     const {url, previewImage} = req.body;
     const { spotId } = req.params;
+    const userId = req.user.id
 
-    const spot = await Spot.findByPk(spotId)
+    const spot = await Spot.findByPk(spotId,{
+        where:{
+            userId: userId
+        }
+    })
 
     // //error if no spot found
        if(!spot){
@@ -169,7 +178,7 @@ router.post('/:spotId/images',requireAuth, async(req, res)=>{
 
 })
 
-//Get all Reviews by a Spot's id - need to add ReviewImages
+//Get all Reviews by a Spot's id - need to rename Image to ReviewImages via associations
 router.get('/:spotId/reviews',async(req, res)=>{
     const { spotId } = req.params
     const reviews = await Review.findAll({
@@ -178,7 +187,7 @@ router.get('/:spotId/reviews',async(req, res)=>{
         },
         include: [
             {model: User, attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']}},
-            {model: Image, attributes: {include: ['id', 'url']}},
+            {model: Image,as:'ReviewImages',attributes: {include: ['id', 'url']}},
                 ]
      })
      return res.json(reviews)
@@ -190,8 +199,10 @@ router.post('/:spotId/reviews',requireAuth, restoreUser, async(req, res, next)=>
     const userId = req.user.id
     const { review, stars } = req.body;
     const { spotId } = req.params;
+
     //find spot
     const spot = await Spot.findByPk(spotId)
+
     //if no spot found, return error
     if(!spot){
     res.json({
@@ -206,7 +217,7 @@ router.post('/:spotId/reviews',requireAuth, restoreUser, async(req, res, next)=>
         }
     })
     //if user has an existing review, return an error
-    console.log(hasExistingReview, "hasexistingReview")
+
     if(hasExistingReview){
         res.json({
             message: "User already has a review for this spot",
