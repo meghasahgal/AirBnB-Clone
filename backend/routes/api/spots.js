@@ -137,18 +137,13 @@ router.delete('/:spotId', requireAuth, restoreUser, async(req,res)=>{
 
 
 
-//Add an Image to a Spot based on the Spot's id -
+//Add an Image to a Spot based on the Spot's id - done
 router.post('/:spotId/images',requireAuth, async(req, res)=>{
     const {url, previewImage} = req.body;
     const { spotId } = req.params;
 
-    //const spot = await Spot.findByPk(spotId)
     const spot = await Spot.findByPk(spotId)
-    //     {
-    // include:
-    //      [{model: Image, as: 'SpotImages', attributes: {exclude: ['spotId', 'reviewId', 'createdAt', 'updatedAt']}},
-    // ]})
-    //res.json(spot)
+
     // //error if no spot found
        if(!spot){
         res.json({
@@ -163,7 +158,7 @@ router.post('/:spotId/images',requireAuth, async(req, res)=>{
         preview: previewImage
     })
 
-
+    //create payload for desired output
     const payload = {
         id: newImage.id,
         url: newImage.url,
@@ -174,35 +169,29 @@ router.post('/:spotId/images',requireAuth, async(req, res)=>{
 
 })
 
-//Get all Reviews by a Spot's id - need to finish
+//Get all Reviews by a Spot's id - need to add ReviewImages
 router.get('/:spotId/reviews',async(req, res)=>{
     const { spotId } = req.params
-    console.log(spotId)
     const reviews = await Review.findAll({
         where: {
             spotId: spotId
-        }
+        },
+        include: [
+            {model: User, attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']}},
+            {model: Image, attributes: {include: ['id', 'url']}},
+                ]
      })
      return res.json(reviews)
     })
 
 
-//Create a review based on Spot's id
+//Create a review based on Spot's id - done
 router.post('/:spotId/reviews',requireAuth, restoreUser, async(req, res, next)=>{
     const userId = req.user.id
     const { review, stars } = req.body;
     const { spotId } = req.params;
     //find spot
     const spot = await Spot.findByPk(spotId)
-    // const spot = await Spot.findByPk(spotId,{
-    //     include: {
-    //         model: Review
-    //     },
-    //     where: {
-    //         id: spotId
-    //     }
-    // })
-    console.log(spot, "spot")
     //if no spot found, return error
     if(!spot){
     res.json({
