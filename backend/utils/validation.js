@@ -55,7 +55,13 @@ const validateSpot = [
   handleValidationErrors
 ]
 
+//review body validation
+//  const validateReview =[
+//     body('review').notEmpty().withMessage('Review text is required'),
+//     body('stars').isFloat({min:1,max:5}).withMessage('Stars must be an integer from 1 to 5')
+//   ]
+
 
 module.exports = {
-  handleValidationErrors
+  handleValidationErrors, validateSpot, 
 };

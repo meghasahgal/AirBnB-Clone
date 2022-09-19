@@ -9,7 +9,7 @@ const { requireAuth } = require("../../utils/auth");
 const { restoreUser } = require("../../utils/auth");
 
 
-//Get all Reviews of the Current User - done / make sure ReviewImages populates once image added
+//Get all Reviews of the Current User -make sure ReviewImages populates once image added
 router.get('/current', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id
     //console.log(userId)
@@ -26,7 +26,7 @@ router.get('/current', requireAuth, restoreUser, async(req, res)=>{
     return res.json(reviews)
 })
 
-//Add an Image to a Review based on the Review's id - need to add condition for > 10 images
+//Add an Image to a Review based on the Review's id - need  add condition for > 10 images
 router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id
     const {url} = req.body
@@ -76,6 +76,57 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
         res.json(payload)
 
 })
+
+//Edit a Review - need to add body validation errors
+router.put('/:reviewId', requireAuth, restoreUser, async(req,res)=>{
+    const userId = req.user.id
+    const {review, stars} = req.body;
+
+    const reviewToUpdate = await Review.findByPk(req.params.reviewId, {
+        where: {
+            userId: userId
+        }
+    })
+    //if review doesn't exist, return error
+    if(!reviewToUpdate){
+         res.json({
+            message: "Review couldn't be found",
+	        statusCode: 404
+        })
+    }
+
+    let  updatedReview = await reviewToUpdate.update({
+        review, stars
+    })
+
+    res.json(updatedReview)
+
+})
+
+//Delete a Review -- done
+router.delete('/:reviewId', requireAuth, restoreUser, async(req, res)=>{
+    const userId = req.user.id
+    const review = await Review.findByPk(req.params.reviewId, {
+        where: {
+            userId: userId
+        }
+    })
+    console.log("review", review)
+
+    if(!review){
+          res.json({
+            message: "Review couldn't be found",
+	        statusCode: 404
+        })
+    }
+
+    await review.destroy()
+    res.json({
+        message: "Successfully deleted",
+    	statusCode: 200
+    })
+})
+
 
 
 
