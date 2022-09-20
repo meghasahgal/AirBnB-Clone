@@ -103,7 +103,7 @@ router.put('/:reviewId', requireAuth, restoreUser, async(req,res)=>{
 
 })
 
-//Delete a Review -- done
+//Delete a Review -- done -- check if works
 router.delete('/:reviewId', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id
     const review = await Review.findByPk(req.params.reviewId, {
@@ -127,8 +127,41 @@ router.delete('/:reviewId', requireAuth, restoreUser, async(req, res)=>{
     })
 })
 
+// Delete a Review Image
+router.delete('/:reviewId/images/:imageId', requireAuth, restoreUser, async(req, res)=>{
+    const userId = req.user.id;
+    const {imageId, reviewId} = req.params;
+    const review = await Review.findByPk(reviewId)
+	//check to see if the review belongs to the current user
+	if (review.userId !== req.user.id) {
+		res.statusCode = 403;
+		return res.json({
+			message: "Forbidden",
+			statusCode: res.statusCode,
+		});
+	}
+    // get review image
+    const reviewImage = await Image.findbyPk(imageId, {
+        where: {
+            reviewId: review.id
+        }
+    })
 
+    // check to see if reviewImage exists
+    if(!reviewImage){
+        res.json({
+            message: "Review Image couldn't be found",
+	        statusCode: 404
+        })
+    }
 
+    //else, delete
+	await reviewImage.destroy();
+	res.json({
+		message: "Successfully deleted",
+		statusCode: 200,
+	});
+});
 
 
 

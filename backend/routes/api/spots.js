@@ -185,6 +185,16 @@ router.post('/:spotId/images',requireAuth, restoreUser, async(req, res)=>{
 //Get all Reviews by a Spot's id - need to rename Image to ReviewImages via associations
 router.get('/:spotId/reviews',async(req, res)=>{
     const { spotId } = req.params
+
+    const spot = await Spot.findByPk(spotId)
+    //if no spot found, return
+    if(!spot){
+        res.json({
+            message: "Spot couldn't be found",
+	         statusCode: 404
+    })
+    }
+    //else find all of the reviews where the spot ids are equivalent
     const reviews = await Review.findAll({
         where: {
             spotId: spotId
@@ -298,12 +308,12 @@ const spot = await Spot.findByPk(spotId,
 {
 
 where: {
-id: spotId,
-//user id !=== to logged in user
-userId: {
-[Op.ne]: req.user.id
-}
-}
+    id: spotId,
+    //user id !=== to logged in user
+    userId: {
+    [Op.ne]: req.user.id
+    }
+    }
 });
 console.log(spot, 'spot')
 console.log(userId, 'userId')
@@ -313,40 +323,40 @@ console.log(req.user.id, 'requser')
 //if no spot found
 if(!spot){
 res.json({
-message: "Spot couldn't be found",
-statusCode: 404
+    message: "Spot couldn't be found",
+    statusCode: 404
 })
 }
 //if booking exists for specific date, return error
 const booking = await Booking.findOne({
 where:{
-spotId: spotId,
-endDate: endDate,
-startDate: startDate,
+    spotId: spotId,
+    endDate: endDate,
+    startDate: startDate,
 },
 })
 //console.log(booking, 'booking')
 //
 if(booking){
 res.json({
-message: "Sorry, this spot is already booked for the specified dates",
-statusCode: 403,
-errors: {
-"startDate": "Start date conflicts with an existing booking",
-"endDate": "End date conflicts with an existing booking"
+    message: "Sorry, this spot is already booked for the specified dates",
+    statusCode: 403,
+    errors: {
+    "startDate": "Start date conflicts with an existing booking",
+    "endDate": "End date conflicts with an existing booking"
 }})
 }
 
 //if spot doesn't belong to current user, create a new booking - need to work on userid owner logic
 // if(spot.userId !== req.user.id) {
 if(spot.userId !== req.user.id){
-const newBooking = await Booking.create({
-spotId,
-userId,startDate,
-endDate,
-})
-}
-console.log(newBooking, "newBooking")
+    const newBooking = await Booking.create({
+    spotId,
+    userId,startDate,
+    endDate,
+    })
+    }
+//console.log(newBooking, "newBooking")
 res.status(200),
 res.json(newBooking)
 // }
@@ -355,8 +365,39 @@ res.json(newBooking)
 
 //Delete a Spot Image
 router.delete('/:spotId/images/:imageId', requireAuth, restoreUser, async(req, res)=>{
-    
-})
+    const userId = req.user.id;
+    const {spotId, imageId} = req.params;
+    const spot = await Spot.findByPk(spotId)
+	//check to see if the spot belongs to the current user
+	if (spot.userId !== req.user.id) {
+		res.statusCode = 403;
+		return res.json({
+			message: "Forbidden",
+			statusCode: res.statusCode,
+		});
+	}
+    // get spot image
+    const spotImage = await Image.findbyPk(imageId, {
+        where: {
+            spotId: spot.id
+        }
+    })
+
+    // check to see if spotImage exists
+    if(!spotImage){
+        res.json({
+            message: "Spot Image couldn't be found",
+	        statusCode: 404
+        })
+    }
+
+    //else, delete
+	await spotImage.destroy();
+	res.json({
+		message: "Successfully deleted",
+		statusCode: 200,
+	});
+});
 
 
 module.exports = router;
