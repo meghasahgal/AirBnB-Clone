@@ -24,7 +24,6 @@ module.exports = {
         }
       },
       startDate: {
-
         allowNull: false,
         type: Sequelize.DATE
       },
