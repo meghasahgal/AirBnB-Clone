@@ -19,7 +19,33 @@ const handleValidationErrors = (req, _res, next) => {
   next();
 };
 
-//spot body validation
+const validateSignup = [
+  check('email', 'Invalid email')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .isEmail(),
+  check('username', 'Username is required')
+    .exists({ checkFalsy: true })
+    .notEmpty(),
+  check('firstName', 'First Name is required')
+    .exists({ checkFalsy: true })
+    .notEmpty(),
+  check('lastName', 'Last Name is required')
+    .exists({ checkFalsy: true })
+    .notEmpty(),
+  handleValidationErrors
+];
+
+const validateSignin = [
+  check('credential', 'Email or username is required')
+    .exists({ checkFalsy: true })
+    .notEmpty(),
+  check('password', 'Password is required')
+    .exists({ checkFalsy: true })
+    .notEmpty(),
+  handleValidationErrors
+];
+
 const validateSpot = [
   check('address', 'Street address is required')
     .exists({ checkFalsy: true })
@@ -55,13 +81,66 @@ const validateSpot = [
   handleValidationErrors
 ]
 
-//review body validation
-//  const validateReview =[
-//     body('review').notEmpty().withMessage('Review text is required'),
-//     body('stars').isFloat({min:1,max:5}).withMessage('Stars must be an integer from 1 to 5')
-//   ]
+const validateImage = [
+  check('url', 'URL is required')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .isURL()
+    .withMessage('URL is not valid'),
+  handleValidationErrors
+];
 
+const validateReview = [
+  check('review', 'Review text is required')
+    .exists({ checkFalsy: true })
+    .notEmpty(),
+  check('stars', 'Stars must be an integer from 1 to 5')
+    .exists({ checkFalsy: true })
+    .isInt({ min: 0, max: 5 }),
+  handleValidationErrors
+];
+
+const validateBooking = [
+  check('startDate', 'startDate Date is required')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .isDate({ format: 'yyyy-mm-dd'})
+    .withMessage('startDate is not valid')
+    .custom((startDate) => {
+      startDate = new Date(startDate + ' 15:30')
+      const presentDate = new Date();
+      if(startDate < presentDate) {
+        throw new Error("startDate cannot come before today's Date");
+      }
+      return true;
+    }),
+  check('endDate', 'endDate is required')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .isDate({ format: 'yyyy-mm-dd'})
+    .withMessage('endDate is not valid')
+    .custom((endDate, { req }) => {
+      endDate = new Date(endDate + ' 12:00')
+      const startDate = new Date(req.body.startDate + ' 15:30');
+      if(endDate < startDate) {
+        throw new Error('endDate cannot come before startDate');
+      }
+      return true;
+    }),
+  handleValidationErrors,
+  (req, res, next) => {
+    req.body.startDate = new Date(req.body.startDate + ' 15:30');
+    req.body.endDate = new Date(req.body.endDate + ' 12:00');
+    next();
+  }
+];
 
 module.exports = {
-  handleValidationErrors, validateSpot, 
+  handleValidationErrors,
+  validateSignup,
+  validateSignin,
+  validateSpot,
+  validateReview,
+  validateBooking,
+  validateImage
 };
