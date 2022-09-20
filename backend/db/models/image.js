@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     spotId: DataTypes.INTEGER,
     reviewId: DataTypes.INTEGER,
     url: DataTypes.STRING,
-    preview: DataTypes.BOOLEAN
+    preview: {
+      type: DataTypes.BOOLEAN,
+     }
   }, {
     sequelize,
     modelName: 'Image',
