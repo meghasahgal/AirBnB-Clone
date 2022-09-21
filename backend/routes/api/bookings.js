@@ -1,4 +1,5 @@
 const express = require("express");
+const { up } = require("../../db/migrations/20220914034702-create-booking");
 
 const router = express.Router();
 
@@ -11,8 +12,8 @@ const { restoreUser } = require("../../utils/auth");
 const {validateSignup,validateSignin,validateSpot,validateReview,validateBooking} = require("../../utils/validation")
 
 
-//Get all of the Current User's Bookings - check output matches - done
-router.get('/:userId', requireAuth, restoreUser,  async(req, res)=>{
+//Get all of the Current User's Bookings - check output matches - done, make sure no dups of bookings
+router.get('/current', requireAuth, restoreUser,  async(req, res)=>{
     const userId = req.user.id
     const bookings = await Booking.findAll({
         attributes: {exclude: ['totalPrice']},
@@ -27,12 +28,16 @@ router.get('/:userId', requireAuth, restoreUser,  async(req, res)=>{
 
 //Edit a Booking, booking must belong to current user
 
-router.put('/:bookingId', requireAuth, restoreUser, async(req, res)=>{
-     //const userId = req.user.id;
+router.put('/:bookingId', requireAuth, restoreUser, validateBooking, async(req, res)=>{
+    const userId = req.user.id;
     const { bookingId } = req.params;
-    const { id, spotId, userId, startDate, endDate, createdAt, updatedAt} = req.body;
-    const booking = await Booking.findByPk(bookingId)
-    console.log(booking)
+    const { startDate, endDate} = req.body;
+    const booking = await Booking.findByPk(bookingId,{
+        where: {
+            userId: req.user.id
+        }
+    })
+    console.log(booking,"booking")
     //if no booking found
     if(!booking){
         res.json({
@@ -41,10 +46,36 @@ router.put('/:bookingId', requireAuth, restoreUser, async(req, res)=>{
         })
     }
 
+    //if booking is past the end dates - taken care of by validateBooking
 
-
-
-
+    // if booking end date has passed
+    const presentDate = new Date()
+    if(booking.endDate < presentDate){
+        res.json({
+            message: "Past bookings can't be modified",
+            statusCode: 403
+    })
+    }
+    //else update that shit
+    //const { id, spotId, userId, startDate, endDate, createdAt, updatedAt} = req.body;
+    else{
+        updatedBooking = booking.set({
+            startDate,
+            endDate,
+        })
+        await updatedBooking.save()
+        //take out the price
+        const payload = {
+            id: updatedBooking.id,
+            spotId: updatedBooking.spotId,
+            userId: updatedBooking.userId,
+            startDate: updatedBooking.startDate,
+            endDate: updatedBooking.endDate,
+            createdAt: updatedBooking.createdAt,
+            updatedAt: updatedBooking.updatedAt
+        }
+        res.json(payload)
+    }
 })
 
 

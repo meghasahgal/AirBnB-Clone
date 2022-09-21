@@ -29,9 +29,10 @@ router.get('/current', requireAuth, restoreUser, async(req, res)=>{
 //Add an Image to a Review based on the Review's id - need  add condition for > 10 images
 router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id
+    const {reviewId} = req.params
     const {url} = req.body
     //get review of current user
-    const review = await Review.findByPk(req.params.reviewId, {
+    const review = await Review.findByPk(reviewId, {
         where: {
             userId: userId
         }
@@ -46,6 +47,17 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
     }
 
     //if review has > 10 images
+    const greaterThanTenImages = await Image.findAll({
+        where:{
+            reviewId:reviewId
+        }
+        })
+    if(greaterThanTenImages.length >= 10 ){
+            res.json({
+             message: "Maximum number of images for this resource was reached",
+             statusCode: 403
+             })
+     }
     // const imageCountCheck =  await Review.findByPk(req.params.reviewId, {
     //     where: {
     //         userId: userId
@@ -106,10 +118,11 @@ router.put('/:reviewId', requireAuth, restoreUser, async(req,res)=>{
 //Delete a Review -- done -- check if works
 router.delete('/:reviewId', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id
-    const review = await Review.findByPk(req.params.reviewId, {
-        where: {
-            userId: userId
-        }
+    const { reviewId } = req.params
+    const review = await Review.findByPk(reviewId, {
+        // where: {
+        //     userId: req.user.id
+        // }
     })
     console.log("review", review)
 
