@@ -15,7 +15,7 @@ module.exports = {
         description: 'Tech forward respite',
         price: 299,
         avgRating: 4.8,
-        previewImage: 'wwww.techsavvyplace.com'
+        previewImage: 'https://unsplash.com/photos/QL_DdWFUsFc'
       },
       {
         userId: 2,
@@ -29,7 +29,7 @@ module.exports = {
         description: 'Really nice and comfy home',
         price: 399,
         avgRating: 4.9,
-        previewImage: 'wwww.lowkeyhomeplace.com'
+        previewImage: 'https://images.unsplash.com/photo-1601056645918-329b756e54fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2934&q=80'
       },
       {
         userId: 3,
@@ -43,9 +43,9 @@ module.exports = {
         description: 'Cute chill country home',
         price: 199,
         avgRating: 4.9,
-        previewImage: 'wwww.codingalongplace.com'
+        previewImage: 'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
       },
-   
+
 
     ], {});
   },
