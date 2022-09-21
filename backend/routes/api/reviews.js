@@ -124,7 +124,7 @@ router.delete('/:reviewId', requireAuth, restoreUser, async(req, res)=>{
         //     userId: req.user.id
         // }
     })
-    console.log("review", review)
+    // console.log("review", review)
 
     if(!review){
           res.json({

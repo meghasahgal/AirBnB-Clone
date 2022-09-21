@@ -326,13 +326,13 @@ router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
     }
 
     //if you are not the owner of the spot
-    console.log(spot, "spot")
+    // console.log(spot, "spot")
     if(spot.userId !== req.user.id){
         const ownedBookings = await Booking.findByPk(spotId, {
             attributes: ['spotId', 'startDate', 'endDate']
         })
-        res.json(ownedBookings),
-        console.log(ownedBookings)
+        res.json(ownedBookings)
+        // console.log(ownedBookings)
     }
     //if you are the owner
     else {
@@ -382,10 +382,10 @@ const spot = await Spot.findByPk(spotId,
         startDate: startDate,
     },
     })
-    console.log(booking, 'booking')
-    // console.log(spot, 'spot')
-    console.log(userId, 'userId')
-    console.log(req.user.id, 'requser')
+    // console.log(booking, 'booking')
+    // // console.log(spot, 'spot')
+    // console.log(userId, 'userId')
+    // console.log(req.user.id, 'requser')
     // console.log(spot.userId, "spotuserId")
     // console.log(userId, "userId")
     //if no spot found
@@ -395,7 +395,7 @@ const spot = await Spot.findByPk(spotId,
         statusCode:404
     })
     }
-    console.log(spot)
+    // console.log(spot)
 
     //
     if(booking){
