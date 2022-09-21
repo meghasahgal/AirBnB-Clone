@@ -41,8 +41,6 @@ router.get('/', async(req, res, next)=>{
         limit = size,
         offset = size * (page -1)
     }
-    console.log(limit, 'limit')
-    console.log(offset, 'offset')
 
     const filteredSpots = await Spot.findAll({
             limit: size,
@@ -234,7 +232,7 @@ router.post('/:spotId/images',requireAuth, restoreUser, async(req, res)=>{
 
 })
 
-//Get all Reviews by a Spot's id - need to rename Image to ReviewImages via associations
+//Get all Reviews by a Spot's id -
 router.get('/:spotId/reviews',async(req, res)=>{
     const { spotId } = req.params
 
@@ -265,10 +263,11 @@ router.post('/:spotId/reviews',requireAuth, async(req, res, next)=>{
      const {spotId} = req.params
      const userId = req.user.id
      const {review,stars} = req.body
-    //see if there's an existing review, need to add current user check?
+    //see if there's an existing review, need to add current user check - done
     const existingReview = await Review.findOne({
         where:{
-            spotId
+            spotId: spotId,
+            userId: req.user.id
         }})
     //get the spot
     const spot = await Spot.findOne({
@@ -354,10 +353,6 @@ router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
 
 //Create a Booking from a Spot based on the Spot's id - need to, add validation errors and check again to see if owner/userid is the same in the bookings table
 //Spot must NOT belong to the current user
-/*
-get spot
-
-*/
 
 router.post('/:spotId/bookings', validateBooking, requireAuth, restoreUser, async(req, res)=>{
 const userId = req.user.id
@@ -374,8 +369,8 @@ const spot = await Spot.findByPk(spotId,
         id: spotId,
         //user id !=== to logged in user
         userId: {
-        [Op.ne]: req.user.id
-        }
+                [Op.ne]: req.user.id
+                }
         }
     });
     //console.log(spot)
@@ -389,8 +384,8 @@ const spot = await Spot.findByPk(spotId,
     })
     console.log(booking, 'booking')
     // console.log(spot, 'spot')
-    // console.log(userId, 'userId')
-    // console.log(req.user.id, 'requser')
+    console.log(userId, 'userId')
+    console.log(req.user.id, 'requser')
     // console.log(spot.userId, "spotuserId")
     // console.log(userId, "userId")
     //if no spot found
