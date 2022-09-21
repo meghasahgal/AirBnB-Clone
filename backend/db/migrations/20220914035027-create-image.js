@@ -3,33 +3,45 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Images', {
       id: {
-        allowNull: false,
+        //allowNull: true,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
+
       spotId: {
-        type: Sequelize.INTEGER
+
+        type: Sequelize.INTEGER,
+        references:{
+          model: 'Spots',
+          key: 'id'
+        }
       },
       reviewId: {
-        type: Sequelize.INTEGER
+
+        type: Sequelize.INTEGER,
+        references:{
+          model: 'Reviews',
+          key: 'id'
+        }
       },
       url: {
+
         type: Sequelize.STRING
       },
       preview: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },

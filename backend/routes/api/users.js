@@ -48,7 +48,10 @@ router.post('/', validateSignup, async (req, res) => {
 
 
 
+// //Log in
+// router.post('/', async(req, res)=>{
 
+// })
 
 
 
