@@ -14,7 +14,6 @@ const {validateSignup,validateSignin,validateSpot,validateReview,validateBooking
 //login middleware
 //const { validateLogin } = require("./session")
 
-
 //Add Query Filters to Get All Spots
 //optional: query parameters not having to be included when making requests to the given route
 router.get('/', async(req, res, next)=>{
@@ -103,7 +102,7 @@ router.get('/:spotId', async(req, res, next)=>{
 
 
 
-//create a spot --need to add validation error
+//create a spot --need to add validation error, added payload
 router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
     const userId = req.user.id
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -118,11 +117,27 @@ router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
         name,
         description,
         price
-    })
+    });
+    const payload = {
+        id: newSpot.id,
+        userId: newSpot.userId,
+        address: newSpot.address,
+        city: newSpot.city,
+        state: newSpot.state,
+        country: newSpot.country,
+        lat: newSpot.lat,
+        lng: newSpot.lng,
+        name: newSpot.name,
+        description: newSpot.description,
+        price: newSpot.price,
+        createdAt: newSpot.createdAt,
+        updatedAt: newSpot.updatedAt,
+    }
     res.status(201),
-    res.json({
-      newSpot
-    })
+    res.json(payload)
+    // res.json({
+    //   newSpot
+    // })
 })
 
 //edit a spot - add validation error
@@ -152,7 +167,8 @@ router.put('/:spotId', requireAuth, restoreUser, async(req, res)=>{
         lat,
         lng,
         name,
-        description
+        description,
+        price
     })
 
     res.json(updatedSpot)
