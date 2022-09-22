@@ -20,10 +20,11 @@ module.exports = {
       reviewId: {
 
         type: Sequelize.INTEGER,
+        onDelete: 'cascade', //added
         references:{
           model: 'Reviews',
           key: 'id'
-        }
+        },
       },
       url: {
 

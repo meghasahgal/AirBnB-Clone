@@ -34,7 +34,7 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
     //get review of current user
     const review = await Review.findByPk(reviewId, {
         where: {
-            userId: userId
+            userId: req.user.id
         }
     })
 
@@ -58,22 +58,9 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
              statusCode: 403
              })
      }
-    // const imageCountCheck =  await Review.findByPk(req.params.reviewId, {
-    //     where: {
-    //         userId: userId
-    //     },
-    //     attributes: {
-    //     include:  [[sequelize.fn('COUNT', sequelize.col('ReviewImages.id')), 'numImages']]
-    //     },
-    //      include: [
-    //         {model: Image, as: 'ReviewImages'}
-    //      ]
-    // })
-    // console.log(imageCountCheck)
-    // console.log(imageCountCheck.Review.numImages)
 
 
-    //else, create new image for review
+    //else, create new image for review, with Image model aliased as ReviewImages
     const newImage = await review.createReviewImage({
             url
         });
