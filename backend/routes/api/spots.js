@@ -85,10 +85,10 @@ router.get('/:spotId', async(req, res, next)=>{
         },
         include: [
             {model: Image, as: 'SpotImages', attributes: {exclude: ['spotId', 'reviewId', 'createdAt', 'updatedAt']}},
-            {model: User, attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']} },
+            {model: User, as: 'Owner', attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']} },
             {model: Review, attributes: {exclude: ['id', 'review', 'stars', 'userId', 'spotId', 'createdAt', 'updatedAt']}}
         ],
-        group: ['Spot.id', 'SpotImages.id', 'Image.id']
+        group: ['Spot.id', 'Owner.id','SpotImages.id']
     });
 
 
