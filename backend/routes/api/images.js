@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { Spot, Booking, Image, Review, User } = require("../../db/models")
+const { Spot, Booking, Image, Review, User, sequelize } = require("../../db/models")
 
 //auth middleware
 const { requireAuth, restoreUser } = require("../../utils/auth");
@@ -16,23 +16,10 @@ const {validateSignup,validateSignin,validateSpot,validateReview,validateBooking
 router.delete('/:reviewImageId', requireAuth, restoreUser, async(req, res)=>{
     const userId = req.user.id;
     const {reviewImageId} = req.params;
-    const image = await Image.findOne({
-        where: {
-            reviewId:reviewImageId
-        }
-    })
-	//check to see if the review belongs to the current user
-    const review = await Review.findOne({ where:{
-        id: reviewImageId
-    }})
-
-	if (review.userId !== req.user.id) {
-		res.statusCode = 403;
-		return res.json({
-			message: "Forbidden",
-			statusCode: res.statusCode,
-		});
-	}
+    //find image
+    const image = await Image.findByPk(reviewImageId);
+    // console.log(image)
+    // console.log(userId, 'userId')
 
     // check to see if image exists
     if(!image){
@@ -41,6 +28,20 @@ router.delete('/:reviewImageId', requireAuth, restoreUser, async(req, res)=>{
 	        statusCode: 404
         })
     }
+
+	//check to see if the review belongs to the current user
+    const review = await Review.findOne({
+        where:{
+                id: reviewImageId
+        }})
+
+	if (review.userId !== req.user.id) {
+		res.statusCode = 403;
+		return res.json({
+			message: "Forbidden",
+			statusCode: res.statusCode,
+		});
+	}
 
     //else, delete
 	await image.destroy();
