@@ -73,7 +73,7 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
 
 })
 
-//get details of a spot from an id - need to refactor to add scope to exclude password on user
+//get details of a spot from an id - need to make avgStarRating and numReviews show up
 router.get('/:spotId', async(req, res, next)=>{
     const { spotId } = req.params;
     const spot = await Spot.findByPk(spotId,{
@@ -91,6 +91,7 @@ router.get('/:spotId', async(req, res, next)=>{
         group: ['Spot.id', 'Owner.id','SpotImages.id']
     });
 
+    //console.log(spot, 'spot')
 
     if(!spot || spot.id === null){
         res.status(404);
@@ -100,10 +101,49 @@ router.get('/:spotId', async(req, res, next)=>{
         })
     }
  return res.json(spot)
+ console.log(spot, "spot")
 })
 
+/*add preview image
+get boardgames and images associated
+lecture example
+router.get('/', async (req, res)=>{
+    const games = await BoardGame.findAll({
+        include: [
+            {model: Review},
+            {model: Image}
+        ]
+    })
+    res.json(games) // games is an array
+})
+// returns promises, so have to use .tojson() to manipulate there
+can't do games.toJSON() on array -- error, is an array
 
+so will have to iterate through all the games and call .toJSON on each game
+push the game objects
+let gamesList = [];
+games.forEach(game =>{
+    gamesList.push(game.toJSON()) // is an obj that we can manipulate, push to list; array of objs
+})
+//find and identify the banner image
+    gamesList.forEach(game =>{
+        game.Images.forEach(image ==>{  // loop over Images array
+            if(image.bannerImmage === true){
+                game.bannerImage = image.url //set bannerImage to image.url if we find a bannerImage property of true
+            }
+        });
+        /check if game doesnt' have a banner image, set the property
+        if(!game.bannerImage){
+            game.bannerImage ="no banner image found"
+        }
+        delete game.Images // will delete the Images array
+    })
 
+})
+// add bannerimage property where the value is the url of the image where the bannerimage is set to true
+iterate over array and look for images for each game
+
+*/
 //create a spot --need to add validation error, added payload
 router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
     const userId = req.user.id
@@ -329,7 +369,7 @@ router.post('/:spotId/reviews',requireAuth, validateReview, async(req, res, next
 // Get all Bookings for a Spot based on the Spot's id - done
 router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
     const userId  = req.user.id
-    const spotId = req.params.spotId
+    const {spotId} = req.params
     //find spot
     const spot = await Spot.findByPk(spotId);
     //if no spot found
@@ -339,8 +379,12 @@ router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
             statusCode: 404
         })
     }
+    console.log(spot, "spot")
+    console.log(userId, 'userId')
+    console.log(spotId, 'spotId')
+    console.log(spot.userId, 'spotUserId')
 
-    //if you are not the owner of the spot
+    //if you are not the owner of the spot - works
     // console.log(spot, "spot")
     if(spot.userId !== req.user.id){
         const notOwnedBookings = await Booking.findByPk(spotId, {
@@ -350,11 +394,12 @@ router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
         res.json(notOwnedBookings)
         // console.log(notOwnedBookings)
     }
-    //if you are the owner
-    else if(spot.userId === req.user.id) {
+    //if you are the owner - fixed
+    //else if(spot.userId === req.user.id) {
+    else {
         const ownedBookings = await Booking.findAll({
             attributes: {exclude: ['totalPrice']},
-            // order: [Users, Bookings],
+
             where: {
                 spotId: spotId
             },
