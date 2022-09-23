@@ -105,7 +105,6 @@ router.get('/:spotId', async(req, res, next)=>{
         })
     }
 
-
     // push spot to an array as a .JSON obj
     let spotList = [];
 
