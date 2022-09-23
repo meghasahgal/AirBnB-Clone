@@ -73,26 +73,30 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
 
 })
 
-//get details of a spot from an id - need to make avgStarRating and numReviews show up
+//get details of a spot from an id -
 router.get('/:spotId', async(req, res, next)=>{
     const { spotId } = req.params;
-    const spot = await Spot.findByPk(spotId,{
+    //find spot
+    const spot = await Spot.findAll({
+        where: {
+            id: spotId
+        },
+
+        include: [
+            {model: Image, as: 'SpotImages'},
+            {model: User, as: 'Owner', attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']} },
+            {model: Review, attributes: []}
+        ],
         attributes: {
             include:[
              [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
              [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
-             ]
+             ],
         },
-        include: [
-            {model: Image, as: 'SpotImages', attributes: {exclude: ['spotId', 'reviewId', 'createdAt', 'updatedAt']}},
-            {model: User, as: 'Owner', attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']} },
-            {model: Review, attributes: {exclude: ['id', 'review', 'stars', 'userId', 'spotId', 'createdAt', 'updatedAt']}}
-        ],
         group: ['Spot.id', 'Owner.id','SpotImages.id']
     });
 
-    //console.log(spot, 'spot')
-
+    //if spot doesn't exist
     if(!spot || spot.id === null){
         res.status(404);
         res.json({
@@ -100,50 +104,35 @@ router.get('/:spotId', async(req, res, next)=>{
     	statusCode: 404
         })
     }
- return res.json(spot)
- console.log(spot, "spot")
-})
 
-/*add preview image
-get boardgames and images associated
-lecture example
-router.get('/', async (req, res)=>{
-    const games = await BoardGame.findAll({
-        include: [
-            {model: Review},
-            {model: Image}
-        ]
+
+    // push spot to an array as a .JSON obj
+    let spotList = [];
+
+    spot.forEach(item =>{
+        spotList.push(item.toJSON()) // is an obj that we can manipulate, push to list; array of objs
     })
-    res.json(games) // games is an array
-})
-// returns promises, so have to use .tojson() to manipulate there
-can't do games.toJSON() on array -- error, is an array
-
-so will have to iterate through all the games and call .toJSON on each game
-push the game objects
-let gamesList = [];
-games.forEach(game =>{
-    gamesList.push(game.toJSON()) // is an obj that we can manipulate, push to list; array of objs
-})
-//find and identify the banner image
-    gamesList.forEach(game =>{
-        game.Images.forEach(image ==>{  // loop over Images array
-            if(image.bannerImmage === true){
-                game.bannerImage = image.url //set bannerImage to image.url if we find a bannerImage property of true
+    //find and identify the item/spot and then iterate through the SpotImages array
+        spotList.forEach(item =>{
+            item.SpotImages.forEach(image =>{  // loop over Images array
+                if(image.preview === true){
+                    item.previewImage = image.url //set item/spot preview image to image.url if preview is true
+                }
+            });
+            //if item/spot doesn't have a previw image, set the property
+            if(!item.previewImage){
+                item.previewImage ="There is no preview image for the spot yet."
             }
-        });
-        /check if game doesnt' have a banner image, set the property
-        if(!game.bannerImage){
-            game.bannerImage ="no banner image found"
-        }
-        delete game.Images // will delete the Images array
+
+            //  if(!item.avgStarRating){
+            //     item.avgStarRating ="There is no average rating for the spot yet."
+            // }
+
+        })
+            res.json(spotList)
+
     })
 
-})
-// add bannerimage property where the value is the url of the image where the bannerimage is set to true
-iterate over array and look for images for each game
-
-*/
 //create a spot --need to add validation error, added payload
 router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
     const userId = req.user.id
