@@ -46,7 +46,7 @@ router.get('/', async(req, res, next)=>{
             offset: size * (page -1)
     });
 
-    return res.json({
+    return res.status(200).json({
         filteredSpots, page, size
     })
 
@@ -69,7 +69,7 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
             userId
         }
     })
-    return res.json(spots)
+    return res.status(200).json(spots)
 
 })
 
@@ -98,8 +98,8 @@ router.get('/:spotId', async(req, res, next)=>{
 
     //if spot doesn't exist
     if(!spot || spot.id === null){
-        res.status(404);
-        res.json({
+
+        res.status(404).json({
         message: "Spot couldn't be found",
     	statusCode: 404
         })
@@ -128,7 +128,7 @@ router.get('/:spotId', async(req, res, next)=>{
             // }
 
         })
-            res.json(spotList)
+            res.status(200).json(spotList)
 
     })
 
@@ -182,7 +182,7 @@ router.put('/:spotId', requireAuth, restoreUser, async(req, res)=>{
 
     //error if no spot found
     if(!spot){
-        return res.json({
+        return res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404,
             })
@@ -218,22 +218,22 @@ router.delete('/:spotId', requireAuth, restoreUser, async(req,res)=>{
     // })
 
     if(!deletedSpot){
-        res.json({
+        res.status(404).json({
             message: "Spot couldn't be found",
 	        statusCode: 404
         })
     }
     //check if spot belongs to current user
     if(deletedSpot.userId !== req.user.id){
-        res.statusCode = 403;
-		return res.json({
+
+		return res.status(403).json({
 			message: "Forbidden",
-			statusCode: res.statusCode,
+			statusCode: 403
 		});
 	}
 
     await deletedSpot.destroy()
-    res.json({
+    res.status(200).json({
          message: "Successfully deleted",
          statusCode: 200
     })
@@ -255,7 +255,7 @@ router.post('/:spotId/images',requireAuth, restoreUser, async(req, res)=>{
 
     // //error if no spot found
        if(!spot){
-        res.json({
+        res.status(404).json({
             message: "Spot couldn't be found",
 	        statusCode: 404
         })
@@ -285,7 +285,7 @@ router.get('/:spotId/reviews',async(req, res)=>{
     const spot = await Spot.findByPk(spotId)
     //if no spot found, return
     if(!spot){
-        res.json({
+        res.status(404).json({
              message: "Spot couldn't be found",
 	         statusCode: 404
     })
@@ -327,14 +327,14 @@ router.post('/:spotId/reviews',requireAuth, validateReview, async(req, res, next
     })
      //error handling for an existing review
     if(existingReview){
-        res.json({
+        res.status(403).json({
              message: "User already has a review for this spot",
              statusCode: 403
         })
     next(err)
     //check if spot exists
     }else if(!spot){
-        res.json({
+        res.status(404).json({
             message: "Spot couldn't be found",
  	        statusCode: 404
 
@@ -362,7 +362,7 @@ router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
     const spot = await Spot.findByPk(spotId);
     //if no spot found
       if(!spot){
-        res.json({
+        res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404
         })
@@ -417,9 +417,9 @@ const spot = await Spot.findByPk(spotIdForBooking);
 //console.log(spot)
 //if no spot found
     if(!spot){
-    res.json({
-    message: "Spot couldn't be found",
-    statusCode: 404
+    res.status(404).json({
+        message: "Spot couldn't be found",
+        statusCode: 404
     })
     }
 // console.log(spot)
@@ -427,9 +427,9 @@ const spot = await Spot.findByPk(spotIdForBooking);
 // console.log(req.user.id)
 //if spot belongs to current user, throw error
     if(spot.userId === req.user.id){
-    res.json({
-    message: "Spot can't belong to the current user",
-    statusCode: 401
+    res.status(401).json({
+        message: "Spot can't belong to the current user",
+        statusCode: 401
     })
     }
 
@@ -444,7 +444,7 @@ const booking = await Booking.findOne({
 //console.log(booking)
 //if booking exists for requested dates, throw error
 if(booking){
-    res.json({
+    res.status(403).json({
         message: "Sorry, this spot is already booked for the specified dates",
         statusCode: 403,
         errors: {
@@ -544,10 +544,10 @@ router.delete('/:spotId/images/:imageId', requireAuth, restoreUser, async(req, r
     const spot = await Spot.findByPk(spotId)
 	//check to see if the spot belongs to the current user
 	if (spot.userId !== req.user.id) {
-		res.statusCode = 403;
-		return res.json({
+
+		return res.status(403).json({
 			message: "Forbidden",
-			statusCode: res.statusCode,
+			statusCode: 403,
 		});
 	}
     // get spot image
@@ -559,7 +559,7 @@ router.delete('/:spotId/images/:imageId', requireAuth, restoreUser, async(req, r
 
     // check to see if spotImage exists
     if(!spotImage){
-        res.json({
+        res.status(404).json({
             message: "Spot Image couldn't be found",
 	        statusCode: 404
         })
@@ -567,16 +567,11 @@ router.delete('/:spotId/images/:imageId', requireAuth, restoreUser, async(req, r
 
     //else, delete
 	await spotImage.destroy();
-	res.json({
+	res.status(200).json({
 		message: "Successfully deleted",
 		statusCode: 200,
 	});
 });
-
-
-
-
-
 
 
 module.exports = router;

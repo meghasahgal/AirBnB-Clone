@@ -40,7 +40,7 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
 
     //if review not found
     if(!review){
-    res.json({
+    res.status(404).json({
             message: "Review couldn't be found",
 	        statusCode: 404
         })
@@ -53,7 +53,7 @@ router.post('/:reviewId/images', requireAuth, restoreUser, async(req, res)=>{
         }
         })
     if(greaterThanTenImages.length >= 10 ){
-            res.json({
+            res.status(403).json({
              message: "Maximum number of images for this resource was reached",
              statusCode: 403
              })
@@ -89,7 +89,7 @@ router.put('/:reviewId', requireAuth, restoreUser, async(req,res)=>{
     })
     //if review doesn't exist, return error
     if(!reviewToUpdate){
-         res.json({
+         res.status(404).json({
             message: "Review couldn't be found",
 	        statusCode: 404
         })
@@ -115,14 +115,14 @@ router.delete('/:reviewId', requireAuth, restoreUser, async(req, res)=>{
     // console.log("review", review)
 
     if(!review){
-          res.json({
+          res.status(404).json({
             message: "Review couldn't be found",
 	        statusCode: 404
         })
     }
 
     await review.destroy()
-    res.json({
+    res.status(200).json({
         message: "Successfully deleted",
     	statusCode: 200
     })
@@ -135,10 +135,10 @@ router.delete('/:reviewId/images/:imageId', requireAuth, restoreUser, async(req,
     const review = await Review.findByPk(reviewId)
 	//check to see if the review belongs to the current user
 	if (review.userId !== req.user.id) {
-		res.statusCode = 403;
-		return res.json({
+
+		return res.status(403).json({
 			message: "Forbidden",
-			statusCode: res.statusCode,
+			statusCode: 403
 		});
 	}
     // get review image
@@ -150,7 +150,7 @@ router.delete('/:reviewId/images/:imageId', requireAuth, restoreUser, async(req,
 
     // check to see if reviewImage exists
     if(!reviewImage){
-        res.json({
+        res.status(404).json({
             message: "Review Image couldn't be found",
 	        statusCode: 404
         })
@@ -158,7 +158,7 @@ router.delete('/:reviewId/images/:imageId', requireAuth, restoreUser, async(req,
 
     //else, delete
 	await reviewImage.destroy();
-	res.json({
+	res.status(200).json({
 		message: "Successfully deleted",
 		statusCode: 200,
 	});

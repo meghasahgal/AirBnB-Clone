@@ -24,6 +24,7 @@ router.get('/current', requireAuth, restoreUser,  async(req, res)=>{
     })
 
     res.json(bookings)
+
 })
 
 //Edit a Booking, booking must belong to current user
@@ -40,7 +41,7 @@ router.put('/:bookingId', requireAuth, restoreUser, validateBooking, async(req, 
     console.log(booking,"booking")
     //if no booking found
     if(!booking){
-        res.json({
+        res.status(404).json({
             message: "Booking couldn't be found",
 	        statusCode: 404
         })
@@ -51,7 +52,7 @@ router.put('/:bookingId', requireAuth, restoreUser, validateBooking, async(req, 
     // if booking end date has passed
     const presentDate = new Date()
     if(booking.endDate < presentDate){
-        res.json({
+        res.status(403).json({
             message: "Past bookings can't be modified",
             statusCode: 403
     })
@@ -86,7 +87,7 @@ router.delete('/:bookingId', requireAuth, restoreUser, async(req, res)=>{
     const bookingToDelete = await Booking.findByPk(req.params.bookingId)
     //if can't find booking, throw error
     if(!bookingToDelete){
-        res.json({
+        res.status(404).json({
             	message: "Booking couldn't be found",
 	            statusCode: 404
         })
@@ -96,7 +97,7 @@ router.delete('/:bookingId', requireAuth, restoreUser, async(req, res)=>{
     const presentDate = new Date()
 
     if(bookingToDelete.startDate <= presentDate){
-        res.json({
+        res.status(403).json({
             message: "Bookings that have been started can't be deleted",
             statusCode: 403
     })
@@ -104,7 +105,7 @@ router.delete('/:bookingId', requireAuth, restoreUser, async(req, res)=>{
 
     //else delete
     await bookingToDelete.destroy()
-    res.json({
+    res.status(200).json({
                 message: "Successfully deleted",
 	            statusCode: 200
     })
