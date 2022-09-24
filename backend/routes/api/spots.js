@@ -427,7 +427,7 @@ router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
   }
   //check if owner of spot
   if (req.user.id === spot.userId) {
-    res.json(ownerView);
+    res.json(owner);
   }
 });
 
