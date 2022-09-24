@@ -15,7 +15,7 @@ router.get('/current', requireAuth, restoreUser, async(req, res)=>{
     //console.log(userId)
     const reviews = await Review.findAll({
         where: {
-            userId: userId
+            userId: req.user.id
         },
         include: [
             {model: User, attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']}},
