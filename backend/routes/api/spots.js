@@ -113,6 +113,8 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
 })
 
 //get details of a spot from an id -
+
+
 router.get('/:spotId', async(req, res, next)=>{
     const { spotId } = req.params;
     //find spot
@@ -131,6 +133,7 @@ router.get('/:spotId', async(req, res, next)=>{
              [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
              [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
              ],
+             exclude: ['avgRating']
         },
         group: ['Spot.id', 'Owner.id','SpotImages.id']
     });
@@ -163,9 +166,7 @@ router.get('/:spotId', async(req, res, next)=>{
             }
             //if no avgStarRating, either say so, or if there is, assign it
              if(!item.avgStarRating){
-                item.avgRating ="There is no average rating for the spot yet."
-            } else{
-                item.avgStarRating = item.avgRating
+                item.avgStarRating = 0
             }
 
         })
@@ -176,7 +177,7 @@ router.get('/:spotId', async(req, res, next)=>{
 //create a spot --need to add validation error, added payload
 router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
     const userId = req.user.id
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const { address, city, state, country, lat, lng, name, description, price, avgRating } = req.body;
     const newSpot = await Spot.create({
         userId,
         address,
@@ -187,6 +188,7 @@ router.post('/',requireAuth, restoreUser, async(req, res, next)=>{
         lng,
         name,
         description,
+        avgRating,
         price
     });
     const payload = {
