@@ -14,11 +14,11 @@ const {validateSignup,validateSignin,validateSpot,validateReview,validateBooking
 
 // Delete a Review Image
 router.delete('/:reviewImageId', requireAuth, restoreUser, async(req, res)=>{
-    const userId = req.user.id;
+    //const userId = req.user.id;
     const {reviewImageId} = req.params;
     //find image
     const image = await Image.findByPk(reviewImageId);
-    // console.log(image)
+    console.log(image)
     // console.log(userId, 'userId')
 
     // check to see if image exists
@@ -30,18 +30,18 @@ router.delete('/:reviewImageId', requireAuth, restoreUser, async(req, res)=>{
     }
 
 	//check to see if the review belongs to the current user
-    const review = await Review.findOne({
-        where:{
-                id: reviewImageId
-        }})
+    // const review = await Review.findOne({
+    //     where:{
+    //             id: reviewImageId
+    //     }})
 
-	if (review.userId !== req.user.id) {
+	// if (review.userId !== req.user.id) {
 
-		return res.status(403).json({
-			message: "Forbidden",
-			statusCode: 403,
-		});
-	}
+	// 	return res.status(403).json({
+	// 		message: "Forbidden",
+	// 		statusCode: 403,
+	// 	});
+	// }
 
     //else, delete
 	await image.destroy();

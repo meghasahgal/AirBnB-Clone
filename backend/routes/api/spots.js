@@ -23,8 +23,7 @@ router.get('/', async(req, res, next)=>{
     let limit;
     let offset;
     //parse for the integers
-    page = parseInt(page);
-    size = parseInt(size);
+    page = parseInt(page);    size = parseInt(size);
     //if no page and size
     if(!page && !size){
         const allSpots= await Spot.findAll()
@@ -42,14 +41,33 @@ router.get('/', async(req, res, next)=>{
     }
 
     const filteredSpots = await Spot.findAll({
+            include: {model: Image, as: 'SpotImages'},
             limit: size,
             offset: size * (page -1)
     });
-
-    return res.status(200).json({
-        filteredSpots, page, size
+    //set previewImage
+    let spots = [];
+    filteredSpots.forEach((spot)=>{
+        spots.push(spot.toJSON())
     })
 
+    spots.forEach((spot)=>{
+        spot.SpotImages.forEach((image)=>{
+        if (image.preview === true) {
+            spot.previewImage = image.url;
+        }
+    });
+    //if no preview image
+    if (!spot.previewImage) {
+        spot.previewImage = "There is no preview image for the spot yet.";
+        }
+        delete spot.SpotImages;
+    })
+
+    //return spots and pagination
+    return res.status(200).json({
+        spots, page, size
+    })
 })
 
 
@@ -60,17 +78,38 @@ router.get('/', async(req, res, next)=>{
     return res.json(allSpots)
 })
 
-//get all spots owned by the current user --done
+//get all spots owned by the current user
 router.get('/current',restoreUser,requireAuth, async(req, res)=>{
     const userId = req.user.id
     //console.log(req.user)
     const spots = await Spot.findAll({
         where:{
-            userId
-        }
-    })
-    return res.status(200).json(spots)
+            userId: req.user.id
+        },
+        attributes:['id','userId','address','city','state','country','lat','lng','name','description','price','previewImage','createdAt','updatedAt'],
 
+        include: {model: Image, as: 'SpotImages'}
+    })
+
+    //add preview image
+    let userSpots = [];
+        spots.forEach((spot)=>{
+        userSpots.push(spot.toJSON())
+    })
+
+    userSpots.forEach((spot)=>{
+        spot.SpotImages.forEach((image)=>{
+        if (image.preview === true) {
+            spot.previewImage = image.url;
+        }
+    });
+    //if no preview image
+    if (!spot.previewImage) {
+        spot.previewImage = "There is no preview image for the spot yet.";
+        }
+        delete spot.SpotImages;
+    })
+    return res.status(200).json(userSpots)
 })
 
 //get details of a spot from an id -
@@ -249,8 +288,9 @@ router.post('/:spotId/images',requireAuth, restoreUser, async(req, res)=>{
 
     const spot = await Spot.findByPk(spotId,{
         where:{
-            userId: userId
-        }
+            userId: req.user.id
+        },
+        include: {model: Image, as: 'SpotImages'} //added image model here
     })
 
     // //error if no spot found
@@ -468,73 +508,6 @@ const newBooking = await Booking.create({
 //console.log(newBooking, "newBooking")
 // }
 })
-
-
-// router.post('/:spotId/bookings', validateBooking, requireAuth, restoreUser, async(req, res)=>{
-// const userId = req.user.id
-// const { startDate, endDate } = req.body;
-// const { spotId } = req.params;
-
-// //find spot
-// const spot = await Spot.findByPk(spotId,
-// {
-//     include: {
-//         model: Booking},
-
-//     where: {
-//         id: spotId,
-//         //user id !=== to logged in user
-//         userId: {
-//                 [Op.ne]: req.user.id
-//                 }
-//         }
-//     });
-//     //console.log(spot)
-//     //if booking exists for specific date, return error
-//     const booking = await Booking.findOne({
-//     where:{
-//         spotId: spotId,
-//         endDate: endDate,
-//         startDate: startDate,
-//     },
-//     })
-
-//     //if no spot found
-//     if(!spot){
-//     res.json({
-//         message: "Spot couldn't be found",
-//         statusCode:404
-//     })
-//     }
-//     // console.log(spot)
-
-//     //
-//     if(booking){
-//     res.json({
-//         message: "Sorry, this spot is already booked for the specified dates",
-//         statusCode: 403,
-//         errors: {
-//         "startDate": "Start date conflicts with an existing booking",
-//         "endDate": "End date conflicts with an existing booking"
-//     }})
-//     }
-
-//     //if spot doesn't belong to current user, create a new booking
-//     // if(spot.userId !== req.user.id)
-//     else if (spot.userId !== req.user.id) {
-//         const newBooking = await Booking.create({
-//         spotId,
-//         userId,startDate,
-//         endDate,
-//         })
-//     //return booking
-//         res.status(200),
-//         res.json(newBooking)
-//         }
-
-//     //console.log(newBooking, "newBooking")
-//     // }
-//     })
 
 
 //Delete a Spot Image
