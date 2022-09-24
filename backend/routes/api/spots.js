@@ -86,7 +86,7 @@ router.get('/current',restoreUser,requireAuth, async(req, res)=>{
         where:{
             userId: req.user.id
         },
-        attributes:['id','userId','address','city','state','country','lat','lng','name','description','price','previewImage','createdAt','updatedAt'],
+        attributes:['id','userId','address','city','state','country','lat','lng','name','description','price','avgRating','previewImage','createdAt','updatedAt'],
 
         include: {model: Image, as: 'SpotImages'}
     })
@@ -135,10 +135,10 @@ router.get('/:spotId', async(req, res, next)=>{
         group: ['Spot.id', 'Owner.id','SpotImages.id']
     });
 
+    console.log(spot, "spot")
     //if spot doesn't exist
-    if(!spot || spot.id === null){
-
-        res.status(404).json({
+    if(!spot.length){
+    res.status(404).json({
         message: "Spot couldn't be found",
     	statusCode: 404
         })
@@ -161,10 +161,12 @@ router.get('/:spotId', async(req, res, next)=>{
             if(!item.previewImage){
                 item.previewImage ="There is no preview image for the spot yet."
             }
-
-            //  if(!item.avgStarRating){
-            //     item.avgStarRating ="There is no average rating for the spot yet."
-            // }
+            //if no avgStarRating, either say so, or if there is, assign it
+             if(!item.avgStarRating){
+                item.avgRating ="There is no average rating for the spot yet."
+            } else{
+                item.avgStarRating = item.avgRating
+            }
 
         })
             res.status(200).json(spotList)
@@ -395,54 +397,39 @@ router.post('/:spotId/reviews',requireAuth, validateReview, async(req, res, next
 
 
 // Get all Bookings for a Spot based on the Spot's id - done
+
 router.get('/:spotId/bookings', requireAuth, async(req, res)=>{
     const userId  = req.user.id
     const {spotId} = req.params
     //find spot
-    const spot = await Spot.findByPk(spotId);
-    //if no spot found
-      if(!spot){
-        res.status(404).json({
-            message: "Spot couldn't be found",
-            statusCode: 404
-        })
-    }
-    console.log(spot, "spot")
-    console.log(userId, 'userId')
-    console.log(spotId, 'spotId')
-    console.log(spot.userId, 'spotUserId')
+     const spot = await Spot.findByPk(spotId)
+    //if spot doesn't exist
+    if(!spot){
+                res.status(404).json({
+                message: "Spot couldn't be found",
+                statusCode: 404
+            })
+         }
 
-    //if you are not the owner of the spot - works
-    // console.log(spot, "spot")
-    if(spot.userId !== req.user.id){
+    //if you are not the owner of the spot
+    if(req.user.id !== spot.userId){
         const notOwnedBookings = await Booking.findByPk(spotId, {
             attributes: ['spotId', 'startDate', 'endDate']
         })
         res.status(200),
         res.json(notOwnedBookings)
-        // console.log(notOwnedBookings)
-    }
-    //if you are the owner - fixed
-    //else if(spot.userId === req.user.id) {
-    else {
-        const ownedBookings = await Booking.findAll({
-            attributes: {exclude: ['totalPrice']},
-
-            where: {
-                spotId: spotId
-            },
-            include: {
-                model: User, attributes: {exclude: ['email', 'username', 'createdAt', 'updatedAt', 'hashedPassword']}
-            }
-        })
-        res.status(200),
-        res.json(ownedBookings)
     }
 
-})
+    //if you are the owner of the spot
+        const bookings = await Booking.findAll({
+            include:[
+                { model:User, attributes:['id','firstName','lastName']}
+                    ],
+            })
+            res.status(200),
+            res.json(bookings)
+    })
 
-//Create a Booking from a Spot based on the Spot's id - need to, add validation errors and check again to see if owner/userid is the same in the bookings table
-//Spot must NOT belong to the current user
 
 //Create a Booking from a Spot based on the Spot's id - need to, add validation errors and check again to see if owner/userid is the same in the bookings table
 //Spot must NOT belong to the current user
