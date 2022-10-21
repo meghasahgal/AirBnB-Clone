@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    /* height: 80vh; */
+    flex-wrap: wrap-reverse;
+    /* width: 150vh; */
+    align-items: flex-start;
+}
+
+button {
+    margin: 10px 10px;
+    background-color: #FF5A5F;
+    color: white;
+    border-radius: 5px;
+    border: 2px solid orange;
+    align-self: right;
+    display: flex;
+    justify-content: flex-start
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+    align-items: right;
+    margin: 5px;
+
+}

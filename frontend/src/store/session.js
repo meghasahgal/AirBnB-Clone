@@ -47,6 +47,29 @@ export const restoreSessionThunk = () => async (dispatch) => {
 		return data;
 	}
 };
+
+//signup thunk
+export const signUpThunk = (user) => async (dispatch) => {
+	const { username, email, firstName, lastName, password } = user;
+	const response = await csrfFetch("/api/users", {
+		method: "POST",
+		body: JSON.stringify({
+			username,
+			email,
+			password,
+            firstName,
+            lastName
+		}),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(loadUser(data));
+		return data;
+	}
+};
+
+
+
 //session reducer that will hold the current session user's information, start off with nothing in state
 const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
