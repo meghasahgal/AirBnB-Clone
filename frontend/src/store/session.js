@@ -57,8 +57,8 @@ export const signUpThunk = (user) => async (dispatch) => {
 			username,
 			email,
 			password,
-            firstName,
-            lastName
+			firstName,
+			lastName,
 		}),
 	});
 	if (response.ok) {
@@ -68,11 +68,20 @@ export const signUpThunk = (user) => async (dispatch) => {
 	}
 };
 
-
+//logout thunk
+export const logOutThunk = () => async (dispatch) => {
+	const response = await csrfFetch("api/session", {
+		method: "DELETE",
+	});
+	if (response.ok) {
+		dispatch(removeUser());
+		return response;
+	}
+};
 
 //session reducer that will hold the current session user's information, start off with nothing in state
-const initialState = { user: null };
-const sessionReducer = (state = initialState, action) => {
+
+const sessionReducer = (state = null, action) => {
 	switch (action.type) {
 		case SET_SESSION: {
 			return { ...state, ...action.payload };
