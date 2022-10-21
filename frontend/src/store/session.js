@@ -38,7 +38,7 @@ export const logInThunk = (user) => async (dispatch) => {
 	}
 };
 
-//restore session thunk
+//restore user session thunk
 export const restoreSessionThunk = () => async (dispatch) => {
 	const response = await csrfFetch("api/session");
 	if (response.ok) {
@@ -80,8 +80,8 @@ export const logOutThunk = () => async (dispatch) => {
 };
 
 //session reducer that will hold the current session user's information, start off with nothing in state
-
-const sessionReducer = (state = null, action) => {
+const initialState = { user: null };
+const sessionReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SET_SESSION: {
 			return { ...state, ...action.payload };
