@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
 
-
 const SignupFormPage = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
@@ -23,7 +22,13 @@ const SignupFormPage = () => {
 		if (password === confirmPassword) {
 			setErrors([]);
 			return dispatch(
-				sessionActions.signUpThunk({ email, username, password, firstName, lastName})
+				sessionActions.signUpThunk({
+					email,
+					username,
+					password,
+					firstName,
+					lastName,
+				})
 			).catch(async (res) => {
 				const data = await res.json();
 				if (data && data.errors) setErrors(data.errors);
@@ -42,24 +47,6 @@ const SignupFormPage = () => {
 				))}
 			</ul>
 			<label>
-				Email
-				<input
-					type="text"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				/>
-			</label>
-			<label>
-				Username
-				<input
-					type="text"
-					value={username}
-					onChange={(e) => setUsername(e.target.value)}
-					required
-				/>
-			</label>
-			<label>
 				First Name
 				<input
 					type="text"
@@ -77,6 +64,25 @@ const SignupFormPage = () => {
 					required
 				/>
 			</label>
+			<label>
+				Email
+				<input
+					type="text"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					required
+				/>
+			</label>
+			<label>
+				Username
+				<input
+					type="text"
+					value={username}
+					onChange={(e) => setUsername(e.target.value)}
+					required
+				/>
+			</label>
+
 			<label>
 				Password
 				<input

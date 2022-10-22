@@ -1,11 +1,11 @@
-.container {
+/* .container {
     display: flex;
     flex-direction: column;
     /* height: 80vh; */
-    flex-wrap: wrap-reverse;
+    /* flex-wrap: wrap-reverse; */
     /* width: 150vh; */
-    align-items: flex-start;
-}
+    /* align-items: flex-start; */
+/* }
 
 button {
     margin: 10px 10px;
@@ -16,13 +16,13 @@ button {
     align-self: right;
     display: flex;
     justify-content: flex-start
-}
+} */
 
-label {
+/* label {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap-reverse;
     align-items: right;
     margin: 5px;
 
-}
+} */ 
