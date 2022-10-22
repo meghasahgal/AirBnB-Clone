@@ -9,7 +9,6 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    // "heroku-postbuild": "npm run build --prefix frontend",
     "install": "npm run build --prefix frontend",
     "dev:backend": "npm install --prefix backend start",
     "dev:frontend": "npm install --prefix frontend start",
