@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
+import Spots from "./components/Spots"
 import Navigation from "./components/Navigation";
+import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
+	const loggedIn = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
 	useEffect(() => {
 		dispatch(sessionActions.restoreSessionThunk()).then(() =>
 			setIsLoaded(true)
 		);
+	dispatch(getSpots())
 	}, [dispatch]);
 
 	return (
@@ -23,6 +27,11 @@ function App() {
 					<Route path="/signup">
 						<SignupFormPage />
 					</Route>
+				{/* {loggedIn &&( */}
+					<Route path="/spots">
+						<Spots />
+					</Route>
+				{/* )} */}
 				</Switch>
 			)}
 		</>
