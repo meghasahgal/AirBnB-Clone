@@ -21,14 +21,14 @@ export const loadSpotsActionCreator = (spots) =>{
 export const getSpotsActionCreator = (spots) =>{
     return {
         type: GET_SPOTS,
-        payload: spots
+        spots
     }
 }
 
 export const createSpotsActionCreator = (spot) => {
 	return {
 		type: CREATE_SPOTS,
-		payload: spot,
+		spot
 	};
 };
 
@@ -36,22 +36,31 @@ export const createSpotsActionCreator = (spot) => {
 
 //HELPER FUNCTIONS
 export const getSpots = () => async (dispatch) => {
-	const response = await fetch("/api/spots");
+	const response = await csrfFetch("/api/spots");
     if (response.ok){
 	const data = await response.json();
-    dispatch(loadSpotsActionCreator(data))//need to finish
+    dispatch(loadSpotsActionCreator(data))
     return data
     }
 };
 
-// export const getPokemon = () => async (dispatch) => {
-// 	const response = await fetch(`/api/pokemon`);
+export const createSpot = (spot) => async (dispatch) => {
+	const response = await csrfFetch("/api/spots", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(spot),
+	});
 
-// 	if (response.ok) {
-// 		const list = await response.json();
-// 		dispatch(load(list));
-// 	}
-// };
+	if (response.ok) {
+		const newSpot = await response.json();
+		console.log(newSpot);
+		dispatch(createSpotsActionCreator(newSpot));
+		return newSpot; 
+	}
+};
+
 
 
 //REDUCER
@@ -65,9 +74,13 @@ const spotReducer = (state = initialState, action) => {
 				allSpots[spot.id] = spot;
 			});
 			return {
-				...allSpots,
-				...state
+				...state,
+				...allSpots
 			};
+        case CREATE_SPOTS:
+            let newState = {...state}
+            newState[action.spot.id] = action.spot
+            return newState;
 
 
 		default:

@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
-import Spots from "./components/Spots"
+import Spots from "./components/Spots";
 import Navigation from "./components/Navigation";
 import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
@@ -16,7 +16,8 @@ function App() {
 		dispatch(sessionActions.restoreSessionThunk()).then(() =>
 			setIsLoaded(true)
 		);
-	dispatch(getSpots())
+		//need to dispatch getSpots function w/i the useEffect to get all spots -- called it in the Spots comp
+		// dispatch(getSpots());
 	}, [dispatch]);
 
 	return (
@@ -27,16 +28,15 @@ function App() {
 					<Route path="/signup">
 						<SignupFormPage />
 					</Route>
-				{/* {loggedIn &&( */}
+					{/* {loggedIn &&( */}
 					<Route path="/spots">
 						<Spots />
 					</Route>
-				{/* )} */}
+					{/* )} */}
 				</Switch>
 			)}
 		</>
 	);
 }
-
 
 export default App;
