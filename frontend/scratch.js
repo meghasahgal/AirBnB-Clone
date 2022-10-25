@@ -164,3 +164,21 @@ const pokemonReducer = (state = initialState, action) => {
 };
 
 export default pokemonReducer;
+
+// CSS
+// ✅ All links, buttons, input fields, and text features on the site are functioning properly and belong to the features that were worked on
+// ✅ The alignment / justification of each element is consistent with the target cloned site
+// ✅ The colors used on each element are comparable with the target cloned site or within professional standards
+// ✅ The fonts & font sizes used on each element are comparable with the target cloned site
+// ✅ Google Fonts or the built-in browser fonts must be used for fonts
+// ✅ Your site has no glaring visual issues on a standard size laptop (needs to be a desktop version of the target cloned site - 1024px)
+// ✅ The logo and name of your application are different from the target cloned site
+// ✅ Your document page title and application's favicon match that of the name and the logo of your application
+// ✅ The white spacing (padding, margin, border, and positioning) of each element are consistent with the target cloned site
+// ✅ The box-shadows of each element are consistent with the target cloned site
+// ✅ The buttons are consistent with the target cloned site
+// ✅ The menus are consistent with the target cloned site
+// ✅ The mouse-pointers are consistent with industry standards
+// ✅ The hover effects on each element are consistent with the target cloned site
+// ✅ The icons used are comparable with the target cloned site
+// ✅ FontAwesome must be used for icons

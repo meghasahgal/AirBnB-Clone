@@ -12,6 +12,7 @@ function Navigation({ isLoaded }) {
 	let sessionLinks;
 	if (sessionUser) {
 		sessionLinks = <ProfileButton user={sessionUser} />;
+		
 	} else {
 		sessionLinks = (
 			<>

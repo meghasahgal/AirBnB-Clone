@@ -4,12 +4,14 @@ import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
+import CreateSpotForm from "./components/CreateSpotForm";
 import Spots from "./components/Spots";
 import Navigation from "./components/Navigation";
 import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
 	const loggedIn = useSelector((state) => state.user);
+	console.log(loggedIn, 'loggedIn')
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
 	useEffect(() => {
@@ -25,14 +27,16 @@ function App() {
 			<Navigation isLoaded={isLoaded} />
 			{isLoaded && (
 				<Switch>
-					<Route path="/signup">
+					<Route exact path="/signup">
 						<SignupFormPage />
 					</Route>
-					{/* {loggedIn &&( */}
-					<Route path="/spots">
-						<Spots />
+						<Route exact path={["/", "/spots"]}>
+							<Spots />
+						</Route>
+
+					<Route exact path="/spots/new">
+						<CreateSpotForm />
 					</Route>
-					{/* )} */}
 				</Switch>
 			)}
 		</>

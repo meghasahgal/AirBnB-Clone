@@ -82,12 +82,16 @@ export const logOutThunk = () => async (dispatch) => {
 //session reducer that will hold the current session user's information, start off with nothing in state
 const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
+
 	switch (action.type) {
 		case SET_SESSION: {
-			return { ...state, ...action.payload };
+			const newState ={...state}
+			newState.user = action.payload
+			return newState
+			// return { ...state, ...action.payload };
 		}
 		case REMOVE_SESSION: {
-			return null;
+			return initialState;
 		}
 		default:
 			return state;
