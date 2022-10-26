@@ -35,9 +35,9 @@ router.post('/', validateLogin, async (req, res, next) => {
 
     await setTokenCookie(res, user);
 
-    return res.json({
+    return res.json( //updated to not use an object in the return
       user
-    });
+    );
   }
 );
 

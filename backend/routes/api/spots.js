@@ -229,6 +229,7 @@ router.post("/", requireAuth, restoreUser, async (req, res, next) => {
 		description,
 		price,
 		avgRating,
+		previewImage, // added
 	} = req.body;
 	const newSpot = await Spot.create({
 		userId,
@@ -242,6 +243,7 @@ router.post("/", requireAuth, restoreUser, async (req, res, next) => {
 		description,
 		avgRating,
 		price,
+		previewImage,//added
 	});
 	const payload = {
 		id: newSpot.id,
@@ -255,6 +257,7 @@ router.post("/", requireAuth, restoreUser, async (req, res, next) => {
 		name: newSpot.name,
 		description: newSpot.description,
 		price: newSpot.price,
+		previewImage: newSpot.previewImage, //added
 		createdAt: newSpot.createdAt,
 		updatedAt: newSpot.updatedAt,
 	};
