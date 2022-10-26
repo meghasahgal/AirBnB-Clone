@@ -128,7 +128,7 @@ const CreateSpotForm = () => {
                     value={previewImage}
 					onChange={(e)=> setPreviewImage(e.target.value)}
                     />
-				
+
 					<button type="submit">Create Spot</button>
 					<button type="button" onClick={handleCancelClick}>
 						Cancel

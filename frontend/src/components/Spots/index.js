@@ -31,11 +31,7 @@ const Spots = () => {
 							<Link to={`/spots/${spot.id}`}>{spot.name}</Link>
 							<div>{spot.city}</div>
 							<div>{spot.avgRating}</div>
-							<div>
-								{"$"}
-								{spot.price}
-								{"/night"}
-							</div>
+							<div>{"$"}{spot.price}{"/night"}</div>
 
 							<br></br>
 						</div>

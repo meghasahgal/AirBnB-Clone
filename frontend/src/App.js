@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import CreateSpotForm from "./components/CreateSpotForm";
+import EditSpotForm from "./components/EditSpotForm";
 import Spots from "./components/Spots";
 import SpotById from "./components/SpotById";
 import Navigation from "./components/Navigation";
@@ -40,9 +41,10 @@ function App() {
 					<Route exact path="/spots/new">
 						<CreateSpotForm />
 					</Route>
-					<Route path="/">
-						"Page Not Found"
+					<Route exact path="/spots/:spotId/edit">
+						<EditSpotForm />
 					</Route>
+					<Route path="/">"Page Not Found"</Route>
 				</Switch>
 			)}
 		</>

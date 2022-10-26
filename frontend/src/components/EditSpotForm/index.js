@@ -1,126 +1,167 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editSpot } from "../../store/spot";
-import {useParams} from 'react-router-dom'
-const EditPokemonForm = ({ spot }) => {
+import { useHistory, useParams } from "react-router-dom";
+import { createSpot, editSpot, getSpots } from "../../store/spot";
+
+
+const EditSpotForm = () => {
     const {spotId} = useParams()
-	const spot = useSelector((state) => state.spots[spotId]);
+	const sessionUser = useSelector((state) => state.session.user);
+    const spot = useSelector((state) =>state.spots[spotId])
+    console.log(spot, "spot")
 	const dispatch = useDispatch();
+	const history = useHistory();
 
-	const [number, setNumber] = useState(pokemon.number);
-	const [attack, setAttack] = useState(pokemon.attack);
-	const [defense, setDefense] = useState(pokemon.defense);
-	const [imageUrl, setImageUrl] = useState(pokemon.imageUrl);
-	const [name, setName] = useState(pokemon.name);
-	const [type, setType] = useState(pokemon.type);
-	const [move1, setMove1] = useState(pokemon.moves[0]);
-	const [move2, setMove2] = useState(pokemon.moves[1]);
+	//set state variables
+	const [disabled, setDisabled] = useState(false);
+	const [id, setId] = useState(spot.id);
+	const [userId, setUserId] = useState(spot.userId);
+	const [address, setAddress] = useState(spot.address);
+	const [city, setCity] = useState(spot.city);
+	const [state, setState] = useState(spot.state);
+	const [country, setCountry] = useState(spot.country);
+	const [lat, setLat] = useState(spot.lat);
+	const [lng, setLng] = useState(spot.lng);
+	const [name, setName] = useState(spot.name);
+	const [description, setDescription] = useState(spot.description);
+	const [price, setPrice] = useState(spot.price);
+	const [previewImage, setPreviewImage] = useState(spot.previewImage);
 
-	const updateNumber = (e) => setNumber(e.target.value);
-	const updateAttack = (e) => setAttack(e.target.value);
-	const updateDefense = (e) => setDefense(e.target.value);
-	const updateImageUrl = (e) => setImageUrl(e.target.value);
-	const updateName = (e) => setName(e.target.value);
-	const updateType = (e) => setType(e.target.value);
-	const updateMove1 = (e) => setMove1(e.target.value);
-	const updateMove2 = (e) => setMove2(e.target.value);
+    //get all spots to see if user id is equal to the session user id
+    useEffect(() => {
+        dispatch(getSpots())
+    }, [dispatch])
 
-	useEffect(() => {
-		dispatch(getPokemonTypes());
-	}, [dispatch]);
-
+    if(!sessionUser || sessionUser.id !== spot.userId){
+        return (<div>You cannot edit a spot you do not own.</div>)
+    }
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		const payload = {
-			...pokemon,
-			number,
-			attack,
-			defense,
-			imageUrl,
+            ...spot,
+			id,
+			userId,
+			address,
+			city,
+			state,
+			country,
+			lat,
+			lng,
 			name,
-			type,
-			move1,
-			move2,
-			moves: [move1, move2],
+			description,
+			price,
+			previewImage,
 		};
 
-		let updatedPokemon = await dispatch(editPokemon(pokemon.id, payload));
-		if (updatedPokemon) {
-			hideForm();
+		let editedSpot = await dispatch(editSpot(spot.id, payload));
+        console.log(editedSpot, "editedSpot");
+		if (editedSpot) {
+			history.push(`/spots/${editedSpot.id}`);
+			// hideForm();
 		}
 	};
 
 	const handleCancelClick = (e) => {
 		e.preventDefault();
-		hideForm();
+        history.push(`/spots/${spot.id}`);
+		// hideForm();
 	};
+    // NEED TO ADD VALIDATION ERRORS
 
 	return (
-		<section className="edit-form-holder centered middled">
-			<form onSubmit={handleSubmit}>
-				<input
-					type="number"
-					placeholder="Number"
-					min="1"
-					required
-					value={number}
-					onChange={updateNumber}
-				/>
-				<input
-					type="number"
-					placeholder="Attack"
-					min="0"
-					max="100"
-					required
-					value={attack}
-					onChange={updateAttack}
-				/>
-				<input
-					type="number"
-					placeholder="Defense"
-					min="0"
-					max="100"
-					required
-					value={defense}
-					onChange={updateDefense}
-				/>
-				<input
-					type="text"
-					placeholder="Image URL"
-					value={imageUrl}
-					onChange={updateImageUrl}
-				/>
-				<input
-					type="text"
-					placeholder="Name"
-					value={name}
-					onChange={updateName}
-				/>
-				<input
-					type="text"
-					placeholder="Move 1"
-					value={move1}
-					onChange={updateMove1}
-				/>
-				<input
-					type="text"
-					placeholder="Move 2"
-					value={move2}
-					onChange={updateMove2}
-				/>
-				<select onChange={updateType} value={type}>
-					{pokeTypes.map((type) => (
-						<option key={type}>{type}</option>
-					))}
-				</select>
-				<button type="submit">Update Pokemon</button>
-				<button type="button" onClick={handleCancelClick}>
-					Cancel
-				</button>
-			</form>
-		</section>
+		<div>
+            <p>Edit Spot</p>
+			<section className="edit-form-holder">
+				<form className="edit-spot-form" onSubmit={handleSubmit}>
+                    <div>Address</div>
+					<input
+						type="text"
+						placeholder="Update address"
+						required
+						value={address}
+						onChange={(e) => setAddress(e.target.value)}
+					/>
+                    <div>City</div>
+					<input
+						type="text"
+						placeholder="Update city"
+						required
+						value={city}
+						onChange={(e) => setCity(e.target.value)}
+					/>
+                    <div>State</div>
+					<input
+						type="text"
+						placeholder="Update state"
+						required
+						value={state}
+						onChange={(e) => setState(e.target.value)}
+					/>
+                    <div>Country</div>
+					<input
+						type="text"
+						placeholder="Update country"
+						required
+						value={country}
+						onChange={(e) => setCountry(e.target.value)}
+					/>
+                    <div>Latitude</div>
+					<input
+						type="number"
+						placeholder="Update latitude"
+						required
+						value={lat}
+						onChange={(e) => setLat(e.target.value)}
+					/>
+                    <div>Longitude</div>
+					<input
+						type="number"
+						placeholder="Update longitude"
+						required
+						value={lng}
+						onChange={(e) => setLng(e.target.value)}
+					/>
+                    <div>Name</div>
+					<input
+						type="text"
+						placeholder="Update name"
+						required
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+                    <div>Description</div>
+					<input
+						type="text"
+						placeholder="Update description"
+						required
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+					/>
+                    <div>Price</div>
+					<input
+						type="number"
+						placeholder="Update price per day"
+						required
+						value={price}
+						onChange={(e) => setPrice(e.target.value)}
+					/>
+                    <div>Image</div>
+					<input
+						type="text"
+						placeholder="Enter an image URL"
+						value={previewImage}
+						onChange={(e) => setPreviewImage(e.target.value)}
+					/>
+
+					<button type="submit">Edit Spot</button>
+					<button type="button" onClick={handleCancelClick}>
+						Cancel
+					</button>
+				</form>
+			</section>
+		</div>
 	);
 };
 
-export default EditPokemonForm;
+export default EditSpotForm;
