@@ -50,6 +50,18 @@ export const getSpots = () => async (dispatch) => {
 	}
 };
 
+// GET spot by id
+export const getSpotById = (spotId) => async (dispatch)=>{
+	const response = await csrfFetch(`/api/spots/${spotId}`)
+
+	if (response.ok){
+		const data = await response.json()
+		dispatch(createSpotsActionCreator(data))
+		return data;
+	}
+
+}
+
 // CREATE spot
 export const createSpot = (spot) => async (dispatch) => {
 	const response = await csrfFetch("/api/spots", {

@@ -1,0 +1,23 @@
+.img-size {
+    display: block;
+    height: 364px;
+    width: 364px;
+    font-family: Circular,
+        -apple-system,
+        BlinkMacSystemFont,
+        Roboto,
+        Helvetica Neue,
+        sans-serif;
+    font-size: 24px;
+    line-height: 1.43;
+    color: #484848;
+    background-color: #fff;
+    margin: 5px 5px, 0px, 0px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.primary-text {
+    font-size: 24px;
+    font-weight: bold;
+}
