@@ -6,7 +6,9 @@ import { getSpots } from "../../store/spot";
 const SpotById = () =>{
 const dispatch = useDispatch();
 const {spotId} = useParams();
-const spot = useSelector((state) => state.spot[spotId])
+const spot = useSelector((state) => state.spots[spotId])
+const sessionUser  = useSelector((state)=> state.session.user)
+
 
     return (<div></div>)
 }

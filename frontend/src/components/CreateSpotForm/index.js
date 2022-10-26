@@ -5,7 +5,7 @@ import { createSpot } from "../../store/spot";
 
 const CreateSpotForm = () => {
 
-    const sessionUser = useSelector((state) => state.user);
+    const sessionUser = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -22,6 +22,7 @@ const CreateSpotForm = () => {
 	const [name, setName] = useState();
 	const [description, setDescription] = useState();
 	const [price, setPrice] = useState();
+    const [previewImage, setPreviewImage] = useState();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -38,6 +39,7 @@ const CreateSpotForm = () => {
 			name,
 			description,
 			price,
+            previewImage
 		};
 
 		let createdSpot = await dispatch(createSpot(payload));
@@ -49,7 +51,7 @@ const CreateSpotForm = () => {
 
 	const handleCancelClick = (e) => {
 		e.preventDefault();
-        
+
 		// hideForm();
 	};
 
@@ -120,11 +122,13 @@ const CreateSpotForm = () => {
 						value={price}
 						onChange={(e) => setPrice(e.target.value)}
 					/>
-					{/* <select onChange={updateType} value={type}>
-						{pokeTypes.map((type) => (
-							<option key={type}>{type}</option>
-						))}
-					</select> */}
+                    <input
+					type="text"
+                    placeholder="Enter an image URL"
+                    value={previewImage}
+					onChange={(e)=> setPreviewImage(e.target.value)}
+                    />
+				
 					<button type="submit">Create Spot</button>
 					<button type="button" onClick={handleCancelClick}>
 						Cancel
@@ -136,18 +140,3 @@ const CreateSpotForm = () => {
 };
 
 export default CreateSpotForm;
-// const payload = {
-// 	id: newSpot.id,
-// 	userId: newSpot.userId,
-// 	address: newSpot.address,
-// 	city: newSpot.city,
-// 	state: newSpot.state,
-// 	country: newSpot.country,
-// 	lat: newSpot.lat,
-// 	lng: newSpot.lng,
-// 	name: newSpot.name,
-// 	description: newSpot.description,
-// 	price: newSpot.price,
-// 	createdAt: newSpot.createdAt,
-// 	updatedAt: newSpot.updatedAt,
-// };
