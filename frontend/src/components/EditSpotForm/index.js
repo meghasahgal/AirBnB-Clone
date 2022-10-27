@@ -32,8 +32,18 @@ const EditSpotForm = () => {
         dispatch(getSpots())
     }, [dispatch])
 
+    //redirect user back to spot
+    function handleGoBackClick(e) {
+        history.push(`/spots/${spot.id}`);
+    }
+
     if(!sessionUser || sessionUser.id !== spot.userId){
-        return (<div>You cannot edit a spot you do not own.</div>)
+        return (
+					<div>
+						<div> You cannot edit a spot you do not own.</div>
+                        <button onClick={handleGoBackClick}>Go Back to Spot</button>
+					</div>
+				);
     }
 	const handleSubmit = async (e) => {
 		e.preventDefault();
