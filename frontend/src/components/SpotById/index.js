@@ -17,12 +17,15 @@ useEffect(() => {
 	dispatch(getSpotById(spotId));
 }, [spotId]);
 
-//button to edit
+// //button to edit
 	const routeChangetoEditForm = () => {
 		let path = `/spots/${spotId}/edit`;
-		history.push(path);
+		history.push(path)
+
 	};
-//button to delete
+
+    //  console.log(history, "history");
+// // //button to delete
 const routeChangetoDelete = () => {
 	let path = `/spots/${spotId}/delete`;
 	history.push(path);
@@ -40,14 +43,17 @@ const routeChangetoDelete = () => {
 				<div>{spot.location}</div>
 				<div>{spot.description}</div>
 				<div>{spot.avgRating}</div>
-				<button onClick={routeChangetoEditForm}>Edit Spot</button>
+			     <button onClick={routeChangetoEditForm}>Edit Spot</button>
 				<button onClick={routeChangetoDelete}>Delete Spot</button>
+			</div>
+		);
+				{/* <button onClick={routeChangetoEditForm}>Edit Spot</button>
+				<button onClick={routeChangetoDelete}>Delete Spot</button> */}
 
 				{/* <div>
 					<EditSpotForm />
 				</div> */}
-			</div>
-		);
+
 }
 
 export default SpotById;

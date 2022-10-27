@@ -13,10 +13,10 @@ const Spots = () => {
 
 	//button route change for creating a spot
 	const history = useHistory();
-	const routeChange = () => {
-		let path = `/spots/new`;
-		history.push(path);
-	};
+	// const routeChange = () => {
+	// 	let path = `/spots/create`;
+	// 	history.push(path);
+	// };
 
 	return (
 		<>
@@ -37,7 +37,7 @@ const Spots = () => {
 						</div>
 					</div>
 				))}
-				<button onClick={routeChange}>Create Spot</button>
+				<button onClick={()=>history.push('/spots/create')}>Create Spot</button>
 			</div>
 		</>
 	);

@@ -51,6 +51,7 @@ const CreateSpotForm = () => {
 
 	const handleCancelClick = (e) => {
 		e.preventDefault();
+		history.push(`/spots`)
 
 		// hideForm();
 	};

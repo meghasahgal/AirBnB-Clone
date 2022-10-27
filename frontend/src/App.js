@@ -6,6 +6,7 @@ import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm";
+import DeleteSpot from "./components/DeleteSpot"
 import Spots from "./components/Spots";
 import SpotById from "./components/SpotById";
 import Navigation from "./components/Navigation";
@@ -13,7 +14,7 @@ import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
 	const loggedIn = useSelector((state) => state.user);
-	console.log(loggedIn, 'loggedIn')
+	console.log(loggedIn, "loggedIn");
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
 	useEffect(() => {
@@ -32,18 +33,27 @@ function App() {
 					<Route exact path="/signup">
 						<SignupFormPage />
 					</Route>
+
 					<Route exact path={["/", "/spots"]}>
 						<Spots />
 					</Route>
+
+					<Route exact path="/spots/create">
+						<CreateSpotForm />
+					</Route>
+
 					<Route exact path="/spots/:spotId">
 						<SpotById />
 					</Route>
-					<Route exact path="/spots/new">
-						<CreateSpotForm />
-					</Route>
+
 					<Route exact path="/spots/:spotId/edit">
 						<EditSpotForm />
 					</Route>
+
+					<Route exact path="/spots/:spotId/delete">
+						<DeleteSpot />
+					</Route>
+
 					<Route path="/">"Page Not Found"</Route>
 				</Switch>
 			)}

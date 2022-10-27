@@ -2,7 +2,6 @@ import { csrfFetch } from "./csrf";
 
 //ACTIONS
 const LOAD_SPOTS = "spots/LOAD_SPOTS";
-// const GET_SPOTS = "spots/GET_SPOTS";
 const CREATE_SPOTS = "spots/CREATE_SPOTS";
 const UPDATE_SPOTS = "spots/UPDATE_SPOTS";
 const DELETE_SPOTS = "spots/DELETE_SPOTS";
@@ -16,12 +15,6 @@ export const loadSpotsActionCreator = (spots) => {
 	};
 };
 
-// export const getSpotsActionCreator = (spots) =>{
-//     return {
-//         type: GET_SPOTS,
-//         spots
-//     }
-// }
 
 //POST
 export const createSpotsActionCreator = (spot) => {
@@ -47,7 +40,7 @@ export const deleteSpotsActionCreator = (spotId) => {
 	};
 };
 
-//HELPER FUNCTIONS
+//HELPER FUNCTIONS/THUNKS
 // GET all spots
 export const getSpots = () => async (dispatch) => {
 	const response = await csrfFetch("/api/spots");
@@ -107,24 +100,15 @@ export const editSpot = (spotId, spot) => async (dispatch) => {
 };
 
 //DELETE SPOT
-// export const deleteSpot = (spotId) => async (dispatch) => {
-//     const response = await fetch(`/api/spots/${spotId}`, {
-//     method: "DELETE",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(spot),
-//   });
+export const deleteSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+  if(response.ok){
+	dispatch(deleteSpotsActionCreator(spotId))
+  }}
 
-//   if (response.ok) {
-//     const editedSpot = await response.json();
-//     console.log(editedSpot);
-//     dispatch(createSpotsActionCreator(editedSpot));
-//     return editedSpot;
-//   }
-// };
 
-// }
 
 //REDUCER
 const initialState = {};
