@@ -215,8 +215,8 @@ router.get("/:spotId", async (req, res, next) => {
 	res.status(200).json(spotList);
 });
 
-//create a spot --need to add validation error, added payload
-router.post("/", requireAuth, restoreUser, async (req, res, next) => {
+//create a spot --need to add validation error, added payload //added validate spot here
+router.post("/", requireAuth, restoreUser,validateSpot,async (req, res, next) => {
 	const userId = req.user.id;
 	const {
 		address,
