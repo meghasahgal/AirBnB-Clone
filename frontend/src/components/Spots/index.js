@@ -23,7 +23,7 @@ const Spots = () => {
 			<div>
 				{allSpotsArray.map((spot) => (
 					<div key={spot?.id}>
-						<div>
+						<div className="spot-details">
 							<div
 								style={{ backgroundImage: `url('${spot.previewImage}')` }}
 								className="img-size primary-text"

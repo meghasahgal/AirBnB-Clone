@@ -14,7 +14,7 @@ import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
 	const loggedIn = useSelector((state) => state.user);
-	console.log(loggedIn, "loggedIn");
+	// console.log(loggedIn, "loggedIn");
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
 	useEffect(() => {

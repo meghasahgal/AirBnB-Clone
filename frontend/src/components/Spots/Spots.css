@@ -12,7 +12,7 @@
     line-height: 1.43;
     color: #484848;
     background-color: #fff;
-    margin: 5px 5px, 0px, 0px;
+    margin: 10px 10px 10px 80px;
     border-radius: 10px;
     object-fit: cover;
 }
@@ -21,3 +21,5 @@
     font-size: 24px;
     font-weight: bold;
 }
+
+

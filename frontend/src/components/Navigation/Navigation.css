@@ -1,6 +1,24 @@
-button {
+/* button {
     display: flex;
     width: 20%;
     border: 10px solid tangerine;
-}
+} */
 /* test comment */
+.fas fa-user-circle{
+    display: flex;
+    align-items:row;
+    align-items:right;
+    border: 10px solid tangerine;
+
+}
+
+.logo{
+    height: auto;
+    max-width: 7%;
+    margin: 0px, 0px, 0px, 80px;
+}
+
+.profile{
+    display: flex;
+    border: 5px solid tangerine;
+}

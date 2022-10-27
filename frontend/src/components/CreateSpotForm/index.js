@@ -60,6 +60,7 @@ const CreateSpotForm = () => {
 		<div>
 			<section className="new-form-holder">
 				<form className="create-spot-form" onSubmit={handleSubmit}>
+					<div>Address</div>
 					<input
 						type="text"
 						placeholder="Enter address"
@@ -67,6 +68,7 @@ const CreateSpotForm = () => {
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
 					/>
+					<div>City</div>
 					<input
 						type="text"
 						placeholder="Enter city"
@@ -74,6 +76,7 @@ const CreateSpotForm = () => {
 						value={city}
 						onChange={(e) => setCity(e.target.value)}
 					/>
+					<div>State</div>
 					<input
 						type="text"
 						placeholder="Enter state"
@@ -81,6 +84,7 @@ const CreateSpotForm = () => {
 						value={state}
 						onChange={(e) => setState(e.target.value)}
 					/>
+					<div>Country</div>
 					<input
 						type="text"
 						placeholder="Enter country"
@@ -88,6 +92,7 @@ const CreateSpotForm = () => {
 						value={country}
 						onChange={(e) => setCountry(e.target.value)}
 					/>
+					<div>Latitude</div>
 					<input
 						type="number"
 						placeholder="Enter latitude"
@@ -95,6 +100,7 @@ const CreateSpotForm = () => {
 						value={lat}
 						onChange={(e) => setLat(e.target.value)}
 					/>
+					<div>Longitude</div>
 					<input
 						type="number"
 						placeholder="Enter longitude"
@@ -102,6 +108,7 @@ const CreateSpotForm = () => {
 						value={lng}
 						onChange={(e) => setLng(e.target.value)}
 					/>
+					<div>Name</div>
 					<input
 						type="text"
 						placeholder="Enter name"
@@ -109,6 +116,7 @@ const CreateSpotForm = () => {
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
+					<div>Description</div>
 					<input
 						type="text"
 						placeholder="Enter description"
@@ -116,6 +124,7 @@ const CreateSpotForm = () => {
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
+					<div>Price</div>
 					<input
 						type="number"
 						placeholder="Enter price per day"
@@ -123,13 +132,15 @@ const CreateSpotForm = () => {
 						value={price}
 						onChange={(e) => setPrice(e.target.value)}
 					/>
+					<div>Image</div>
                     <input
 					type="text"
                     placeholder="Enter an image URL"
                     value={previewImage}
 					onChange={(e)=> setPreviewImage(e.target.value)}
                     />
-
+					<br></br>
+					<br></br>
 					<button type="submit">Create Spot</button>
 					<button type="button" onClick={handleCancelClick}>
 						Cancel
