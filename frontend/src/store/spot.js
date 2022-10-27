@@ -124,6 +124,7 @@ const spotReducer = (state = initialState, action) => {
 				...state,
 				...allSpots,
 			};
+			
 		case CREATE_SPOTS:
 			let newState = { ...state };
 			newState[action.spot.id] = action.spot;
