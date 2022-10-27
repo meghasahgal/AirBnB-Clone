@@ -9,12 +9,22 @@ const DeleteSpot = () => {
 	const dispatch = useDispatch();
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots[spotId]);
-    console.log(spot, "spot")
-    console.log(spotId, "spotId")
+    // console.log(spot, "spot")
+    // console.log(spotId, "spotId")
+
+    //re-route to spot if spot doesn't belong to the current user
+      const handleGoBackToSpotClick = (e) => {
+				history.push(`/spots/${spot.id}`);
+			};
 
     //checking if the spot belongs to the current session user
 	if (!sessionUser || sessionUser.id !== spot.userId) {
-		return <div>You cannot delete a spot that you do not own.</div>;
+		return (
+			<div>
+				<div> You cannot delete a spot that you do not own.</div>
+				<button onClick={handleGoBackToSpotClick}>Go Back to Spot</button>
+			</div>
+		);
 	}
 
     //to prevent the page from re-loading on click and dispatching the delete action creator

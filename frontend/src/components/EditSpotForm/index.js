@@ -8,7 +8,7 @@ const EditSpotForm = () => {
     const {spotId} = useParams()
 	const sessionUser = useSelector((state) => state.session.user);
     const spot = useSelector((state) =>state.spots[spotId])
-    console.log(spot, "spot")
+    // console.log(spot, "spot")
 	const dispatch = useDispatch();
 	const history = useHistory();
 
