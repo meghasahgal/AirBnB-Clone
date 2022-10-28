@@ -3,22 +3,24 @@
     width: 20%;
     border: 10px solid tangerine;
 } */
-/* test comment */
-.fas fa-user-circle{
+
+/* .fas fa-user-circle{
     display: flex;
     align-items:row;
     align-items:right;
-    border: 10px solid tangerine;
+    border: 10px solid tangerine; */
 
-}
+/* } */
 
 .logo{
     height: auto;
     max-width: 7%;
-    margin: 0px, 0px, 0px, 80px;
+    margin: 0px, 0px, 20px, 80px;
 }
 
-.profile{
+.btn-profile{
     display: flex;
+    flex-direction: column;
     border: 20px solid tangerine;
+    font-size: 16px;
 }

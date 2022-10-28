@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
 import "./Spots.css";
 
@@ -20,7 +21,7 @@ const Spots = () => {
 
 	return (
 		<>
-			<div>
+			<div className="spots-container">
 				{allSpotsArray.map((spot) => (
 					<div key={spot?.id}>
 						<div className="spot-details">
@@ -29,15 +30,29 @@ const Spots = () => {
 								className="img-size primary-text"
 							></div>
 							<Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-							<div>{spot.city}</div>
-							<div>{spot.avgRating}</div>
-							<div>{"$"}{spot.price}{"/night"}</div>
+							<div className="secondary-text">{spot.city}</div>
+
+							<div className="secondary-text">
+								{spot.avgRating}
+								{/* <FontAwesomeIcon
+									icon={spot.avgRating ? className="fa-solid fa-star" : null}
+								/> */}
+
+								<i className="fa-solid fa-star"></i>
+							</div>
+							<div className="secondary-text">
+								{"$"}
+								{spot.price}
+								{"/night"}
+							</div>
 
 							<br></br>
 						</div>
 					</div>
 				))}
-				<button onClick={()=>history.push('/spots/create')}>Create Spot</button>
+				<button onClick={() => history.push("/spots/create")}>
+					Create Spot
+				</button>
 			</div>
 		</>
 	);

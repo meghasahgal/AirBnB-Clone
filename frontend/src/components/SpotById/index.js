@@ -3,7 +3,9 @@ import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSpotById } from "../../store/spot";
 import EditSpotForm from "../EditSpotForm";
+import ReviewsBySpotId from "../ReviewsBySpotId";
 import "./SpotById.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SpotById = () =>{
 const history = useHistory();
@@ -31,7 +33,7 @@ const routeChangetoDelete = () => {
 	history.push(path);
 };
     return (
-			<div>
+			<div className="spots-container">
 				<div></div>
 				<div></div>
 				<div></div>
@@ -42,9 +44,18 @@ const routeChangetoDelete = () => {
 				<div>{spot.city}</div>
 				<div>{spot.location}</div>
 				<div>{spot.description}</div>
-				<div>{spot.avgRating}</div>
-			     <button onClick={routeChangetoEditForm}>Edit Spot</button>
+				<div>
+					{spot.avgRating}
+					<i class="fa-solid fa-star"></i>
+					{/* <FontAwesomeIcon icon={spot.avgRating? "fa-solid fa-star":null} /> */}
+				</div>
+				<button onClick={routeChangetoEditForm}>Edit Spot</button>
 				<button onClick={routeChangetoDelete}>Delete Spot</button>
+                <br></br>
+                <br></br>
+                <br></br>
+                <div></div>
+                <ReviewsBySpotId/>
 			</div>
 		);
 				{/* <button onClick={routeChangetoEditForm}>Edit Spot</button>

@@ -1,5 +1,16 @@
+/* .spots-container {
+width: 50%
+}
+
 .img-size{
-    display: block;
+width: 100%
+} */
+.spots-container{
+    display: flex;
+    flex-direction: column;
+    column-gap: 30px;
+    flex-wrap: wrap;
+    padding: 10px;
     height: 364px;
     width: 364px;
     font-family: Circular,
@@ -8,7 +19,7 @@
         Roboto,
         Helvetica Neue,
         sans-serif;
-    font-size: 24px;
+    font-size: 16px;
     line-height: 1.43;
     color: #484848;
     background-color: #fff;
@@ -18,8 +29,11 @@
 }
 
 .primary-text {
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
 }
 
-
+.secondary-text{
+    font-size: 16px;
+    color: #767676
+}
