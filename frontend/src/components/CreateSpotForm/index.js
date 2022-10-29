@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createSpot } from "../../store/spot";
+import ErrorMessage from "../ErrorMessage"
 
 const CreateSpotForm = () => {
 
@@ -23,6 +24,7 @@ const CreateSpotForm = () => {
 	const [description, setDescription] = useState();
 	const [price, setPrice] = useState();
     const [previewImage, setPreviewImage] = useState();
+	const [errors, setErrors] = useState([]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -40,15 +42,38 @@ const CreateSpotForm = () => {
 			description,
 			price,
             previewImage
-		};
-
-		let createdSpot = await dispatch(createSpot(payload));
-		if (createdSpot) {
-			history.push(`/spots/${createdSpot.id}`);
-			// hideForm();
 		}
-	};
 
+
+// 	 setErrors([]);
+//   	 dispatch(createSpot(payload)).catch(
+//       async (res) => {
+//         const data = await res.json();
+//         if (data && data.errors) setErrors(data.errors);
+// 		console.log(data.errors, "data errors")
+//       }
+//     );
+// }
+		try{
+		let createdSpot = await dispatch(createSpot(payload));
+		console.log("this is created spot",createdSpot)
+		// if (createdSpot.Array.isArray([errors])) {
+		// 	history.push(`/spots/${createdSpot.id}`);
+		// 	// hideForm();
+		// }
+		// else
+	} catch(e){
+		const response = await e.json()
+		console.log(response)
+		const errors = new Set(response.errors)
+		console.log(errors)
+		const errorsArray = Array.from(errors)
+		// if(errors) setErrors[errors]
+		console.log(errorsArray, "errorsArray")
+		//setErrors[errorsArray]
+	}
+
+	}
 	const handleCancelClick = (e) => {
 		e.preventDefault();
 		history.push(`/spots`)
@@ -64,15 +89,16 @@ const CreateSpotForm = () => {
 					<input
 						type="text"
 						placeholder="Enter address"
-						required
+						// required
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
 					/>
+						{/* <ErrorMessage label={"Address"} message={} /> */}
 					<div>City</div>
 					<input
 						type="text"
 						placeholder="Enter city"
-						required
+						// required
 						value={city}
 						onChange={(e) => setCity(e.target.value)}
 					/>
@@ -80,7 +106,7 @@ const CreateSpotForm = () => {
 					<input
 						type="text"
 						placeholder="Enter state"
-						required
+						// required
 						value={state}
 						onChange={(e) => setState(e.target.value)}
 					/>
@@ -88,7 +114,7 @@ const CreateSpotForm = () => {
 					<input
 						type="text"
 						placeholder="Enter country"
-						required
+						// required
 						value={country}
 						onChange={(e) => setCountry(e.target.value)}
 					/>
@@ -96,7 +122,7 @@ const CreateSpotForm = () => {
 					<input
 						type="number"
 						placeholder="Enter latitude"
-						required
+						// required
 						value={lat}
 						onChange={(e) => setLat(e.target.value)}
 					/>
@@ -104,7 +130,7 @@ const CreateSpotForm = () => {
 					<input
 						type="number"
 						placeholder="Enter longitude"
-						required
+						// required
 						value={lng}
 						onChange={(e) => setLng(e.target.value)}
 					/>
@@ -112,7 +138,7 @@ const CreateSpotForm = () => {
 					<input
 						type="text"
 						placeholder="Enter name"
-						required
+						// required
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
@@ -120,7 +146,7 @@ const CreateSpotForm = () => {
 					<input
 						type="text"
 						placeholder="Enter description"
-						required
+						// required
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
@@ -128,7 +154,7 @@ const CreateSpotForm = () => {
 					<input
 						type="number"
 						placeholder="Enter price per day"
-						required
+						// required
 						value={price}
 						onChange={(e) => setPrice(e.target.value)}
 					/>

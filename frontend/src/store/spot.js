@@ -15,7 +15,6 @@ export const loadSpotsActionCreator = (spots) => {
 	};
 };
 
-
 //POST
 export const createSpotsActionCreator = (spot) => {
 	return {
@@ -26,11 +25,12 @@ export const createSpotsActionCreator = (spot) => {
 
 // EDIT
 export const updateSpotsActionCreator = (spotId, spot) => {
-	return{
+	return {
 		type: UPDATE_SPOTS,
-		spotId, spot
-	}
-}
+		spotId,
+		spot,
+	};
+};
 
 // DELETE
 export const deleteSpotsActionCreator = (spotId) => {
@@ -52,33 +52,37 @@ export const getSpots = () => async (dispatch) => {
 };
 
 // GET spot by id
-export const getSpotById = (spotId) => async (dispatch)=>{
-	const response = await csrfFetch(`/api/spots/${spotId}`)
+export const getSpotById = (spotId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/spots/${spotId}`);
 
-	if (response.ok){
-		const data = await response.json()
-		dispatch(loadSpotsActionCreator(data))
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(loadSpotsActionCreator(data));
 		return data;
 	}
-
-}
+};
 
 // CREATE spot
 export const createSpot = (spot) => async (dispatch) => {
-	const response = await csrfFetch("/api/spots", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(spot),
-	});
 
-	if (response.ok) {
-		const newSpot = await response.json();
-		console.log(newSpot);
-		dispatch(createSpotsActionCreator(newSpot));
-		return newSpot;
+		const response = await csrfFetch("/api/spots", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(spot),
+		});
+
+		if (response.ok) {
+			const newSpot = await response.json();
+			console.log(newSpot);
+			dispatch(createSpotsActionCreator(newSpot));
+			return newSpot;
+
 	}
+	// const error = await response.json();
+	return response;
+
 };
 
 // EDIT spot
@@ -101,14 +105,13 @@ export const editSpot = (spotId, spot) => async (dispatch) => {
 
 //DELETE SPOT
 export const deleteSpot = (spotId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/spots/${spotId}`, {
-    method: "DELETE",
-  });
-  if(response.ok){
-	dispatch(deleteSpotsActionCreator(spotId))
-  }}
-
-
+	const response = await csrfFetch(`/api/spots/${spotId}`, {
+		method: "DELETE",
+	});
+	if (response.ok) {
+		dispatch(deleteSpotsActionCreator(spotId));
+	}
+};
 
 //REDUCER
 const initialState = {};
@@ -131,7 +134,7 @@ const spotReducer = (state = initialState, action) => {
 			return newState;
 
 		case UPDATE_SPOTS:
-			let newState1 ={...state};
+			let newState1 = { ...state };
 			newState1[action.spotId] = action.spot;
 			return newState1;
 

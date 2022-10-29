@@ -6,10 +6,13 @@ width: 50%
 width: 100%
 } */
 .spots-container{
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); */
     display: flex;
     flex-direction: column;
     column-gap: 30px;
     flex-wrap: wrap;
+    
     padding: 10px;
     height: 364px;
     width: 364px;
@@ -25,7 +28,8 @@ width: 100%
     background-color: #fff;
     margin: 10px 10px 10px 80px;
     border-radius: 10px;
-    object-fit: cover;
+    /* object-fit: cover; */
+    /* flex-basis: calc(100% / 4); */
 }
 
 .primary-text {
@@ -37,3 +41,11 @@ width: 100%
     font-size: 16px;
     color: #767676
 }
+
+
+/* @media screen and (max-width: 1127px) {
+    .spots-container { */
+        /* flex-direction: column; */
+        /* change the direction of the container */
+    /* }
+} */

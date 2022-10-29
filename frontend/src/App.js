@@ -9,11 +9,16 @@ import EditSpotForm from "./components/EditSpotForm";
 import DeleteSpot from "./components/DeleteSpot"
 import Spots from "./components/Spots";
 import SpotById from "./components/SpotById";
+import CreateReviewForm from "./components/CreateReviewForm";
+import DeleteReview from "./components/DeleteReview"
 import Navigation from "./components/Navigation";
+import Profile from "./components/Profile";
 import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
-	const loggedIn = useSelector((state) => state.user);
+	// const loggedIn = useSelector((state) => state.user);
+	// const userId = useSelector((state) => state.session.user.id)
+	// console.log(userId, "user")
 	// console.log(loggedIn, "loggedIn");
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -32,6 +37,10 @@ function App() {
 				<Switch>
 					<Route exact path="/signup">
 						<SignupFormPage />
+					</Route>
+
+					<Route exact path="/users/:userId">
+						<Profile />
 					</Route>
 
 					<Route exact path={["/", "/spots"]}>
@@ -53,6 +62,12 @@ function App() {
 					<Route exact path="/spots/:spotId/delete">
 						<DeleteSpot />
 					</Route>
+
+					<Route exact path="/spots/:spotId/reviews">
+						<CreateReviewForm />
+					</Route>
+
+					
 
 					<Route path="/">"Page Not Found"</Route>
 				</Switch>
