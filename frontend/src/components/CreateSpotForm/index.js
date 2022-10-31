@@ -24,7 +24,10 @@ const CreateSpotForm = () => {
 	const [description, setDescription] = useState();
 	const [price, setPrice] = useState();
     const [previewImage, setPreviewImage] = useState();
-	const [errors, setErrors] = useState([]);
+	const [validationErrors, setValidationErrors] = useState([]);
+
+
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -70,10 +73,63 @@ const CreateSpotForm = () => {
 		const errorsArray = Array.from(errors)
 		// if(errors) setErrors[errors]
 		console.log(errorsArray, "errorsArray")
-		//setErrors[errorsArray]
+		// setErrors[errorsArray]
 	}
 
 	}
+
+//new error handler
+		useEffect(() => {
+			const newErrors = [];
+			if (!address) {
+				newErrors.push("Address field is required");
+			}
+			if (!city) {
+				newErrors.push("City field is required");
+			}
+			if (!state) {
+				newErrors.push("State field is required");
+			}
+			if (!country) {
+				newErrors.push("Country field is required");
+			}
+			if (!lat || lat % 1 === 0) {
+				newErrors.push("Latitude field is a required decimal value");
+			}
+			if (!lng) {
+				newErrors.push("Longitude field is a required decimal value");
+			}
+			if (!name) {
+				newErrors.push("Name field is required");
+			}
+			// if (name.length > 50) {
+			// 	newErrors.push("Name field must be less than 50 characters");
+			// }
+			if (!description) {
+				newErrors.push("Description field is required");
+			}
+			if (!price) {
+				newErrors.push("Price field is required");
+			}
+			if (!previewImage) {
+				newErrors.push("Image field is required");
+			}
+
+			setValidationErrors(newErrors);
+		}, [
+			address,
+			city,
+			state,
+			country,
+			lat,
+			lng,
+			name,
+			description,
+			price,
+			previewImage,
+		]);
+
+	//handle click function
 	const handleCancelClick = (e) => {
 		e.preventDefault();
 		history.push(`/spots`)
@@ -83,6 +139,8 @@ const CreateSpotForm = () => {
 
 	return (
 		<div>
+			<h1>Create a Spot</h1>
+
 			<section className="new-form-holder">
 				<form className="create-spot-form" onSubmit={handleSubmit}>
 					<div>Address</div>
@@ -93,7 +151,7 @@ const CreateSpotForm = () => {
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
 					/>
-						{/* <ErrorMessage label={"Address"} message={} /> */}
+					{/* <ErrorMessage label={"Address"} message={} /> */}
 					<div>City</div>
 					<input
 						type="text"
@@ -159,18 +217,24 @@ const CreateSpotForm = () => {
 						onChange={(e) => setPrice(e.target.value)}
 					/>
 					<div>Image</div>
-                    <input
-					type="text"
-                    placeholder="Enter an image URL"
-                    value={previewImage}
-					onChange={(e)=> setPreviewImage(e.target.value)}
-                    />
+					<input
+						type="text"
+						placeholder="Enter an image URL"
+						value={previewImage}
+						onChange={(e) => setPreviewImage(e.target.value)}
+					/>
 					<br></br>
 					<br></br>
-					<button type="submit">Create Spot</button>
+					<button type="submit" disabled={validationErrors.length > 0}>
+						Create Spot
+					</button>
 					<button type="button" onClick={handleCancelClick}>
 						Cancel
 					</button>
+					<ul className="errors">
+						{validationErrors.length > 0 &&
+							validationErrors.map((error) => <li key={error}>{error}</li>)}
+					</ul>
 				</form>
 			</section>
 		</div>

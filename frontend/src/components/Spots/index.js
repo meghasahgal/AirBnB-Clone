@@ -38,7 +38,7 @@ const Spots = () => {
 								className="img-size primary-text"
 							></div>
 							<Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-							<div className="secondary-text">{spot.city}</div>
+							<div className="secondary-text">{spot.city}{","} {spot.state}</div>
 
 							<div className="secondary-text">
 								{spot.avgRating}

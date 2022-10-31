@@ -21,7 +21,7 @@ const CreateReviewForm = () => {
 	const [disabled, setDisabled] = useState(false);
 	const [stars, setStars] = useState(0);
 	const [review, setReview] = useState("");
-	const [errors, setErrors] = useState([]);
+	const [validationErrors, setValidationErrors] = useState([]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -40,6 +40,20 @@ const CreateReviewForm = () => {
 			// hideForm();
 		}
 	};
+
+    // error handler
+    useEffect(() => {
+			const newErrors = [];
+			if (!review) {
+				newErrors.push("Review is required");
+			}
+			if (!stars) {
+				newErrors.push("Stars field is required");
+			}
+             setValidationErrors(newErrors);
+
+        }, [review, stars])
+
 
 	const handleCancelClick = (e) => {
 		e.preventDefault();
@@ -76,6 +90,10 @@ const CreateReviewForm = () => {
 						<button type="button" onClick={handleCancelClick}>
 							Cancel
 						</button>
+						<ul className="errors">
+							{validationErrors.length > 0 &&
+								validationErrors.map((error) => <li key={error}>{error}</li>)}
+						</ul>
 					</form>
 				</section>
 			</div>
