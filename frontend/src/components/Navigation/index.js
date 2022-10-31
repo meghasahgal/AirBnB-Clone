@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import "./Navigation.css";
 import logo from "../../images/navigation/logo.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faHeart, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icons'
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector((state) => state.session.user);
 	// console.log(sessionUser)
@@ -40,7 +41,8 @@ function Navigation({ isLoaded }) {
 				<div className="search-bar"></div>
 
 				<div className="host-login">
-					<FontAwesomeIcon icon="fa-light fa-globe" />
+					<FontAwesomeIcon icon={faGlobe} />
+					<FontAwesomeIcon icon={faBars} />
 				</div>
 			</ul>
 		</nav>

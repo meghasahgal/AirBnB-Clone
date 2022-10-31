@@ -1,30 +1,25 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
-import "./Spots.css";
-import {
-	faSearch,
-	faHeart,
-	faGlobe,
-	faUser,
-	faBars,
-} from "@fortawesome/free-solid-svg-icons";
 
-const Spots = () => {
-	const allSpotsArray = useSelector((state) => Object.values(state.spots));
+const GetSpotsCurrentUser = () => {
+	const sessionUser = useSelector((state) => state.session.user);
+	const history = useHistory();
 	const dispatch = useDispatch();
+    // const spots = useSelector(state => state.spots)
+	const allSpotsArray = useSelector((state) => Object.values(state.spots));
 	useEffect(() => {
 		dispatch(getSpots());
 	}, [dispatch]);
 
-	//button route change for creating a spot
-	const history = useHistory();
-	// const routeChange = () => {
-	// 	let path = `/spots/create`;
-	// 	history.push(path);
-	// };
+	//get only the spots of where the spot's ownerId = session user
+	const spotsCurrentUser = allSpotsArray.filter(
+		(spot) => spot.userId === sessionUser.id
+	);
+    console.log(allSpotsArray, "allSpotsArray")
+    // console.log(spot.userId, "spotUserID")
+    console.log(sessionUser.id, "sessionUserId")
 
 	return (
 		<>
@@ -57,12 +52,10 @@ const Spots = () => {
 						</div>
 					</div>
 				))}
-				<button onClick={() => history.push("/spots/create")}>
-					Create Spot
-				</button>
+
 			</div>
 		</>
 	);
 };
 
-export default Spots;
+export default GetSpotsCurrentUser;

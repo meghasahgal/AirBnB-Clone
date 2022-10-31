@@ -33,16 +33,15 @@ const SpotById = () => {
 		history.push(path);
 	};
 
-    //   const routeChangetoDeleteReviewForm = () => {
+	//   const routeChangetoDeleteReviewForm = () => {
 	// 			let path = `/spot/${spotId}/reviews/delete`;
 	// 			history.push(path);
 	// 		};
 
-
-    const routeChangetoCreateReviewForm = () => {
-			let path = `/spots/${spotId}/reviews`;
-			history.push(path);
-		};
+	const routeChangetoCreateReviewForm = () => {
+		let path = `/spots/${spotId}/reviews`;
+		history.push(path);
+	};
 
 	return (
 		<div className="spots-container">
@@ -58,7 +57,7 @@ const SpotById = () => {
 			<div>{spot.description}</div>
 			<div>
 				{spot.avgRating}
-				<i class="fa-solid fa-star"></i>
+				<i className="fa-solid fa-star"></i>
 				{/* <FontAwesomeIcon icon={spot.avgRating? "fa-solid fa-star":null} /> */}
 			</div>
 			<button onClick={routeChangetoEditForm}>Edit Spot</button>
@@ -69,9 +68,9 @@ const SpotById = () => {
 			<div></div>
 			<ReviewsBySpotId />
 
-            <div></div>
-            <br></br>
-            <br></br>
+			<div></div>
+			<br></br>
+			<br></br>
 			<button onClick={routeChangetoCreateReviewForm}>Add a Review</button>
 			{/* <button onClick={routeChangetoDeleteReviewForm}>Delete a Review</button> */}
 		</div>

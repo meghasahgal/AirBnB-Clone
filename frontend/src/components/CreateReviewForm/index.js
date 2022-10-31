@@ -8,36 +8,35 @@ const CreateReviewForm = () => {
 	const dispatch = useDispatch();
 	const { spotId } = useParams();
 
-    // console.log(spotId, "spotId")
-    const userId = useSelector((state) => state.session.user.id)
+	// console.log(spotId, "spotId")
+	const userId = useSelector((state) => state.session.user.id);
 	const reviews = useSelector((state) => state.reviews);
 	const sessionUser = useSelector((state) => state.session.user);
-    // console.log(sessionUser, "sessionUser")
+	// console.log(sessionUser, "sessionUser")
 
 	//set state variables
-    // const [userId, setUserId] = useState()
-    // const [spotId, setSpotId] = useState()
+	// const [userId, setUserId] = useState()
+	// const [spotId, setSpotId] = useState()
 
 	const [disabled, setDisabled] = useState(false);
 	const [stars, setStars] = useState(0);
 	const [review, setReview] = useState("");
-    const [errors, setErrors] = useState([])
+	const [errors, setErrors] = useState([]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		const payload = {
-            userId,
-            spotId,
+			userId,
+			spotId,
 			review,
 			stars,
 		};
 
-
 		let createdReview = await dispatch(createReview(spotId, payload));
 		if (createdReview) {
 			//need to change the route here SOON!
-			history.push(`/spots/${spotId}/reviews/${createdReview.id}`);
+			history.push(`/spots/${spotId}`);
 			// hideForm();
 		}
 	};
@@ -70,7 +69,6 @@ const CreateReviewForm = () => {
 							value={stars}
 							onChange={(e) => setStars(e.target.value)}
 						/>
-
 
 						<br></br>
 						<br></br>

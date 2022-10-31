@@ -27,7 +27,7 @@ const ReviewsBySpotId = () => {
 	//to prevent the page from re-loading on click and dispatching the delete action creator
 	const handleDeleteClick = (id) => {
 		dispatch(deleteReview(id));
-		history.push(`/spot/${spot.id}`);
+		history.push(`/spots/${spot.id}`);
 	};
 
 	// need to conditionally render by spot id, i.e, retrieve the review by spotId below
@@ -41,7 +41,9 @@ const ReviewsBySpotId = () => {
 							<div>{review.review}</div>
 							<div>{review.stars}</div>
 						</div>
-						<button onClick={()=>handleDeleteClick(review.id)}>Delete Review</button>
+						<button onClick={() => handleDeleteClick(review.id)}>
+							Delete Review
+						</button>
 					</div>
 				))}
 			</div>

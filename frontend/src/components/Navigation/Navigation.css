@@ -24,3 +24,11 @@
     border: 20px solid tangerine;
     font-size: 16px;
 }
+
+.host-login{
+    display: flex;
+    align-items: flex-end;
+   flex-direction: column;
+
+
+}

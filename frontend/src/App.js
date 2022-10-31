@@ -6,11 +6,11 @@ import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm";
-import DeleteSpot from "./components/DeleteSpot"
+import DeleteSpot from "./components/DeleteSpot";
 import Spots from "./components/Spots";
 import SpotById from "./components/SpotById";
 import CreateReviewForm from "./components/CreateReviewForm";
-import DeleteReview from "./components/DeleteReview"
+import DeleteReview from "./components/DeleteReview";
 import Navigation from "./components/Navigation";
 import Profile from "./components/Profile";
 import { loadSpotsActionCreator, getSpots } from "./store/spot";
@@ -66,8 +66,6 @@ function App() {
 					<Route exact path="/spots/:spotId/reviews">
 						<CreateReviewForm />
 					</Route>
-
-					
 
 					<Route path="/">"Page Not Found"</Route>
 				</Switch>

@@ -23,7 +23,7 @@ const history = useHistory();
 
 	//re-route to spot if review doesn't belong to the current user
 	const handleGoBackToReviewsClick = (e) => {
-		history.push(`/spot/${spot.id}`);
+		history.push(`/spots/${spot.id}`);
 	};
 
 	//checking if the review belongs to the current session user
@@ -40,11 +40,11 @@ const history = useHistory();
 	const handleDeleteClick = (e) => {
 		e.preventDefault();
 		dispatch(deleteReview(review.id));
-		history.push(`/spot/${spot.id}`);
+		history.push(`/spots/${spot.id}`);
 	};
 
 	const handleCancelClick = (e) => {
-		history.push(`/spot/${spot.id}`);
+		history.push(`/spots/${spot.id}`);
 	};
 
 	return (
