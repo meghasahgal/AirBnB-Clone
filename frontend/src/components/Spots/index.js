@@ -10,6 +10,7 @@ import {
 	faGlobe,
 	faUser,
 	faBars,
+	faStar
 } from "@fortawesome/free-solid-svg-icons";
 
 const Spots = () => {
@@ -41,11 +42,13 @@ const Spots = () => {
 
 							<div className="secondary-text">
 								{spot.avgRating}
+								{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
+								<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
 								{/* <FontAwesomeIcon
 									icon={spot.avgRating ? className="fa-solid fa-star" : null}
 								/> */}
 
-								<i className="fa-solid fa-star"></i>
+								{/* <i className="fa-solid fa-star"></i> */}
 							</div>
 							<div className="secondary-text">
 								{"$"}
