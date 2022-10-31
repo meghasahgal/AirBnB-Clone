@@ -67,7 +67,7 @@ const CreateReviewForm = () => {
 			<div>
 				<section className="new-form-holder">
 					<form className="create-review-form" onSubmit={handleSubmit}>
-						<div>Write Your Review</div>
+						<h1>Write Your Review</h1>
 						<input
 							type="textarea"
 							placeholder="Enter review"

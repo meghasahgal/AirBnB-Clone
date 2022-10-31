@@ -16,6 +16,8 @@ const SpotById = () => {
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots[spotId]);
 	const sessionUser = useSelector((state) => state.session.user);
+    const reviews = useSelector((state) => Object.values(state.reviews));
+
 	const [showEditSpotForm, setShowEditSpotForm] = useState(false);
 
     const star = <FontAwesomeIcon icon={faStar} />;
@@ -62,17 +64,24 @@ const SpotById = () => {
 				className="img-size primary-text"
 				style={{ backgroundImage: `url('${spot.previewImage}')` }}
 			></div>
-			<div>{spot.city}</div>
+			<div>
+				{spot.city}
+				{", "}
+				{spot.state}
+				{", "}
+				{spot.country}
+			</div>
 			<div>{spot.location}</div>
 			<div>{spot.description}</div>
 			<div>
 				{spot.avgRating}
 				{/* <i className="fa-solid fa-star"></i> */}
 				{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
-				<FontAwesomeIcon
-					icon={spot.avgRating ? faStar: null}
-				/>
-
+				<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
+			</div>
+			<div>
+				{reviews.length}
+				{reviews.length === 1 ? " review" : " reviews"}
 			</div>
 			{spot.userId === sessionUser?.id && (
 				<button onClick={routeChangetoEditForm}>Edit Spot</button>
