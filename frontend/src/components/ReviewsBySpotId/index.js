@@ -30,7 +30,7 @@ const ReviewsBySpotId = () => {
 		history.push(`/spots/${spot.id}`);
 	};
 
-	// need to conditionally render by spot id, i.e, retrieve the review by spotId below
+	// need to conditionally render by spot id, i.e, retrieve the review by spotId below - FIXED
 	return (
 		<div>
 			<div className="section-heading">Reviews</div>
@@ -41,9 +41,11 @@ const ReviewsBySpotId = () => {
 							<div>{review.review}</div>
 							<div>{review.stars}</div>
 						</div>
-						<button onClick={() => handleDeleteClick(review.id)}>
-							Delete Review
-						</button>
+						{spot.userId === sessionUser?.id && (
+							<button onClick={() => handleDeleteClick(review.id)}>
+								Delete Review
+							</button>
+						)}
 					</div>
 				))}
 			</div>

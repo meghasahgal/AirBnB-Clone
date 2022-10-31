@@ -164,6 +164,7 @@ const EditSpotForm = () => {
 						onChange={(e) => setPreviewImage(e.target.value)}
 					/>
 
+                    
 					<button type="submit">Edit Spot</button>
 					<button type="button" onClick={handleCancelClick}>
 						Cancel
