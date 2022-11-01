@@ -2,12 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getSpots } from "../../store/spot";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const GetSpotsCurrentUser = () => {
 	const sessionUser = useSelector((state) => state.session.user);
 	const history = useHistory();
 	const dispatch = useDispatch();
-    // const spots = useSelector(state => state.spots)
 	const allSpotsArray = useSelector((state) => Object.values(state.spots));
 	useEffect(() => {
 		dispatch(getSpots());
@@ -17,14 +18,11 @@ const GetSpotsCurrentUser = () => {
 	const spotsCurrentUser = allSpotsArray.filter(
 		(spot) => spot.userId === sessionUser.id
 	);
-    console.log(allSpotsArray, "allSpotsArray")
-    // console.log(spot.userId, "spotUserID")
-    console.log(sessionUser.id, "sessionUserId")
 
 	return (
 		<>
 			<div className="spots-container">
-				{allSpotsArray.map((spot) => (
+				{spotsCurrentUser.map((spot) => (
 					<div key={spot?.id}>
 						<div className="spot-details">
 							<div
@@ -32,15 +30,20 @@ const GetSpotsCurrentUser = () => {
 								className="img-size primary-text"
 							></div>
 							<Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-							<div className="secondary-text">{spot.city}</div>
+							<div className="secondary-text">
+								{spot.city}
+								{","} {spot.state}
+							</div>
 
 							<div className="secondary-text">
 								{spot.avgRating}
+								{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
+								<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
 								{/* <FontAwesomeIcon
 									icon={spot.avgRating ? className="fa-solid fa-star" : null}
 								/> */}
 
-								<i className="fa-solid fa-star"></i>
+								{/* <i className="fa-solid fa-star"></i> */}
 							</div>
 							<div className="secondary-text">
 								{"$"}
@@ -52,7 +55,6 @@ const GetSpotsCurrentUser = () => {
 						</div>
 					</div>
 				))}
-
 			</div>
 		</>
 	);

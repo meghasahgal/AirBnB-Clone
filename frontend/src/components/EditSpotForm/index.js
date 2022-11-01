@@ -13,10 +13,7 @@ const EditSpotForm = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	//get spots by id
-	// useEffect(() => {
-	// 	dispatch(getSpotById(spotId));
-	// }, [spotId]);
+	
 
 	//set state variables
 	const [disabled, setDisabled] = useState(false);

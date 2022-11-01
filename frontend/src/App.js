@@ -6,14 +6,16 @@ import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm";
-import DeleteSpot from "./components/DeleteSpot";
+// import DeleteSpot from "./components/DeleteSpot";
 import Spots from "./components/Spots";
 import SpotById from "./components/SpotById";
+import GetSpotsCurrentUser from "./components/GetSpotsCurrentUser"
 import CreateReviewForm from "./components/CreateReviewForm";
-import DeleteReview from "./components/DeleteReview";
+// import DeleteReview from "./components/DeleteReview";
 import Navigation from "./components/Navigation";
 import Profile from "./components/Profile";
 import PageNotFound from "./components/PageNotFound";
+
 import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
@@ -48,13 +50,17 @@ function App() {
 						<CreateSpotForm />
 					</Route>
 
+					<Route exact path="/spots/myspots">
+						<GetSpotsCurrentUser />
+					</Route>
+
 					<Route exact path="/spots/:spotId/edit">
 						<EditSpotForm />
 					</Route>
 
-					<Route exact path="/spots/:spotId/delete">
+					{/* <Route exact path="/spots/:spotId/delete">
 						<DeleteSpot />
-					</Route>
+					</Route> */}
 
 					<Route exact path="/spots/:spotId/reviews">
 						<CreateReviewForm />
@@ -64,7 +70,7 @@ function App() {
 						<SpotById />
 					</Route>
 
-					<Route >
+					<Route>
 						<PageNotFound />
 					</Route>
 				</Switch>

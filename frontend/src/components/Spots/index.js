@@ -4,10 +4,7 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
 import "./Spots.css";
-import {
-	
-	faStar
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Spots = () => {
 	const allSpotsArray = useSelector((state) => Object.values(state.spots));
@@ -23,6 +20,7 @@ const Spots = () => {
 	// 	history.push(path);
 	// };
 
+	//need to add race case for spot? here too
 	return (
 		<>
 			<div className="spots-container">
@@ -34,7 +32,10 @@ const Spots = () => {
 								className="img-size primary-text"
 							></div>
 							<Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-							<div className="secondary-text">{spot.city}{","} {spot.state}</div>
+							<div className="secondary-text">
+								{spot.city}
+								{","} {spot.state}
+							</div>
 
 							<div className="secondary-text">
 								{spot.avgRating}
