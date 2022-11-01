@@ -13,6 +13,7 @@ import CreateReviewForm from "./components/CreateReviewForm";
 import DeleteReview from "./components/DeleteReview";
 import Navigation from "./components/Navigation";
 import Profile from "./components/Profile";
+import PageNotFound from "./components/PageNotFound";
 import { loadSpotsActionCreator, getSpots } from "./store/spot";
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
 			setIsLoaded(true)
 		);
 		//need to dispatch getSpots function w/i the useEffect to get all spots -- called it in the Spots comp
-		// dispatch(getSpots());
+		dispatch(getSpots());
 	}, [dispatch]);
 
 	return (
@@ -39,20 +40,12 @@ function App() {
 						<SignupFormPage />
 					</Route>
 
-					<Route exact path="/users/:userId">
-						<Profile />
-					</Route>
-
 					<Route exact path={["/", "/spots"]}>
 						<Spots />
 					</Route>
 
 					<Route exact path="/spots/create">
 						<CreateSpotForm />
-					</Route>
-
-					<Route exact path="/spots/:spotId">
-						<SpotById />
 					</Route>
 
 					<Route exact path="/spots/:spotId/edit">
@@ -67,7 +60,13 @@ function App() {
 						<CreateReviewForm />
 					</Route>
 
-					<Route path="/">"Page Not Found"</Route>
+					<Route exact path="/spots/:spotId">
+						<SpotById />
+					</Route>
+
+					<Route >
+						<PageNotFound />
+					</Route>
 				</Switch>
 			)}
 		</>

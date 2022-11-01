@@ -30,21 +30,22 @@ function Navigation({ isLoaded }) {
 			<ul>
 				<div>
 					<NavLink exact to="/">
-						{/* Home */}
 						<div className="image-container">
 							<img className="logo" src={logo} alt="logo"></img>
 						</div>
 					</NavLink>{" "}
 					{isLoaded && sessionLinks}
 				</div>
-
-				<div className="search-bar"></div>
-
-				<div className="host-login">
-					<FontAwesomeIcon icon={faGlobe} />
-					<FontAwesomeIcon icon={faBars} />
-				</div>
 			</ul>
+
+			<div className="search-bar"></div>
+			<input type="text" />
+			<FontAwesomeIcon icon={faSearch} />
+
+			<div className="host-login">
+				<FontAwesomeIcon icon={faGlobe} />
+				<FontAwesomeIcon icon={faBars} />
+			</div>
 		</nav>
 	);
 }

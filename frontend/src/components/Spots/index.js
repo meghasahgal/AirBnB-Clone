@@ -5,11 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
 import "./Spots.css";
 import {
-	faSearch,
-	faHeart,
-	faGlobe,
-	faUser,
-	faBars,
+	
 	faStar
 } from "@fortawesome/free-solid-svg-icons";
 

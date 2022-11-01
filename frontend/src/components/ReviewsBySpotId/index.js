@@ -2,6 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getReviews, deleteReview } from "../../store/review";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+
 
 const ReviewsBySpotId = () => {
 	const history = useHistory();
@@ -39,9 +42,12 @@ const ReviewsBySpotId = () => {
 					<div key={review.id}>
 						<div className="review-details">
 							<div>{review.review}</div>
-							<div>{review.stars}</div>
+							<div>
+								{review.stars}
+								<FontAwesomeIcon icon={review.stars ? faStar : null} />
+							</div>
 						</div>
-						{spot.userId === sessionUser?.id && (
+						{review.userId === sessionUser?.id && (
 							<button onClick={() => handleDeleteClick(review.id)}>
 								Delete Review
 							</button>

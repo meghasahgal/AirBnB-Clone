@@ -38,17 +38,7 @@ const SpotById = () => {
 		history.push(path);
 	};
 
-	//  console.log(history, "history");
-	// // //button to delete spot
-	const routeChangetoDelete = () => {
-		let path = `/spots/${spotId}/delete`;
-		history.push(path);
-	};
-
-	//   const routeChangetoDeleteReviewForm = () => {
-	// 			let path = `/spot/${spotId}/reviews/delete`;
-	// 			history.push(path);
-	// 		};
+// console.log(spotId)
 
 	const routeChangetoCreateReviewForm = () => {
 		let path = `/spots/${spotId}/reviews`;
@@ -56,11 +46,14 @@ const SpotById = () => {
 	};
 
 	return (
+        <>
+        {spot &&(
 		<div className="spots-container">
 			<div></div>
 			<div></div>
 			<div></div>
 			<div
+
 				className="img-size primary-text"
 				style={{ backgroundImage: `url('${spot.previewImage}')` }}
 			></div>
@@ -75,8 +68,7 @@ const SpotById = () => {
 			<div>{spot.description}</div>
 			<div>
 				{spot.avgRating}
-				{/* <i className="fa-solid fa-star"></i> */}
-				{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
+
 				<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
 			</div>
 			<div>
@@ -98,10 +90,15 @@ const SpotById = () => {
 			<div></div>
 			<br></br>
 			<br></br>
-			<button onClick={routeChangetoCreateReviewForm}>Add a Review</button>
-			{/* <button onClick={routeChangetoDeleteReviewForm}>Delete a Review</button> */}
+            {/* spot owner can't write a review of their own place */}
+			{spot.userId !== sessionUser?.id && (
+				<button onClick={routeChangetoCreateReviewForm}>Add a Review</button>
+			 )}
 		</div>
+        )}
+       </>
 	);
+
 	{
 		/* <button onClick={routeChangetoEditForm}>Edit Spot</button>
 				<button onClick={routeChangetoDelete}>Delete Spot</button> */

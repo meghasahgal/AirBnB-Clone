@@ -11,6 +11,9 @@
     border: 10px solid tangerine; */
 
 /* } */
+.nav {
+    display: flex;
+}
 
 .logo{
     height: auto;

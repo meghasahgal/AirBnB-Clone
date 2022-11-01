@@ -41,19 +41,17 @@ const CreateReviewForm = () => {
 		}
 	};
 
-    // error handler
-    useEffect(() => {
-			const newErrors = [];
-			if (!review) {
-				newErrors.push("Review is required");
-			}
-			if (!stars) {
-				newErrors.push("Stars field is required");
-			}
-             setValidationErrors(newErrors);
-
-        }, [review, stars])
-
+	// error handler
+	useEffect(() => {
+		const newErrors = [];
+		if (!review) {
+			newErrors.push("Review is required");
+		}
+		if (!stars) {
+			newErrors.push("Stars field is required");
+		}
+		setValidationErrors(newErrors);
+	}, [review, stars]);
 
 	const handleCancelClick = (e) => {
 		e.preventDefault();
@@ -68,6 +66,8 @@ const CreateReviewForm = () => {
 				<section className="new-form-holder">
 					<form className="create-review-form" onSubmit={handleSubmit}>
 						<h1>Write Your Review</h1>
+						<div>Review</div>
+
 						<input
 							type="textarea"
 							placeholder="Enter review"
@@ -86,7 +86,9 @@ const CreateReviewForm = () => {
 
 						<br></br>
 						<br></br>
-						<button type="submit">Create Review</button>
+						<button type="submit" disabled={validationErrors.length > 0}>
+							Create Review
+						</button>
 						<button type="button" onClick={handleCancelClick}>
 							Cancel
 						</button>

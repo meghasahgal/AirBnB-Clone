@@ -23,7 +23,7 @@ export const removeUser = () => {
 
 export const logInThunk = (user) => async (dispatch) => {
 	const { credential, password } = user;
-	const response = await csrfFetch("api/session", {
+	const response = await csrfFetch("/api/session", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const logInThunk = (user) => async (dispatch) => {
 
 //restore user session thunk
 export const restoreSessionThunk = () => async (dispatch) => {
-	const response = await csrfFetch("api/session");
+	const response = await csrfFetch("/api/session");
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(loadUser(data.user));
