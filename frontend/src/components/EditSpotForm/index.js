@@ -40,9 +40,19 @@ const EditSpotForm = () => {
 
     //A useEffect that calls all of your setState functions, while depending on your redux store
     useEffect(() => {
-			if(spot){setAddress(spot.address)};
+			if(spot){
+                setAddress(spot.address)
+                setCity(spot.city)
+                setState(spot.state)
+                setCountry(spot.country)
+                setLat(spot.lat)
+                setLng(spot.lng)
+                setDescription(spot.description)
+                setPrice(spot.price)
+                setPreviewImage(spot.previewImage)
+            };
 		}, [spot]);
-	// console.log(spot.id, "spotid2");
+    //check if session user is not equal to the owner id
 	if (!sessionUser || sessionUser.id !== spot?.userId) {
 		return (
 			<div>
