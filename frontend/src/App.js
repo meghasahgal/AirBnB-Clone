@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
@@ -13,10 +13,10 @@ import GetSpotsCurrentUser from "./components/GetSpotsCurrentUser"
 import CreateReviewForm from "./components/CreateReviewForm";
 // import DeleteReview from "./components/DeleteReview";
 import Navigation from "./components/Navigation";
-import Profile from "./components/Profile";
+// import Profile from "./components/Profile";
 import PageNotFound from "./components/PageNotFound";
 
-import { loadSpotsActionCreator, getSpots } from "./store/spot";
+import { getSpots } from "./store/spot";
 
 function App() {
 	// const loggedIn = useSelector((state) => state.user);
@@ -29,7 +29,7 @@ function App() {
 		dispatch(sessionActions.restoreSessionThunk()).then(() =>
 			setIsLoaded(true)
 		);
-		//need to dispatch getSpots function w/i the useEffect to get all spots -- called it in the Spots comp
+		//need to dispatch getSpots function w/i the useEffect to get all spots
 		dispatch(getSpots());
 	}, [dispatch]);
 

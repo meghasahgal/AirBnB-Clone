@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
@@ -13,14 +13,42 @@ const SignupFormPage = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [errors, setErrors] = useState([]);
+	// const [errors, setErrors] = useState([]);
+	const [validationErrors, setValidationErrors] = useState([]);
+
+	//new error handler
+	useEffect(() => {
+		const newErrors = [];
+		if (!firstName) {
+			newErrors.push("First Name field is required");
+		}
+		if (!lastName) {
+			newErrors.push("Last Name field is required");
+		}
+		if (!email) {
+			newErrors.push("Email field is required");
+		}
+		if (!username) {
+			newErrors.push("Username field is required");
+		}
+		if (!password) {
+			newErrors.push("Password field is required");
+		}
+		if (!confirmPassword  && confirmPassword!== password) {
+			newErrors.push(
+				"Confirm Password field must be the same as the Password field"
+			);
+		}
+
+		setValidationErrors(newErrors);
+	}, [email, username, password, firstName, lastName, confirmPassword]);
 
 	if (sessionUser) return <Redirect to="/" />;
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			setErrors([]);
+			setValidationErrors([]);
 			return dispatch(
 				sessionActions.signUpThunk({
 					email,
@@ -31,21 +59,16 @@ const SignupFormPage = () => {
 				})
 			).catch(async (res) => {
 				const data = await res.json();
-				if (data && data.errors) setErrors(data.errors);
+				// if (data && data.errors) setErrors(data.errors);
 			});
 		}
-		return setErrors([
+		return setValidationErrors([
 			"Confirm Password field must be the same as the Password field",
 		]);
 	};
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<ul>
-				{errors.map((error, idx) => (
-					<li key={idx}>{error}</li>
-				))}
-			</ul>
 			<label>
 				First Name
 				<input
@@ -102,6 +125,13 @@ const SignupFormPage = () => {
 				/>
 			</label>
 			<button type="submit">Sign Up</button>
+			<ul>
+				{/* {errors.map((error, idx) => (
+					<li key={idx}>{error}</li>
+				))} */}
+				{validationErrors.length > 0 &&
+					validationErrors.map((error) => <li key={error}>{error}</li>)}
+			</ul>
 		</form>
 	);
 };

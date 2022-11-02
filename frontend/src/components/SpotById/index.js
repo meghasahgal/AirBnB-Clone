@@ -18,7 +18,6 @@ const SpotById = () => {
 	const sessionUser = useSelector((state) => state.session.user);
     const reviews = useSelector((state) => Object.values(state.reviews));
 
-	const [showEditSpotForm, setShowEditSpotForm] = useState(false);
 
     const star = <FontAwesomeIcon icon={faStar} />;
 
@@ -44,6 +43,9 @@ const SpotById = () => {
 		let path = `/spots/${spotId}/reviews`;
 		history.push(path);
 	};
+
+    //map duplicate reviews
+    const findDuplicateReviews = reviews.filter(review => review.userId === sessionUser.id)
 
 	return (
         <>

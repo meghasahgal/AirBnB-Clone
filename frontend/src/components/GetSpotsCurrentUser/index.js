@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getSpots } from "../../store/spot";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const GetSpotsCurrentUser = () => {
 	const sessionUser = useSelector((state) => state.session.user);
-	const history = useHistory();
 	const dispatch = useDispatch();
 	const allSpotsArray = useSelector((state) => Object.values(state.spots));
 	useEffect(() => {
@@ -39,11 +38,7 @@ const GetSpotsCurrentUser = () => {
 								{spot.avgRating}
 								{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
 								<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-								{/* <FontAwesomeIcon
-									icon={spot.avgRating ? className="fa-solid fa-star" : null}
-								/> */}
-
-								{/* <i className="fa-solid fa-star"></i> */}
+								
 							</div>
 							<div className="secondary-text">
 								{"$"}
