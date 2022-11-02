@@ -42,7 +42,10 @@ const Spots = () => {
 
 	//need to add race case for spot? here too
 	return (
-		<>
+		<> <hr></hr>
+			<div></div>
+			<div></div>
+			<div></div>
 			<button className="btn-create-spot" onClick={() => history.push("/spots/create")}>Create Spot</button>
 			<div></div>
 			<div className="spots-container">

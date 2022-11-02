@@ -5,7 +5,9 @@ width: 50%
 .img-size{
 width: 100%
 } */
-
+hr{
+    opacity: 0.5;
+}
 .img-size {
     /* background-size: contain; */
     /* background-repeat: no-repeat; */
@@ -14,14 +16,17 @@ width: 100%
 .spots-container{
 
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: space-between;
-  flex-direction: row;
-  column-gap: 30px;
+  column-gap: 18px;
   line-height: 20px;
-  margin: 10px 10px 10px 80px;
+  margin: 16px 0px 40px 0px;
+  padding: 0 80px 0 80px;
   cursor: pointer;
+  /* opacity: 0.9; */
+
 
  }
 
@@ -35,9 +40,14 @@ width: 100%
 
 .heart {
     display: inline;
-    opacity: 1;
+    align-items: right;
+    opacity: 0.8;
     box-sizing: border-box;
     text-decoration: none solid rgb(34, 34,34);
+    /* background-color: white; */
+    background-position: 0% 0%;
+    color: #222222;
+    float: right;
 
 }
 
@@ -56,11 +66,16 @@ width: 100%
 
 .btn-create-spot{
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 10vw;
-        margin-right: 80px;
-        text-align: right;
+        align-self: flex-end;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        /* flex-direction: row; */
+        /* justify-content: flex-end; */
+        /* justify-content: space-between; */
+
+        height: auto;
+        margin-left: 80px;
+        text-align: center;
 }
 
 /* button{

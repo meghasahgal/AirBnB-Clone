@@ -40,7 +40,7 @@ function Navigation({ isLoaded }) {
 			{/* second  */}
 			<div className="search-bar">
 				<input type="text" />
-				<FontAwesomeIcon icon={faSearch} />
+				<FontAwesomeIcon icon={faSearch} className="search-icon" />
 			</div>
 
 			{/* third section	 */}

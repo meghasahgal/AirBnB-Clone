@@ -41,6 +41,7 @@
     height: 30px;
     border: 1px solid lightgray;
     border-radius: 999px;
+    cursor: pointer;
 
 }
 
@@ -49,6 +50,7 @@
     width: 250px;
     outline-width: 0;
     padding: 12px 12px 12px 12px;
+    cursor: pointer;
 }
 
 /* third sec */
@@ -64,7 +66,7 @@
 }
 
 .logo{
-
+    margin-left: 50px;
     height: 80px;
     width: 102px;
     z-index: 1;
@@ -99,6 +101,13 @@
     box-shadow:rgba(0, 0, 0, 0.18) 0px 2px 4px 0px;
     border-radius: 21px;
 
+}
+
+.search-icon{
+    color: white;
+    /* background-color: #FF385C; */
+    display: block;
+    border-radius: 50%;
 }
 /*
 .host-login{
