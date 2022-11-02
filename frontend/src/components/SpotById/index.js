@@ -17,6 +17,7 @@ const SpotById = () => {
 	const spot = useSelector((state) => state.spots[spotId]);
 	const sessionUser = useSelector((state) => state.session.user);
     const reviews = useSelector((state) => Object.values(state.reviews));
+    const review = reviews.map(review => review.spotId == spotId)
 
 
     const star = <FontAwesomeIcon icon={faStar} />;
@@ -48,57 +49,63 @@ const SpotById = () => {
     const findDuplicateReviews = reviews.filter(review => review.userId === sessionUser.id)
 
 	return (
-        <>
-        {spot &&(
-		<div className="spots-container">
-			<div></div>
-			<div></div>
-			<div></div>
-			<div
+		<>
+			{spot && (
+				<div className="spots-container">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div className="img-container">
+						<div
+							className="img-size primary-text"
+							style={{ backgroundImage: `url('${spot.previewImage}')` }}
+						></div>
+					</div>
+					<div className="spot-details">
+						<div>
+							{spot.city}
+							{", "}
+							{spot.state}
+							{", "}
+							{spot.country}
+						</div>
+						<div>{spot.location}</div>
+						<div>{spot.description}</div>
+						<div>
+							<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
+							{spot.avgRating}
+						</div>
+						<div>
+							{review.length}
+							{review.length === 1 ? " review" : " reviews"}
+						</div>
+						{spot.userId === sessionUser?.id && (
+							<button onClick={routeChangetoEditForm}>Edit Spot</button>
+						)}
+						{spot.userId === sessionUser?.id && (
+							<button onClick={() => handleDeleteClick(spot.id)}>
+								Delete Spot
+							</button>
+						)}
+						<br></br>
+						<br></br>
+						<br></br>
+						<div></div>
+						<ReviewsBySpotId spot={spot} />
 
-				className="img-size primary-text"
-				style={{ backgroundImage: `url('${spot.previewImage}')` }}
-			></div>
-			<div>
-				{spot.city}
-				{", "}
-				{spot.state}
-				{", "}
-				{spot.country}
-			</div>
-			<div>{spot.location}</div>
-			<div>{spot.description}</div>
-			<div>
-				{spot.avgRating}
-
-				<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-			</div>
-			<div>
-				{reviews.length}
-				{reviews.length === 1 ? " review" : " reviews"}
-			</div>
-			{spot.userId === sessionUser?.id && (
-				<button onClick={routeChangetoEditForm}>Edit Spot</button>
+						<div></div>
+						<br></br>
+						<br></br>
+						{/* spot owner can't write a review of their own place */}
+						{spot.userId !== sessionUser?.id && (
+							<button onClick={routeChangetoCreateReviewForm}>
+								Add a Review
+							</button>
+						)}
+					</div>
+				</div>
 			)}
-			{spot.userId === sessionUser?.id && (
-				<button onClick={() => handleDeleteClick(spot.id)}>Delete Spot</button>
-			)}
-			<br></br>
-			<br></br>
-			<br></br>
-			<div></div>
-			<ReviewsBySpotId />
-
-			<div></div>
-			<br></br>
-			<br></br>
-            {/* spot owner can't write a review of their own place */}
-			{spot.userId !== sessionUser?.id && (
-				<button onClick={routeChangetoCreateReviewForm}>Add a Review</button>
-			 )}
-		</div>
-        )}
-       </>
+		</>
 	);
 
 	{

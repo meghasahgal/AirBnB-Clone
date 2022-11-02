@@ -4,10 +4,30 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
 import "./Spots.css";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Spots = () => {
 	const allSpotsArray = useSelector((state) => Object.values(state.spots));
+	const allReviewsArray = useSelector((state) => Object.values(state.reviews));
+	// const allReviewsArray = Object.values(reviews).map(
+	// 	(review) => spotId == review.spotId
+	// 	);
+	// const filteredReviewsForStars = allReviewsArray.map(review => review.stars)
+
+	// //average calculation
+
+	// const averageStars = (filteredReviewsForStars, spotId)=>{
+	// 	let average;
+	// 	let total = 0
+	// 	for(let i = 0; i <filteredReviewsForStars.length; i++){
+	// 		let stars = filteredReviewsForStars[i]
+	// 		total += stars
+	// 	}
+	// 	average = total/filteredReviewsForStars.length
+	// 	return average
+	// }
+
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getSpots());
@@ -23,6 +43,8 @@ const Spots = () => {
 	//need to add race case for spot? here too
 	return (
 		<>
+			<button className="btn-create-spot" onClick={() => history.push("/spots/create")}>Create Spot</button>
+			<div></div>
 			<div className="spots-container">
 				{allSpotsArray.map((spot) => (
 					<div key={spot?.id}>
@@ -30,20 +52,29 @@ const Spots = () => {
 							<div
 								style={{ backgroundImage: `url('${spot.previewImage}')` }}
 								className="img-size primary-text"
-							></div>
-							<Link to={`/spots/${spot.id}`}>{spot.name}</Link>
+							>
+								<FontAwesomeIcon className="heart" icon={faHeart} />
+							</div>
+							<Link className="spot-link" to={`/spots/${spot.id}`}>{spot.name}</Link>
 							<div className="secondary-text">
 								{spot.city}
 								{","} {spot.state}
 							</div>
 
 							<div className="secondary-text">
-								{spot.avgRating}
-								{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
+								{/*
+								{allReviewsArray.map((review) => (
+									<div key={review.id}>
+										<div>
+											{review.stars}
+
+											<FontAwesomeIcon icon={review.stars ? faStar : null} />
+										</div>
+									</div>
+								))} */}
+								{/* {averageStars} */}
 								<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-								{/* <FontAwesomeIcon
-									icon={spot.avgRating ? className="fa-solid fa-star" : null}
-								/> */}
+								{spot.avgRating}
 
 								{/* <i className="fa-solid fa-star"></i> */}
 							</div>
@@ -57,9 +88,6 @@ const Spots = () => {
 						</div>
 					</div>
 				))}
-				<button onClick={() => history.push("/spots/create")}>
-					Create Spot
-				</button>
 			</div>
 		</>
 	);

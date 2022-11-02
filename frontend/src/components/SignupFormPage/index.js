@@ -124,7 +124,9 @@ const SignupFormPage = () => {
 					required
 				/>
 			</label>
-			<button type="submit">Sign Up</button>
+			<button type="submit" disabled={validationErrors.length > 0}>
+				Sign Up
+			</button>
 			<ul>
 				{/* {errors.map((error, idx) => (
 					<li key={idx}>{error}</li>

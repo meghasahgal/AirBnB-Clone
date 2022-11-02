@@ -1,20 +1,35 @@
+/* .img-container{
+    width: 33%;
+} */
+
+
 .img-size {
-    display: block;
-    height: 364px;
-    width: 364px;
+    display: flex;
+    height: 286px;
+    width: 302px;
     font-family: Circular,
         -apple-system,
         BlinkMacSystemFont,
         Roboto,
         Helvetica Neue,
         sans-serif;
-    font-size: 24px;
+    border-radius: 10px;
+    /* font-size: 24px;
     line-height: 1.43;
     color: #484848;
     background-color: #fff;
     margin: 5px 5px, 0px, 0px;
-    border-radius: 10px;
-    object-fit: cover;
+    object-fit: cover; */
+
+
+}
+
+/* .spot-details{
+    display: block;
+} */
+
+.button {
+    width: 27px;
 }
 
 .primary-text {

@@ -11,10 +11,11 @@ const ReviewsBySpotId = () => {
 	const dispatch = useDispatch();
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots[spotId]);
+    console.log(spot, "spot")
 	const reviews = useSelector((state) => state.reviews);
 	// const review = useSelector(state=>state.reviews[spotId])
 	// const allReviewArray = Object.values(review)
-	const allReviewsArray = Object.values(reviews);
+	const allReviewsArray = Object.values(reviews).filter((review)=> spotId == review.spotId);
 	const sessionUser = useSelector((state) => state.session.user);
 
 	//dispatch the thunk the get the reviews for the spotId

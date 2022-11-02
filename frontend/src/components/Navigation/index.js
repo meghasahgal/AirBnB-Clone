@@ -26,7 +26,7 @@ function Navigation({ isLoaded }) {
 	}
 
 	return (
-		<nav>
+		<div className="header">
 			<ul>
 				<div>
 					<NavLink exact to="/">
@@ -34,19 +34,28 @@ function Navigation({ isLoaded }) {
 							<img className="logo" src={logo} alt="logo"></img>
 						</div>
 					</NavLink>{" "}
-					{isLoaded && sessionLinks}
 				</div>
 			</ul>
 
-			<div className="search-bar"></div>
-			<input type="text" />
-			<FontAwesomeIcon icon={faSearch} />
+			{/* second  */}
+			<div className="search-bar">
+				<input type="text" />
+				<FontAwesomeIcon icon={faSearch} />
+			</div>
+
+			{/* third section	 */}
 
 			<div className="host-login">
+				<p>Become a Host</p>
 				<FontAwesomeIcon icon={faGlobe} />
-				<FontAwesomeIcon icon={faBars} />
+				<ul>
+					<div>
+						<NavLink exact to="/"></NavLink> {isLoaded && sessionLinks}
+					</div>
+				</ul>
 			</div>
-		</nav>
+
+		</div>
 	);
 }
 

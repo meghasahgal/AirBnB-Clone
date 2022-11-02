@@ -5,43 +5,69 @@ width: 50%
 .img-size{
 width: 100%
 } */
+
+.img-size {
+    /* background-size: contain; */
+    /* background-repeat: no-repeat; */
+    background-size:cover;
+}
 .spots-container{
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); */
-    display: flex;
-    flex-direction: column;
-    column-gap: 30px;
-    flex-wrap: wrap;
-    
-    padding: 10px;
-    height: 364px;
-    width: 364px;
-    font-family: Circular,
-        -apple-system,
-        BlinkMacSystemFont,
-        Roboto,
-        Helvetica Neue,
-        sans-serif;
-    font-size: 16px;
-    line-height: 1.43;
-    color: #484848;
-    background-color: #fff;
-    margin: 10px 10px 10px 80px;
-    border-radius: 10px;
-    /* object-fit: cover; */
-    /* flex-basis: calc(100% / 4); */
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: space-between;
+  flex-direction: row;
+  column-gap: 30px;
+  line-height: 20px;
+  margin: 10px 10px 10px 80px;
+  cursor: pointer;
+
+ }
+
+
+ .spot-link{
+    text-decoration: none;
+ }
+/* .spots-container:hover{
+    opacity: 0.8;
+} */
+
+.heart {
+    display: inline;
+    opacity: 1;
+    box-sizing: border-box;
+    text-decoration: none solid rgb(34, 34,34);
+
 }
 
 .primary-text {
     font-size: 16px;
     font-weight: bold;
+    line-height: 20px
 }
 
 .secondary-text{
     font-size: 16px;
-    color: #767676
+    color: #767676;
+    line-height: 1.43;
+
 }
 
+.btn-create-spot{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 10vw;
+        margin-right: 80px;
+        text-align: right;
+}
+
+/* button{
+    display: block;
+    height: 25px;
+    width: 100px;
+} */
 
 /* @media screen and (max-width: 1127px) {
     .spots-container { */

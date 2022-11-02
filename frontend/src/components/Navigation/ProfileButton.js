@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faBars
+} from "@fortawesome/free-solid-svg-icons";
 import "./Navigation.css"
 
 function ProfileButton({ user }) {
@@ -33,6 +38,8 @@ function ProfileButton({ user }) {
 		<>
 			<div className="profile">
 				<button className="btn-profile" onClick={openMenu}>
+					<FontAwesomeIcon icon={faBars} />
+
 					<i className="fas fa-user-circle" />
 				</button>
 				{showMenu && (
