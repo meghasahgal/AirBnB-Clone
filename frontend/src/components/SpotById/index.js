@@ -80,7 +80,7 @@ const SpotById = () => {
 						</div>
 						<div></div>
 
-\						{spot.userId === sessionUser?.id && (
+						{spot.userId === sessionUser?.id && (
 							<button onClick={routeChangetoEditForm}>Edit Spot</button>
 						)}
 						{spot.userId === sessionUser?.id && (
@@ -98,7 +98,7 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place */}
-						{spot.userId !== sessionUser?.id && (
+						{sessionUser.id && spot.userId !== sessionUser?.id && (
 							<button onClick={routeChangetoCreateReviewForm}>
 								Add a Review
 							</button>
