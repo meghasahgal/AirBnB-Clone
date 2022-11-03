@@ -1,0 +1,30 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FF385C;
+    border-radius: 10px;
+
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+input{
+    text-align:left;
+}
+
+.button-submit {
+    display: flex;
+    margin-top: 40px;
+
+}
+
+.button-cancel{
+    display: flex;
+    margin-top: 40px;
+}

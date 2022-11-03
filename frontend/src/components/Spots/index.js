@@ -85,7 +85,7 @@ const Spots = () => {
 							<div className="secondary-text">
 								{"$"}
 								{spot.price}
-								{"/night"}
+								{" night"}
 							</div>
 
 							<br></br>

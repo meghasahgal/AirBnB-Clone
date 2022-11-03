@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createReview } from "../../store/review";
+import "./CreateReviewForm.css"
 
 const CreateReviewForm = () => {
 	const history = useHistory();
@@ -86,10 +87,10 @@ const CreateReviewForm = () => {
 
 						<br></br>
 						<br></br>
-						<button type="submit" disabled={validationErrors.length > 0}>
+						<button className="button-submit" type="submit" disabled={validationErrors.length > 0}>
 							Create Review
 						</button>
-						<button type="button" onClick={handleCancelClick}>
+						<button className="button-cancel"type="button" onClick={handleCancelClick}>
 							Cancel
 						</button>
 						<ul className="errors">

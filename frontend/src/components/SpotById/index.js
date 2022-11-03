@@ -17,7 +17,8 @@ const SpotById = () => {
 	const spot = useSelector((state) => state.spots[spotId]);
 	const sessionUser = useSelector((state) => state.session.user);
     const reviews = useSelector((state) => Object.values(state.reviews));
-    const review = reviews.map(review => review.spotId == spotId)
+    const review = reviews.filter(review => review.spotId == spotId)
+    console.log(review, "review")
 
 
     const star = <FontAwesomeIcon icon={faStar} />;
