@@ -36,18 +36,24 @@ const AverageRatingCalc = ({spot}) => {
 		for (let i = 0; i < filteredReviewsForStars.length; i++) {
 			let stars = filteredReviewsForStars[i];
 			total += stars;
-            console.log(total, "total")
 		}
 		average = total / filteredReviewsForStars.length;
         console.log("average", average)
 		return average;
 	};
 
+
+
+
 	return (
 		<div>
 			{" "}
-			<FontAwesomeIcon icon={filteredReviewsForStars.length ? faStar : null} />
-			{averageStars(filteredReviewsForStars, spotId) ? Number(averageStars(filteredReviewsForStars, spotId).toFixed(1)): "New"}
+			<FontAwesomeIcon
+				icon={filteredReviewsForStars.length ? faStar : null}
+			/>{" "}
+			{averageStars(filteredReviewsForStars, spotId)
+				? averageStars(filteredReviewsForStars, spotId).toFixed(1)
+				: "New"}
 		</div>
 	);
 };

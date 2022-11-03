@@ -58,7 +58,7 @@ const SpotById = () => {
 					<div></div>
 					<div className="img-container">
 						<div
-							className="img-size primary-text"
+							className="img-size-id primary-text"
 							style={{ backgroundImage: `url('${spot.previewImage}')` }}
 						></div>
 					</div>
@@ -74,12 +74,11 @@ const SpotById = () => {
 						<div>{spot.description}</div>
 						<div>
 							<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-							{spot.avgRating}
-						</div>
-						<div>
+							{spot.avgRating} {"·"}
 							{review.length}
 							{review.length === 1 ? " review" : " reviews"}
 						</div>
+						<div></div>
 						{spot.userId === sessionUser?.id && (
 							<button onClick={routeChangetoEditForm}>Edit Spot</button>
 						)}

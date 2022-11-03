@@ -47,19 +47,7 @@ const Spots = () => {
 							</div>
 
 							<div className="secondary-text">
-								{/*
-								{allReviewsArray.map((review) => (
-									<div key={review.id}>
-										<div>
-											{review.stars}
-
-											<FontAwesomeIcon icon={review.stars ? faStar : null} />
-										</div>
-									</div>
-								))} */}
-								{/* {averageStars} */}
-								{/* <FontAwesomeIcon icon={spot.avgRating ? faStar : null} /> */}
-								{/* {spot.avgRating} */}
+					
 								<AverageRatingCalc spot={spot} />
 								{/* <i className="fa-solid fa-star"></i> */}
 							</div>

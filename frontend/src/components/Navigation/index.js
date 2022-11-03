@@ -46,7 +46,7 @@ function Navigation({ isLoaded }) {
 			{/* third section	 */}
 
 			<div className="host-login">
-				<p>Become a Host</p>
+				<p class="host-text">Become a Host</p>
 				<FontAwesomeIcon icon={faGlobe} />
 				<ul>
 					<div>

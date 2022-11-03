@@ -59,10 +59,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 15vw;
+    /* width: 15vw; */
     margin-right: 80px;
 
 
+}
+
+.host-text{
+    display: flex;
+    margin-right: 15px;
 }
 
 .logo{
@@ -88,7 +93,10 @@
 
 .btn-profile{
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
     height: 42px;
     width: 77px;
     border: 20px solid tangerine;
@@ -96,10 +104,11 @@
     padding: 5px 5px 5px 12px;
     border: 1px solid #DDDDDD;
     vertical-align: middle;
-    transition: box-shadow 0.2s ease 0s;
+    /* transition: box-shadow 0.2s ease 0s; */
     cursor: pointer;
-    box-shadow:rgba(0, 0, 0, 0.18) 0px 2px 4px 0px;
+    /* box-shadow:rgba(0, 0, 0, 0.18) 0px 2px 4px 0px; */
     border-radius: 21px;
+    background-color: white;
 
 }
 

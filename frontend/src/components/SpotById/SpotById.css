@@ -1,12 +1,28 @@
-/* .img-container{
-    width: 33%;
-} */
 
-
-.img-size {
+.img-size-id {
     display: flex;
-    height: 286px;
-    width: 302px;
+    height: 428px;
+    width: 560px;
+    font-family: Circular,
+        -apple-system,
+        BlinkMacSystemFont,
+        Roboto,
+        Helvetica Neue,
+        sans-serif;
+    border-radius: 10px;
+    background-size: cover;
+    /* font-size: 24px;
+    line-height: 1.43;
+    color: #484848;
+    background-color: #fff;
+    margin: 5px 5px, 0px, 0px;
+    object-fit: cover; */
+
+ }
+
+.img-size-spot-id {
+    display: flex;
+    flex-direction: row;
     font-family: Circular,
         -apple-system,
         BlinkMacSystemFont,

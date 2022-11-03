@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { getReviews, deleteReview } from "../../store/review";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
-
+import "./ReviewsBySpotId.css"
 
 const ReviewsBySpotId = () => {
 	const history = useHistory();
@@ -38,14 +38,15 @@ const ReviewsBySpotId = () => {
 	return (
 		<div>
 			<div className="section-heading">Reviews</div>
+			<hr></hr>
 			<div className="reviews-container">
 				{allReviewsArray.map((review) => (
-					<div key={review.id}>
+					<div className="review-id" key={review.id}>
 						<div className="review-details">
 							<div>{review.review}</div>
 							<div>
-								{review.stars}
 								<FontAwesomeIcon icon={review.stars ? faStar : null} />
+								{review.stars.toFixed(1)}
 							</div>
 						</div>
 						{review.userId === sessionUser?.id && (
@@ -53,6 +54,7 @@ const ReviewsBySpotId = () => {
 								Delete Review
 							</button>
 						)}
+						<hr></hr>
 					</div>
 				))}
 			</div>
