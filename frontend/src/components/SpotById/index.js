@@ -46,8 +46,8 @@ const SpotById = () => {
 		history.push(path);
 	};
 
-    //map duplicate reviews
-    const findDuplicateReviews = reviews.filter(review => review.userId === sessionUser.id)
+    //map duplicate reviews - commented out
+    // const findDuplicateReviews = reviews.filter(review => review.userId === sessionUser.id)
 
 	return (
 		<>
@@ -79,7 +79,8 @@ const SpotById = () => {
 							{review.length === 1 ? " review" : " reviews"}
 						</div>
 						<div></div>
-						{spot.userId === sessionUser?.id && (
+
+\						{spot.userId === sessionUser?.id && (
 							<button onClick={routeChangetoEditForm}>Edit Spot</button>
 						)}
 						{spot.userId === sessionUser?.id && (
