@@ -47,39 +47,38 @@ const validateSignin = [
 ];
 
 const validateSpot = [
-  check('address', 'Street address is required')
-    .exists({ checkFalsy: true })
-    .notEmpty(),
-  check('city', 'City is required')
-    .exists({ checkFalsy: true })
-    .notEmpty(),
-  check('state', 'State is required')
-    .exists({ checkFalsy: true })
-    .notEmpty(),
-  check('country', 'Country is required')
-    .exists({ checkFalsy: true })
-    .notEmpty(),
-  check('lat', 'Latitude is not valid')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .isDecimal(),
-  check('lng', 'Longitude is not valid')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .isDecimal(),
-  check('name', 'Name is required')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .isLength({ max: 50 })
-    .withMessage('Name must be less than 50 characters'),
-  check('description', 'Description is required')
-    .exists({ checkFalsy: true })
-    .notEmpty(),
-  check('price', 'Price per day is required')
-    .exists({ checkFalsy: true })
-    .notEmpty(),
-  handleValidationErrors
-]
+	check("address", "Street address is required")
+		.exists({ checkFalsy: true })
+		.notEmpty(),
+	check("city", "City is required").exists({ checkFalsy: true }).notEmpty(),
+	check("state", "State is required").exists({ checkFalsy: true }).notEmpty(),
+	check("country", "Country is required")
+		.exists({ checkFalsy: true })
+		.notEmpty(),
+	check("lat", "Latitude is not valid")
+		.exists({ checkFalsy: true })
+		.notEmpty()
+		.isDecimal(),
+	check("lng", "Longitude is not valid")
+		.exists({ checkFalsy: true })
+		.notEmpty()
+		.isDecimal(),
+	check("name", "Name is required")
+		.exists({ checkFalsy: true })
+		.notEmpty()
+		.isLength({ max: 50 })
+		.withMessage("Name must be less than 50 characters"),
+	check("description", "Description is required")
+		.exists({ checkFalsy: true })
+		.notEmpty(),
+	check("price", "Price per day is required")
+		.exists({ checkFalsy: true })
+		.notEmpty(),
+	check("previewImage", "Image is required")
+		.exists({ checkFalsy: true })
+		.notEmpty(),
+	handleValidationErrors,
+];
 
 const validateImage = [
   check('url', 'URL is required')

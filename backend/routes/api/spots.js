@@ -173,9 +173,9 @@ router.get("/:spotId", async (req, res, next) => {
 		attributes: {
 			include: [
 				[sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
-				[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"],
+				[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"], //changed to avgRating vs avgStarRating
 			],
-			exclude: ["avgRating"],
+			// exclude: ["avgRating"], //took out
 		},
 		group: ["Spot.id", "Owner.id", "SpotImages.id"],
 	});
@@ -208,8 +208,8 @@ router.get("/:spotId", async (req, res, next) => {
 			item.previewImage = "There is no preview image for the spot yet.";
 		}
 		//if no avgStarRating, either say so, or if there is, assign it
-		if (!item.avgStarRating) {
-			item.avgStarRating = 0;
+		if (!item.avgRating) { //changed to avgRating vs avgStarRating
+			item.avgRating = 0;
 		}
 	});
 	res.status(200).json(spotList);
