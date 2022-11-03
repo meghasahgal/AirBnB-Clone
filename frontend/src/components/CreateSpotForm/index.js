@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createSpot } from "../../store/spot";
+import "./CreateSpotForm.css"
 
 const CreateSpotForm = () => {
 
@@ -224,12 +225,14 @@ const CreateSpotForm = () => {
 					/>
 					<br></br>
 					<br></br>
-					<button type="submit" disabled={validationErrors.length > 0}>
-						Create Spot
-					</button>
-					<button type="button" onClick={handleCancelClick}>
-						Cancel
-					</button>
+					<div className="create-spot-forms-buttons">
+						<button type="submit" disabled={validationErrors.length > 0}>
+							Create Spot
+						</button>
+						<button type="button" onClick={handleCancelClick}>
+							Cancel
+						</button>
+					</div>
 					<ul className="errors">
 						{validationErrors.length > 0 &&
 							validationErrors.map((error) => <li key={error}>{error}</li>)}

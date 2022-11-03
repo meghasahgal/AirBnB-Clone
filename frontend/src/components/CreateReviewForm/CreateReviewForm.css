@@ -1,3 +1,16 @@
+
+.create-review-form {
+    display: inline-block;
+    padding: 15px;
+    align-items: center;
+}
+
+
+.create-review-form-buttons {
+    display: inline-block;
+
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -18,7 +31,7 @@ input{
     text-align:left;
 }
 
-.button-submit {
+/* .button-submit {
     display: flex;
     margin-top: 40px;
 
@@ -27,4 +40,4 @@ input{
 .button-cancel{
     display: flex;
     margin-top: 40px;
-}
+} */
