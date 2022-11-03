@@ -1,5 +1,18 @@
 # AirBnB-Clone
 
+Introduction:
+A full stack application that purports to replicate the AirBnB website, with a focus on two main features:
+Spots and Reviews.
+
+Technologies Used:
+Backend: Sequelize, Express, JavaScript, NodeJS
+Frontend: ReactJS, Redux, NodeJS
+
+Image: <Need to Add>
+
+Instructions to Launch the App Locally: <Need to Add>
+
+
 ## Database Schema Design
 
 <img width="1095" alt="image" src="https://user-images.githubusercontent.com/1787106/190841012-cb1bf91b-026a-4de0-8a26-664ebdb4d4a1.png">
