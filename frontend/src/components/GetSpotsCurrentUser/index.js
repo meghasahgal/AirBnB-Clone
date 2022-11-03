@@ -18,6 +18,9 @@ const GetSpotsCurrentUser = () => {
 		(spot) => spot.userId === sessionUser.id
 	);
 
+	// console.log(spot.userId, "spotUserId")
+	console.log(sessionUser.id, "sessionUserId")
+	console.log(spotsCurrentUser, "spotsCurrentUser")
 	return (
 		<>
 			<div className="spots-container">
@@ -38,7 +41,7 @@ const GetSpotsCurrentUser = () => {
 								{spot.avgRating}
 								{/* <{spot.avgRating?FontAwesomeIcon icon= "fa-solid fa-star":null} /> */}
 								<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-								
+
 							</div>
 							<div className="secondary-text">
 								{"$"}

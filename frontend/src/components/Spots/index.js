@@ -3,12 +3,13 @@ import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
+import AverageRatingCalc from "../AverageRatingCalc"
 import "./Spots.css";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Spots = () => {
 	const allSpotsArray = useSelector((state) => Object.values(state.spots));
-	const allReviewsArray = useSelector((state) => Object.values(state.reviews));
+	// const allReviewsArray = useSelector((state) => Object.values(state.reviews));
 	// const allReviewsArray = Object.values(reviews).map(
 	// 	(review) => spotId == review.spotId
 	// 	);
@@ -76,9 +77,9 @@ const Spots = () => {
 									</div>
 								))} */}
 								{/* {averageStars} */}
-								<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-								{spot.avgRating}
-
+								{/* <FontAwesomeIcon icon={spot.avgRating ? faStar : null} /> */}
+								{/* {spot.avgRating} */}
+								<AverageRatingCalc spot={spot} />
 								{/* <i className="fa-solid fa-star"></i> */}
 							</div>
 							<div className="secondary-text">

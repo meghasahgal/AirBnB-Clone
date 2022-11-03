@@ -8,7 +8,8 @@ const PageNotFound = () => {
 
 	return (
 		<div>
-			<p>No Page Found</p>
+			<h1>Oops!</h1>
+			<p>We can't seem to find the page you're looking for.</p>
 			<button onClick={routeChangeToHome}>Go Back To Home</button>
 		</div>
 	);

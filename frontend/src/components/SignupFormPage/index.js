@@ -124,7 +124,7 @@ const SignupFormPage = () => {
 					required
 				/>
 			</label>
-			<button type="submit" disabled={validationErrors.length > 0}>
+			<button className = "sign-up-button"type="submit" disabled={validationErrors.length > 0}>
 				Sign Up
 			</button>
 			<ul>

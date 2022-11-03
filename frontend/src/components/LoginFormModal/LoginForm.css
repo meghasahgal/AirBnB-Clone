@@ -25,4 +25,7 @@ button {
     align-items: right;
     margin: 5px;
 
-} */ 
+} */
+.modal-content {
+    border-radius: 10px;
+}

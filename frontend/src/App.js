@@ -11,6 +11,7 @@ import Spots from "./components/Spots";
 import SpotById from "./components/SpotById";
 import GetSpotsCurrentUser from "./components/GetSpotsCurrentUser"
 import CreateReviewForm from "./components/CreateReviewForm";
+import AverageRatingCalc from "./components/AverageRatingCalc"
 // import DeleteReview from "./components/DeleteReview";
 import Navigation from "./components/Navigation";
 // import Profile from "./components/Profile";
@@ -53,6 +54,10 @@ function App() {
 					<Route exact path="/spots/myspots">
 						<GetSpotsCurrentUser />
 					</Route>
+
+					{/* <Route exact path="/spots/:spotId/avgRating">
+						<AverageRatingCalc />
+					</Route> */}
 
 					<Route exact path="/spots/:spotId/edit">
 						<EditSpotForm />
