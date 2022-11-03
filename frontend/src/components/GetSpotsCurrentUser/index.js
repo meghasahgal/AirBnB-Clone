@@ -18,9 +18,9 @@ const GetSpotsCurrentUser = () => {
 		(spot) => spot.userId === sessionUser.id
 	);
 
-	// console.log(spot.userId, "spotUserId")
-	console.log(sessionUser.id, "sessionUserId")
-	console.log(spotsCurrentUser, "spotsCurrentUser")
+	// // console.log(spot.userId, "spotUserId")
+	// console.log(sessionUser.id, "sessionUserId")
+	// console.log(spotsCurrentUser, "spotsCurrentUser")
 	return (
 		<>
 			<div className="spots-container">

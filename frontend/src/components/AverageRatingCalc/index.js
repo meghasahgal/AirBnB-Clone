@@ -47,7 +47,7 @@ const AverageRatingCalc = ({spot}) => {
 		<div>
 			{" "}
 			<FontAwesomeIcon icon={filteredReviewsForStars.length ? faStar : null} />
-			{averageStars(filteredReviewsForStars, spotId) ? averageStars(filteredReviewsForStars, spotId): "New"}
+			{averageStars(filteredReviewsForStars, spotId) ? Number(averageStars(filteredReviewsForStars, spotId).toFixed(1)): "New"}
 		</div>
 	);
 };
