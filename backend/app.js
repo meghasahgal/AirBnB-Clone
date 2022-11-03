@@ -12,6 +12,7 @@ const isProduction = environment === 'production';
 // catching Sequelize errors and formatting them before sending the error response.
 
 const { ValidationError } = require('sequelize');
+const routes = require('./routes');
 
 const app = express();
 //for logging information about requests and responses:
@@ -49,12 +50,11 @@ app.use(
 
 
 // backend/app.js
-const routes = require('./routes');
 
 // ...
-app.get('/', async(req,res)=>{
-  res.json("successfully created.")
-})
+// app.get('/', async(req,res)=>{
+//   res.json("successfully created.")
+// })
 
 app.use(routes); // Connect all the routes
 
