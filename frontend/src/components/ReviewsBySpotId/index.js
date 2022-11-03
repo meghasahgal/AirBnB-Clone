@@ -46,7 +46,7 @@ const ReviewsBySpotId = () => {
 							<div>{review.review}</div>
 							<div>
 								<FontAwesomeIcon icon={review.stars ? faStar : null} />
-								{review.stars.toFixed(1)}
+								{review.stars}
 							</div>
 						</div>
 						{review.userId === sessionUser?.id && (
