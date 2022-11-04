@@ -31,7 +31,7 @@ const AverageRatingCalc = ({spot}) => {
 		let average;
 		let total = 0;
 		for (let i = 0; i < filteredReviewsForStars.length; i++) {
-			let stars = filteredReviewsForStars[i];
+			let stars = Number(filteredReviewsForStars[i]);
 			total += Number(stars);
 		}
 		average = total / filteredReviewsForStars.length;
@@ -47,7 +47,7 @@ const AverageRatingCalc = ({spot}) => {
 				icon={filteredReviewsForStars.length ? faStar : null}
 			/>{" "}
 			{averageStars(filteredReviewsForStars, spotId)
-				? Number(averageStars(filteredReviewsForStars, spotId)).toFixed(1)
+				? (averageStars(filteredReviewsForStars, spotId)).toFixed(1)
 				: "New"}
 		</div>
 	);
