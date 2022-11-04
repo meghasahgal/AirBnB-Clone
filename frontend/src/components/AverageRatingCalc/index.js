@@ -32,7 +32,7 @@ const AverageRatingCalc = ({spot}) => {
 		let total = 0;
 		for (let i = 0; i < filteredReviewsForStars.length; i++) {
 			let stars = filteredReviewsForStars[i];
-			total += stars;
+			total += Number(stars);
 		}
 		average = total / filteredReviewsForStars.length;
         console.log("average", average)
