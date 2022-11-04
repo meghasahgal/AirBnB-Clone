@@ -8,10 +8,7 @@ import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 // map through all reviews based on spot id then render in Spots
 const AverageRatingCalc = ({spot}) => {
 	const dispatch = useDispatch();
-	// const { spotId } = useParams();
-	// const spot = useSelector((state) => state.spots[spotId]);
 
-	// console.log(spot, "spot");
     const spotId = spot.id
 	const reviews = useSelector((state) => state.reviews);
 	//dispatch the thunk the get the reviews for the spotId

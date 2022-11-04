@@ -47,7 +47,6 @@ const Spots = () => {
 							</div>
 
 							<div className="secondary-text">
-					
 								<AverageRatingCalc spot={spot} />
 								{/* <i className="fa-solid fa-star"></i> */}
 							</div>
