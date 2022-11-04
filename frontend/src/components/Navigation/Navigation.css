@@ -118,6 +118,19 @@
     display: block;
     border-radius: 50%;
 }
+
+.login-form {
+    border: 10px solid white;
+}
+
+.input {
+    margin: 10px;
+}
+
+.login-btn-modal{
+    /* padding: 10px; */
+    min-width: 25px;
+}
 /*
 .host-login{
     display: flex;

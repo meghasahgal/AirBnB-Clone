@@ -26,6 +26,32 @@ button {
     margin: 5px;
 
 } */
-.modal-content {
+
+.login-form {
+    display: flex;
+    flex-direction: column;
     border-radius: 10px;
+    align-content: right;
+    justify-content: space-evenly;
+    align-items: right;
+    /* padding: 10px; */
+    border: 10px solid white;
+    margin-top: -5px
+}
+
+.text-elements{
+    padding: 20px;
+}
+
+.login-button{
+    /* display: flex; */
+    width: 200px;
+    min-width: 200px;
+    height: 33px;
+    align-items: center;
+    font-size: 20px;
+    text-align: center;
+    background-color: #FF385C;
+    color: white;
+    border-radius: 5px;
 }

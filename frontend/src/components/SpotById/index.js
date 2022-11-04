@@ -21,7 +21,7 @@ const SpotById = () => {
     const review = reviews.filter(review => review.spotId == spotId)
     console.log(review, "review")
 
-    
+
 
     const star = <FontAwesomeIcon icon={faStar} />;
 
@@ -54,7 +54,7 @@ const SpotById = () => {
 	return (
 		<>
 			{spot && (
-				<div className="spots-container">
+				<div className="spots-container-individual-spot">
 					<div></div>
 					<div></div>
 					<div></div>
@@ -64,7 +64,7 @@ const SpotById = () => {
 							style={{ backgroundImage: `url('${spot.previewImage}')` }}
 						></div>
 					</div>
-					<div className="spot-details">
+					<div className="spot-details-container">
 						{/* <div className="spot-id-text-block-intro">Entire Home Hosted By Sherry</div> */}
 						<div>
 							{spot.city}
@@ -78,7 +78,7 @@ const SpotById = () => {
 						<div>
 							{/* <FontAwesomeIcon icon={spot.avgRating ? faStar : null} /> */}
 							<AverageRatingCalc spot={spot} />
-							 {"·"}
+							{"·"}
 							{review.length}
 							{review.length === 1 ? " review" : " reviews"}
 						</div>
@@ -96,13 +96,14 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						<div></div>
-						<ReviewsBySpotId spot={spot} />
-
+						<div className="reviews-container">
+							<ReviewsBySpotId spot={spot} />
+						</div>
 						<div></div>
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place */}
-						{sessionUser?.id && (spot.userId !== sessionUser?.id) && (
+						{sessionUser?.id && spot.userId !== sessionUser?.id && (
 							<button onClick={routeChangetoCreateReviewForm}>
 								Add a Review
 							</button>
