@@ -3,11 +3,13 @@ import { useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getSpots } from "../../store/spot";
-import AverageRatingCalc from "../AverageRatingCalc"
+import AverageRatingCalc from "../AverageRatingCalc";
 import "./Spots.css";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Spots = () => {
+	const sessionUser = useSelector((state) => state.session.user);
+
 	const allSpotsArray = useSelector((state) => Object.values(state.spots));
 
 	const dispatch = useDispatch();
@@ -24,11 +26,20 @@ const Spots = () => {
 
 	//need to add race case for spot? here too
 	return (
-		<> <hr></hr>
+		<>
+			{" "}
+			<hr></hr>
 			<div></div>
 			<div></div>
 			<div></div>
-			<button className="btn-create-spot" onClick={() => history.push("/spots/create")}>Create Spot</button>
+			{sessionUser?.id && (
+				<button
+					className="btn-create-spot"
+					onClick={() => history.push("/spots/create")}
+				>
+					Create Spot
+				</button>
+			 )}
 			<div></div>
 			<div className="spots-container">
 				{allSpotsArray.map((spot) => (
@@ -40,7 +51,9 @@ const Spots = () => {
 							>
 								<FontAwesomeIcon className="heart" icon={faHeart} />
 							</div>
-							<Link className="spot-link" to={`/spots/${spot.id}`}>{spot.name}</Link>
+							<Link className="spot-link" to={`/spots/${spot.id}`}>
+								{spot.name}
+							</Link>
 							<div className="secondary-text">
 								{spot.city}
 								{","} {spot.state}

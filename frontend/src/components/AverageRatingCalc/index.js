@@ -20,11 +20,11 @@ const AverageRatingCalc = ({spot}) => {
 	const allReviewsArray = Object.values(reviews).filter(
 		(review) => spotId == review.spotId
 	);
-	console.log(allReviewsArray, "allReviewsArray"); //returns an array of objs
+	// console.log(allReviewsArray, "allReviewsArray"); //returns an array of objs
 	const sessionUser = useSelector((state) => state.session.user);
 
 	const filteredReviewsForStars = allReviewsArray.map((review) => review.stars);
-	console.log(filteredReviewsForStars, "filteredReviewsForStars"); // returns an array of stars numbers
+	// console.log(filteredReviewsForStars, "filteredReviewsForStars"); // returns an array of stars numbers
 	//average calculation
 
 	const averageStars = (filteredReviewsForStars, spotId) => {
@@ -35,7 +35,7 @@ const AverageRatingCalc = ({spot}) => {
 			total += Number(stars);
 		}
 		average = total / filteredReviewsForStars.length;
-        console.log("average", average)
+        // console.log("average", average)
 		return average;
 	};
 

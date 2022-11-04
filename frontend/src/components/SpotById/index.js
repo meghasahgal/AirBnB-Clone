@@ -8,6 +8,7 @@ import CreateReviewForm from "../CreateReviewForm";
 import "./SpotById.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import AverageRatingCalc from "../AverageRatingCalc"
 
 
 const SpotById = () => {
@@ -20,6 +21,7 @@ const SpotById = () => {
     const review = reviews.filter(review => review.spotId == spotId)
     console.log(review, "review")
 
+    
 
     const star = <FontAwesomeIcon icon={faStar} />;
 
@@ -63,7 +65,7 @@ const SpotById = () => {
 						></div>
 					</div>
 					<div className="spot-details">
-                        {/* <div className="spot-id-text-block-intro">Entire Home Hosted By Sherry</div> */}
+						{/* <div className="spot-id-text-block-intro">Entire Home Hosted By Sherry</div> */}
 						<div>
 							{spot.city}
 							{", "}
@@ -74,8 +76,9 @@ const SpotById = () => {
 						<div>{spot.location}</div>
 						<div>{spot.description}</div>
 						<div>
-							<FontAwesomeIcon icon={spot.avgRating ? faStar : null} />
-							{spot.avgRating} {"·"}
+							{/* <FontAwesomeIcon icon={spot.avgRating ? faStar : null} /> */}
+							<AverageRatingCalc spot={spot} />
+							 {"·"}
 							{review.length}
 							{review.length === 1 ? " review" : " reviews"}
 						</div>
@@ -99,7 +102,7 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place */}
-						{sessionUser?.id && spot.userId !== sessionUser?.id && (
+						{sessionUser?.id && (spot.userId !== sessionUser?.id) && (
 							<button onClick={routeChangetoCreateReviewForm}>
 								Add a Review
 							</button>
@@ -110,16 +113,7 @@ const SpotById = () => {
 		</>
 	);
 
-	{
-		/* <button onClick={routeChangetoEditForm}>Edit Spot</button>
-				<button onClick={routeChangetoDelete}>Delete Spot</button> */
-	}
 
-	{
-		/* <div>
-					<EditSpotForm />
-				</div> */
-	}
 };
 
 export default SpotById;

@@ -51,6 +51,10 @@ const CreateReviewForm = () => {
 		if (!stars) {
 			newErrors.push("Stars field is required");
 		}
+		if(stars < 1.0 || stars > 5.0)
+		{
+			newErrors.push("Stars field needs to be a decimal number between 1.0 and 5.0");
+		}
 		setValidationErrors(newErrors);
 	}, [review, stars]);
 
