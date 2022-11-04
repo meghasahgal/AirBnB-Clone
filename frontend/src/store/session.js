@@ -70,7 +70,7 @@ export const signUpThunk = (user) => async (dispatch) => {
 
 //logout thunk
 export const logOutThunk = () => async (dispatch) => {
-	const response = await csrfFetch("api/session", {
+	const response = await csrfFetch("/api/session", {
 		method: "DELETE",
 	});
 	if (response.ok) {
