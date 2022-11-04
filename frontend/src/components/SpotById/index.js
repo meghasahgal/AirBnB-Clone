@@ -58,12 +58,9 @@ const SpotById = () => {
 					<div></div>
 					<div></div>
 					<div></div>
-					<div className="img-container">
-						<div
-							className="img-size-id primary-text"
-							style={{ backgroundImage: `url('${spot.previewImage}')` }}
-						></div>
-					</div>
+
+					<div className="title-text">{spot.description}</div>
+
 					<div className="spot-details-container">
 						{/* <div className="spot-id-text-block-intro">Entire Home Hosted By Sherry</div> */}
 						<div>
@@ -74,13 +71,18 @@ const SpotById = () => {
 							{spot.country}
 						</div>
 						<div>{spot.location}</div>
-						<div>{spot.description}</div>
 						<div>
 							{/* <FontAwesomeIcon icon={spot.avgRating ? faStar : null} /> */}
 							<AverageRatingCalc spot={spot} />
 							{"·"}
 							{review.length}
 							{review.length === 1 ? " review" : " reviews"}
+						</div>
+						<div className="img-container">
+							<div
+								className="img-size-id primary-text"
+								style={{ backgroundImage: `url('${spot.previewImage}')` }}
+							></div>
 						</div>
 						<div></div>
 

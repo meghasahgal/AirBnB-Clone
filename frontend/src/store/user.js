@@ -1,15 +1,18 @@
 import { csrfFetch } from "./csrf";
 
 //Actions
-const GET_USER = "reviews/GET_USER";
+const GET_USER_REVIEWS = "user/GET_USER_REVIEWS";
 
 //Action Creators
-export const getUser = (user) =>{
-    return {
-        type: "GET_USER",
-        user
-    }
-}
+export const getUserReviewsAction = (reviews) => {
+	return {
+		type: GET_USER_REVIEWS,
+		reviews,
+	};
+};
 
 
 //THUNK
+export const getUserReviewsThunk = () => async (dispatch) => {
+    const response = await 
+}

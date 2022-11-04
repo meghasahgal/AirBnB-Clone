@@ -43,8 +43,8 @@ const ReviewsBySpotId = () => {
 				{allReviewsArray.map((review) => (
 					<div className="review-id" key={review.id}>
 						<div className="review-details">
+							<div className="review-font">{review?.User?.firstName} {" "} {review?.User?.lastName}</div>
 							<div>{review.review}</div>
-							{/* <div>{review.User.firstName} */}
 							<div>
 								<FontAwesomeIcon icon={review.stars ? faStar : null} />{" "}
 								{review.stars}
