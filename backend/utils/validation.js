@@ -93,9 +93,10 @@ const validateReview = [
   check('review', 'Review text is required')
     .exists({ checkFalsy: true })
     .notEmpty(),
-  check('stars', 'Stars must be an integer from 1 to 5')
+    // changed to decimal value
+  check('stars', 'Stars must be a decimal from 1.0 to 5.0')
     .exists({ checkFalsy: true })
-    .isInt({ min: 0, max: 5 }),
+    .isDecimal({ min: 1.0, max: 5.0 }),
   handleValidationErrors
 ];
 
