@@ -10,16 +10,14 @@ const rootReducer = combineReducers({
 });
 
 let enhancer;
-// move logger back down to else statement
+
 if (process.env.NODE_ENV === "production") {
-	const logger = require("redux-logger").default;
-	enhancer = applyMiddleware(thunk, logger);
+	enhancer = applyMiddleware(thunk);
 } else {
 	const logger = require("redux-logger").default;
 	const composeEnhancers =
-	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 	enhancer = composeEnhancers(applyMiddleware(thunk, logger));
-
 }
 
 const configureStore = (preloadedState) => {
