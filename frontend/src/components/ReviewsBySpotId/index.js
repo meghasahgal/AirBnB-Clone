@@ -23,10 +23,10 @@ const ReviewsBySpotId = () => {
 		dispatch(getReviews(spotId));
 	}, []);
 
-	const routeChangetoDeleteReview = () => {
-		let path = `/spots/${spotId}/reviews/${reviews.id}/delete`;
-		history.push(path);
-	};
+	// const routeChangetoDeleteReview = () => {
+	// 	let path = `/spots/${spotId}/reviews/${reviews.id}/delete`;
+	// 	history.push(path);
+	// };
 
 	//to prevent the page from re-loading on click and dispatching the delete action creator
 	const handleDeleteClick = (id) => {
@@ -44,8 +44,9 @@ const ReviewsBySpotId = () => {
 					<div className="review-id" key={review.id}>
 						<div className="review-details">
 							<div>{review.review}</div>
+							{/* <div>{review.User.firstName} */}
 							<div>
-								<FontAwesomeIcon icon={review.stars ? faStar : null} />
+								<FontAwesomeIcon icon={review.stars ? faStar : null} />{" "}
 								{review.stars}
 							</div>
 						</div>

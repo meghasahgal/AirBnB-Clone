@@ -1,19 +1,13 @@
-// frontend/src/components/LoginFormPage/index.js
-
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
-import "../Navigation/Navigation.css"
-import { useHistory } from "react-router-dom";
+import "../Navigation/Navigation.css";
 
-
-function LoginForm() {
+function LoginFormPage() {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	const [credential, setCredential] = useState("");
 	const [password, setPassword] = useState("");
 	const [errors, setErrors] = useState([]);
-
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -24,14 +18,6 @@ function LoginForm() {
 				if (data && data.errors) setErrors(data.errors);
 			}
 		);
-	};
-
-	//handle click function
-	const handleCancelClick = (e) => {
-		e.preventDefault();
-		history.push(`/spots`);
-
-		// hideForm();
 	};
 
 	return (
@@ -60,9 +46,8 @@ function LoginForm() {
 				/>
 			</label>
 			<button type="submit">Log In</button>
-			{/* <button onClick={handleCancelClick}>Cancel</button> */}
 		</form>
 	);
 }
 
-export default LoginForm;
+export default LoginFormPage;

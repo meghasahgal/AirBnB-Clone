@@ -43,8 +43,6 @@ const AverageRatingCalc = ({spot}) => {
 	};
 
 
-
-
 	return (
 		<div>
 			{" "}
@@ -52,7 +50,7 @@ const AverageRatingCalc = ({spot}) => {
 				icon={filteredReviewsForStars.length ? faStar : null}
 			/>{" "}
 			{averageStars(filteredReviewsForStars, spotId)
-				? averageStars(filteredReviewsForStars, spotId).toFixed(1)
+				? Number(averageStars(filteredReviewsForStars, spotId)).toFixed(1)
 				: "New"}
 		</div>
 	);

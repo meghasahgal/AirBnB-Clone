@@ -39,7 +39,6 @@ function ProfileButton({ user }) {
 			<div className="profile">
 				<button className="btn-profile" onClick={openMenu}>
 					<FontAwesomeIcon icon={faBars} />
-
 					<i className="fas fa-user-circle" />
 				</button>
 				{showMenu && (

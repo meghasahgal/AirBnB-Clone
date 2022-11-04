@@ -63,6 +63,7 @@ const SpotById = () => {
 						></div>
 					</div>
 					<div className="spot-details">
+                        {/* <div className="spot-id-text-block-intro">Entire Home Hosted By Sherry</div> */}
 						<div>
 							{spot.city}
 							{", "}

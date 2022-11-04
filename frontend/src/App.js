@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
+// import LoginFormPage from "./components/LoginFormPage"
 import CreateSpotForm from "./components/CreateSpotForm";
 import EditSpotForm from "./components/EditSpotForm";
 // import DeleteSpot from "./components/DeleteSpot";
@@ -39,6 +40,7 @@ function App() {
 			<Navigation isLoaded={isLoaded} />
 			{isLoaded && (
 				<Switch>
+
 					<Route exact path="/signup">
 						<SignupFormPage />
 					</Route>
@@ -55,17 +57,11 @@ function App() {
 						<GetSpotsCurrentUser />
 					</Route>
 
-					{/* <Route exact path="/spots/:spotId/avgRating">
-						<AverageRatingCalc />
-					</Route> */}
 
 					<Route exact path="/spots/:spotId/edit">
 						<EditSpotForm />
 					</Route>
 
-					{/* <Route exact path="/spots/:spotId/delete">
-						<DeleteSpot />
-					</Route> */}
 
 					<Route exact path="/spots/:spotId/reviews">
 						<CreateReviewForm />
