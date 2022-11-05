@@ -18,29 +18,23 @@ const SpotById = () => {
 	const sessionUser = useSelector((state) => state.session.user);
 	const reviews = useSelector((state) => Object.values(state.reviews)); //all reviews array in store
 	const review = reviews.filter((review) => review.spotId == spotId); // all reviews for the specific spot
-	console.log(review, "review");
-	const [showCreateReview, setShowCreateReview] = useState(false);
+	// console.log(review, "review");
+	// const allUserSessionReviews = review.filter((review) => review.userId == sessionUser.id)
+	// console.log(allUserSessionReviews, "allUserSessionReviews")
+	// const [showCreateReview, setShowCreateReview] = useState(false);
 
-	//map duplicate reviews - commented out
-	// const findDuplicateReviews = review?.filter(
-	// 	(rev) => rev?.userId === sessionUser?.id
-	// )
-	// 	? false
-	// 	: true;
+	//map over reviews:
+	const allReviewsUserIds = review.map((review) =>review.userId)
+	// console.log(allReviewsUserIds, "allReviewsUserIds")
+	// returns true if user has a review, false if not
+	let check = (allReviewsUserIds.includes(sessionUser.id))
+	// console.log(check, "check")
+	//returns true if not owner, false if owner
+	let owner = spot?.userId !== sessionUser?.id;
+	// console.log(spot.userId, "spotUserId")
+	// console.log(sessionUser.id, "sessionUserId")
+	// console.log(owner, "owner")
 
-	// const show = () => {
-	// 	if (findDuplicateReviews == false) {
-	// 		return setShowCreateReview(false);
-	// 	} else return setShowCreateReview(true);
-	// };
-
-	// if current sessionUser.id already has a review, then setShowCreateReview(false) else setShowCreateReview(true)
-	//review above is an array of reviews for the spotId
-
-
-
-
-	// console.log(findDuplicateReviews, "findDuplicateReviews");
 	const star = <FontAwesomeIcon icon={faStar} />;
 
 	useEffect(() => {
@@ -125,7 +119,7 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place and a user that already has a review can't write another one*/}
-						{sessionUser?.id && spot.userId !== sessionUser?.id &&  (
+						{sessionUser?.id && owner && !check &&(
 							<button
 								className="add-review-button"
 								onClick={routeChangetoCreateReviewForm}
