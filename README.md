@@ -10,6 +10,7 @@ Frontend: ReactJS, Redux, NodeJS
 
 [AirBNB-dup]([https://airbnb-dup.herokuapp.com/] to App.
 
+### Home Page:
 
 <img width="1372" alt="image" src="https://user-images.githubusercontent.com/1787106/200107247-7a765907-ef80-4305-9cc3-45f672976108.png">
 
