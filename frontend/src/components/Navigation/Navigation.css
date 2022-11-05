@@ -131,6 +131,10 @@
     /* padding: 10px; */
     min-width: 25px;
 }
+
+.host-link{
+    text-decoration: none;
+}
 /*
 .host-login{
     display: flex;
