@@ -18,24 +18,23 @@ const SpotById = () => {
 	const sessionUser = useSelector((state) => state.session.user);
 	const reviews = useSelector((state) => Object.values(state.reviews)); //all reviews array in store
 	const review = reviews.filter((review) => review.spotId == spotId); // all reviews for the specific spot
-	console.log(review, "review");
+	// console.log(review, "review");
 	// const allUserSessionReviews = review.filter((review) => review.userId == sessionUser.id)
 	// console.log(allUserSessionReviews, "allUserSessionReviews")
 	// const [showCreateReview, setShowCreateReview] = useState(false);
 
 	//map over reviews:
 	const allReviewsUserIds = review.map((review) =>review.userId)
-	console.log(allReviewsUserIds, "allReviewsUserIds")
+	// console.log(allReviewsUserIds, "allReviewsUserIds")
 	// returns true if user has a review, false if not
 	let check = (allReviewsUserIds.includes(sessionUser.id))
-	console.log(check, "check")
+	// console.log(check, "check")
 	//returns true if not owner, false if owner
 	let owner = spot?.userId !== sessionUser?.id;
-	console.log(spot.userId, "spotUserId")
-	console.log(sessionUser.id, "sessionUserId")
-	console.log(owner, "owner")
+	// console.log(spot.userId, "spotUserId")
+	// console.log(sessionUser.id, "sessionUserId")
+	// console.log(owner, "owner")
 
-	// console.log(findDuplicateReviews, "findDuplicateReviews");
 	const star = <FontAwesomeIcon icon={faStar} />;
 
 	useEffect(() => {
