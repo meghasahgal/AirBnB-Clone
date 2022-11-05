@@ -24,7 +24,7 @@ const Spots = () => {
 	// 	history.push(path);
 	// };
 
-	//need to add race case for spot? here too
+	
 	return (
 		<>
 			{" "}

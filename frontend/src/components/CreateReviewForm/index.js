@@ -35,11 +35,11 @@ const CreateReviewForm = () => {
 		};
 
 		let createdReview = await dispatch(createReview(spotId, payload));
-		if (createdReview) {
-			//need to change the route here SOON!
-			history.push(`/spots/${spotId}`);
+		// if (createdReview) {
+		// 	go back to route
+		history.push(`/spots/${spotId}`);
 			// hideForm();
-		}
+		// }
 	};
 
 	// error handler

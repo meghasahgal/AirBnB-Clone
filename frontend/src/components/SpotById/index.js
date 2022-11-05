@@ -16,7 +16,7 @@ const SpotById = () => {
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots[spotId]);
 	const sessionUser = useSelector((state) => state.session.user);
-	const reviews = useSelector((state) => Object.values(state.reviews));
+	const reviews = useSelector((state) => Object.values(state.reviews)); //all reviews array in store
 	const review = reviews.filter((review) => review.spotId == spotId); // all reviews for the specific spot
 	console.log(review, "review");
 	const [showCreateReview, setShowCreateReview] = useState(false);
@@ -33,6 +33,10 @@ const SpotById = () => {
 	// 		return setShowCreateReview(false);
 	// 	} else return setShowCreateReview(true);
 	// };
+
+	// if current sessionUser.id already has a review, then setShowCreateReview(false) else setShowCreateReview(true)
+	//review above is an array of reviews for the spotId
+
 
 
 
@@ -73,7 +77,7 @@ const SpotById = () => {
 					<div className="title-text">{spot.description}</div>
 
 					<div className="spot-details-container">
-						{/* <div className="spot-id-text-block-intro">Entire Home Hosted By Sherry</div> */}
+						{/* <div className="spot-id-intro">Entire Home Hosted By Mikel</div> */}
 						<div>
 							{spot.city}
 							{", "}
@@ -92,7 +96,7 @@ const SpotById = () => {
 						<div className="img-container">
 							<div
 								className="img-size-id primary-text"
-								style={{ backgroundImage: `url('${spot.previewImage}')` }}
+								style={{ backgroundImage: `url('${spot?.previewImage}')` }}
 							></div>
 						</div>
 						<div></div>
@@ -121,7 +125,7 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place and a user that already has a review can't write another one*/}
-						{sessionUser?.id && spot.userId !== sessionUser?.id && (
+						{sessionUser?.id && spot.userId !== sessionUser?.id &&  (
 							<button
 								className="add-review-button"
 								onClick={routeChangetoCreateReviewForm}
