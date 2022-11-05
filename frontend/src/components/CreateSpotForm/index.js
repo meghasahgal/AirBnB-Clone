@@ -75,7 +75,7 @@ const CreateSpotForm = () => {
 		// console.log(errorsArray, "errorsArray")
 		// setErrors[errorsArray]
 	}
-
+	history.push('/spots') // added redirection here
 	}
 
 //new error handler
@@ -96,7 +96,7 @@ const CreateSpotForm = () => {
 			if (!lat || lat % 1 === 0) {
 				newErrors.push("Latitude field is a required decimal value");
 			}
-			if (!lng) {
+			if (!lng || lng % 1 === 0 ) {
 				newErrors.push("Longitude field is a required decimal value");
 			}
 			if (!name) {
@@ -151,7 +151,6 @@ const CreateSpotForm = () => {
 						value={address}
 						onChange={(e) => setAddress(e.target.value)}
 					/>
-					{/* <ErrorMessage label={"Address"} message={} /> */}
 					<div>City</div>
 					<input
 						type="text"

@@ -43,10 +43,10 @@ const SpotById = () => {
 		dispatch(getSpotById(spotId));
 	}, [spotId]);
 
-	// handleDeleteClick
+	// handleDeleteClick // fixed by taking out the id in the redirect callbackroute
 	const handleDeleteClick = (id) => {
 		dispatch(deleteSpot(id));
-		history.push(`/spots/${spot.id}`);
+		history.push(`/spots`);
 	};
 
 	// //button to edit spot

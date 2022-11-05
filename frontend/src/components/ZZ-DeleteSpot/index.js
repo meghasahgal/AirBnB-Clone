@@ -18,22 +18,25 @@ const DeleteSpot = () => {
 			};
 
     //checking if the spot belongs to the current session user
-	if (!sessionUser || sessionUser.id !== spot.userId) {
-		return (
-			<div>
-				<div> You cannot delete a spot that you do not own.</div>
-				<button onClick={handleGoBackToSpotClick}>Go Back to Spot</button>
-			</div>
-		);
-	}
+	// if (!sessionUser || sessionUser.id !== spot.userId) {
+	// 	return (
+	// 		<div>
+	// 			<div> You cannot delete a spot that you do not own.</div>
+	// 			<button onClick={handleGoBackToSpotClick}>Go Back to Spot</button>
+	// 		</div>
+	// 	);
+	// }
 
     //to prevent the page from re-loading on click and dispatching the delete action creator
 	const handleDeleteClick = (e) => {
-		e.preventDefault();
-        dispatch(deleteSpot(spot.id))
-		history.push(`/spots`);
+		 e.preventDefault();
+		 dispatch(deleteSpot(spot.id))
+		//  history.push(`/spots`);
 	};
 
+	// const redirect = (e) => {
+	// 	history.push('/spots')
+	// }
 
     const handleCancelClick = (e) => {
 		history.push(`/spots/${spot.id}`);
