@@ -5,7 +5,7 @@ A full stack application that purports to replicate the AirBnB website, with a f
 Spots and Reviews.
 
 Technologies Used:
-Backend: Sequelize, Express, JavaScript, NodeJS
+Backend: Sequelize, Express, JavaScript, NodeJS;
 Frontend: ReactJS, Redux, NodeJS
 
 
