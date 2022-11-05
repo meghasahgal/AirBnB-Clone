@@ -8,9 +8,15 @@ Technologies Used:
 Backend: Sequelize, Express, JavaScript, NodeJS
 Frontend: ReactJS, Redux, NodeJS
 
-Image: <Need to Add>
+Image:
+<img width="1372" alt="image" src="https://user-images.githubusercontent.com/1787106/200107247-7a765907-ef80-4305-9cc3-45f672976108.png">
 
-Instructions to Launch the App Locally: <Need to Add>
+Code Snippets: 
+I enjoyed bringing together conceptual learnings of the React store, thunk and database retrievals to write the following code to get reviews by a spot's id (extracted per the param):
+<img width="1120" alt="image" src="https://user-images.githubusercontent.com/1787106/200107552-914705e6-028c-40b6-acef-b481bbaa9c8d.png">
+
+
+Instructions to Launch the App Locally: TBA
 
 
 ## Database Schema Design
