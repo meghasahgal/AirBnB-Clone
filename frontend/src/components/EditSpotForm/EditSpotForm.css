@@ -9,3 +9,13 @@
     display: inline-block;
 
 }
+
+.small-btn{
+    background-color: #FF385C;
+    color:white;
+    height: 30px;
+    width: 100px;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin: 5px;
+}

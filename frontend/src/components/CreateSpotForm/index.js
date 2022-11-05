@@ -226,11 +226,19 @@ const CreateSpotForm = () => {
 					<br></br>
 					<br></br>
 					<div className="create-spot-forms-buttons">
-						<button type="submit" disabled={validationErrors.length > 0}>
-							Create Spot
-						</button>
-						<button type="button" onClick={handleCancelClick}>
+						<button
+							className="small-btn"
+							type="button"
+							onClick={handleCancelClick}
+						>
 							Cancel
+						</button>
+						<button
+							className="small-btn"
+							type="submit"
+							disabled={validationErrors.length > 0}
+						>
+							Create
 						</button>
 					</div>
 					<ul className="errors">

@@ -5,8 +5,8 @@ const DemoUser = () => {
 	const dispatch = useDispatch();
 
 	const user = {
-		credential: "meghasahgal",
-		password: "monkey",
+		credential: "demo@user.io",
+		password: "password",
 	};
 
 	const handleClick = (e) => {

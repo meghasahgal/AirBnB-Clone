@@ -228,13 +228,21 @@ const EditSpotForm = () => {
 					<div></div>
 					<br></br>
 					<div></div>
-
-					<button type="submit" disabled={validationErrors.length > 0}>
-						Edit Spot
-					</button>
-					<button type="button" onClick={handleCancelClick}>
+					<button
+						className="small-btn"
+						type="button"
+						onClick={handleCancelClick}
+					>
 						Cancel
 					</button>
+					<button
+						className="small-btn"
+						type="submit"
+						disabled={validationErrors.length > 0}
+					>
+						Edit
+					</button>
+
 					<ul className="errors">
 						{validationErrors.length > 0 &&
 							validationErrors.map((error) => <li key={error}>{error}</li>)}

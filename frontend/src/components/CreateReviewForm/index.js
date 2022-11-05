@@ -91,11 +91,20 @@ const CreateReviewForm = () => {
 
 						<br></br>
 						<br></br>
-						<button className="button-submit" type="submit" disabled={validationErrors.length > 0}>
-							Create Review
-						</button>
-						<button className="button-cancel"type="button" onClick={handleCancelClick}>
+
+						<button
+							className="small-btn"
+							type="button"
+							onClick={handleCancelClick}
+						>
 							Cancel
+						</button>
+						<button
+							className="small-btn"
+							type="submit"
+							disabled={validationErrors.length > 0}
+						>
+							Submit
 						</button>
 						<ul className="errors">
 							{validationErrors.length > 0 &&
