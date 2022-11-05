@@ -8,7 +8,7 @@
     line-height: 20px;
     margin: 16px 0px 40px 0px;
     padding: 0 80px 0 80px;
-    cursor: pointer;
+    /* cursor: pointer; */
     margin-top: 50px;
     /* opacity: 0.9; */
 }
@@ -27,7 +27,11 @@
         sans-serif;
     border-radius: 10px;
     background-size: cover;
+    text-decoration: none;
+ }
 
+ .img-size-id:hover{
+    text-decoration: underline;
  }
 
 .img-size-spot-id {
