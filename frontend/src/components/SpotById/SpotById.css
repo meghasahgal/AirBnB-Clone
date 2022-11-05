@@ -57,8 +57,16 @@
 
 }
 
-.button {
-    width: 27px;
+.add-review-button {
+
+background-color: #FF385C;
+    color: white;
+    width: 150px;
+    height: 31px;
+    border-radius: 5px;
+    border: solid white 1px;
+
+
 }
 
 .primary-text {

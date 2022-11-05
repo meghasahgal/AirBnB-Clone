@@ -34,10 +34,15 @@ const ReviewsBySpotId = () => {
 		history.push(`/spots/${spot.id}`);
 	};
 
+	const routeChangetoCreateReviewForm = () => {
+		let path = `/spots/${spotId}/reviews`;
+		history.push(path);
+	};
+
 	// need to conditionally render by spot id, i.e, retrieve the review by spotId below - FIXED
 	return (
 		<div>
-			<div className="section-heading">Reviews</div>
+			<div className="primary-text">Reviews</div>
 			<hr></hr>
 			<div className="reviews-container">
 				{allReviewsArray.map((review) => (
@@ -51,12 +56,14 @@ const ReviewsBySpotId = () => {
 							</div>
 						</div>
 						{review.userId === sessionUser?.id && (
-							<button onClick={() => handleDeleteClick(review.id)}>
+							<button className="delete-spot-button" onClick={() => handleDeleteClick(review.id)}>
 								Delete Review
 							</button>
 						)}
 						<hr></hr>
+
 					</div>
+
 				))}
 			</div>
 		</div>

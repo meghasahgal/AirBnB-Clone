@@ -8,8 +8,7 @@ import CreateReviewForm from "../CreateReviewForm";
 import "./SpotById.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import AverageRatingCalc from "../AverageRatingCalc"
-
+import AverageRatingCalc from "../AverageRatingCalc";
 
 const SpotById = () => {
 	const history = useHistory();
@@ -17,23 +16,38 @@ const SpotById = () => {
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots[spotId]);
 	const sessionUser = useSelector((state) => state.session.user);
-    const reviews = useSelector((state) => Object.values(state.reviews));
-    const review = reviews.filter(review => review.spotId == spotId)
-    console.log(review, "review")
+	const reviews = useSelector((state) => Object.values(state.reviews));
+	const review = reviews.filter((review) => review.spotId == spotId); // all reviews for the specific spot
+	console.log(review, "review");
+	const [showCreateReview, setShowCreateReview] = useState(false);
+
+	//map duplicate reviews - commented out
+	// const findDuplicateReviews = review?.filter(
+	// 	(rev) => rev?.userId === sessionUser?.id
+	// )
+	// 	? false
+	// 	: true;
+
+	// const show = () => {
+	// 	if (findDuplicateReviews == false) {
+	// 		return setShowCreateReview(false);
+	// 	} else return setShowCreateReview(true);
+	// };
 
 
 
-    const star = <FontAwesomeIcon icon={faStar} />;
+	// console.log(findDuplicateReviews, "findDuplicateReviews");
+	const star = <FontAwesomeIcon icon={faStar} />;
 
 	useEffect(() => {
 		dispatch(getSpotById(spotId));
 	}, [spotId]);
 
-    // handleDeleteClick
-    	const handleDeleteClick = (id) => {
-				dispatch(deleteSpot(id));
-				history.push(`/spots/${spot.id}`);
-			};
+	// handleDeleteClick
+	const handleDeleteClick = (id) => {
+		dispatch(deleteSpot(id));
+		history.push(`/spots/${spot.id}`);
+	};
 
 	// //button to edit spot
 	const routeChangetoEditForm = () => {
@@ -41,15 +55,12 @@ const SpotById = () => {
 		history.push(path);
 	};
 
-// console.log(spotId)
+	// console.log(spotId)
 
 	const routeChangetoCreateReviewForm = () => {
 		let path = `/spots/${spotId}/reviews`;
 		history.push(path);
 	};
-
-    //map duplicate reviews - commented out
-    // const findDuplicateReviews = reviews.filter(review => review.userId === sessionUser.id)
 
 	return (
 		<>
@@ -87,10 +98,15 @@ const SpotById = () => {
 						<div></div>
 
 						{spot.userId === sessionUser?.id && (
-							<button onClick={routeChangetoEditForm}>Edit Spot</button>
+							<button
+								className="add-review-button"
+								onClick={routeChangetoEditForm}
+							>
+								Edit Spot
+							</button>
 						)}
 						{spot.userId === sessionUser?.id && (
-							<button onClick={() => handleDeleteClick(spot.id)}>
+							<button className="add-review-button"onClick={() => handleDeleteClick(spot.id)}>
 								Delete Spot
 							</button>
 						)}
@@ -104,9 +120,12 @@ const SpotById = () => {
 						<div></div>
 						<br></br>
 						<br></br>
-						{/* spot owner can't write a review of their own place */}
+						{/* spot owner can't write a review of their own place and a user that already has a review can't write another one*/}
 						{sessionUser?.id && spot.userId !== sessionUser?.id && (
-							<button onClick={routeChangetoCreateReviewForm}>
+							<button
+								className="add-review-button"
+								onClick={routeChangetoCreateReviewForm}
+							>
 								Add a Review
 							</button>
 						)}
@@ -115,8 +134,6 @@ const SpotById = () => {
 			)}
 		</>
 	);
-
-
 };
 
 export default SpotById;

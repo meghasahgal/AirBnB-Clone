@@ -72,17 +72,22 @@ hr{
 }
 
 .btn-create-spot{
-        display: flex;
-        align-self: flex-end;
         margin-top: 20px;
         margin-bottom: 20px;
-        /* flex-direction: row; */
-        /* justify-content: flex-end; */
-        /* justify-content: space-between; */
-
-        height: auto;
         margin-left: 80px;
-        text-align: center;
+        text-align: center; 
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content:space-around;
+        background-color: #FF385C;
+            color: white;
+            width: 150px;
+            height: 31px;
+            border-radius: 5px;
+            border: solid white 1px;
+
         /* background-color: #FF385C;
         color: white; */
 }

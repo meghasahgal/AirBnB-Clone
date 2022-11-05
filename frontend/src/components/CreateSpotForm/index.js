@@ -59,7 +59,7 @@ const CreateSpotForm = () => {
 // }
 		try{
 		let createdSpot = await dispatch(createSpot(payload));
-		console.log("this is created spot",createdSpot)
+		// console.log("this is created spot",createdSpot)
 		// if (createdSpot.Array.isArray([errors])) {
 		// 	history.push(`/spots/${createdSpot.id}`);
 		// 	// hideForm();
@@ -72,7 +72,7 @@ const CreateSpotForm = () => {
 		console.log(errors)
 		const errorsArray = Array.from(errors)
 		// if(errors) setErrors[errors]
-		console.log(errorsArray, "errorsArray")
+		// console.log(errorsArray, "errorsArray")
 		// setErrors[errorsArray]
 	}
 
