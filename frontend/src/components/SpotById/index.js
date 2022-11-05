@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSpotById, deleteSpot } from "../../store/spot";
 import EditSpotForm from "../EditSpotForm";
