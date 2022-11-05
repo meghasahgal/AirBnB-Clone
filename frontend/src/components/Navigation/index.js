@@ -47,7 +47,7 @@ function Navigation({ isLoaded }) {
 			{/* third section	 */}
 
 			<div className="host-login">
-				<p class="host-text">Become a Host</p>
+				<p class="host-text"><NavLink className="host-link"exact to = "/spots/create">Become a Host</NavLink></p>
 				<FontAwesomeIcon icon={faGlobe} />
 				<ul>
 					<div>
