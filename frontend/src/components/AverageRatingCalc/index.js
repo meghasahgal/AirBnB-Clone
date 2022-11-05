@@ -8,7 +8,6 @@ import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 // map through all reviews based on spot id then render in Spots
 const AverageRatingCalc = ({spot}) => {
 	const dispatch = useDispatch();
-
     const spotId = spot.id
 	const reviews = useSelector((state) => state.reviews);
 	//dispatch the thunk the get the reviews for the spotId
@@ -26,7 +25,6 @@ const AverageRatingCalc = ({spot}) => {
 	const filteredReviewsForStars = allReviewsArray.map((review) => review.stars);
 	// console.log(filteredReviewsForStars, "filteredReviewsForStars"); // returns an array of stars numbers
 	//average calculation
-
 	const averageStars = (filteredReviewsForStars, spotId) => {
 		let average;
 		let total = 0;
