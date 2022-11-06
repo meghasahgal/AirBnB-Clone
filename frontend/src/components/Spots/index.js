@@ -24,7 +24,7 @@ const Spots = () => {
 	// 	history.push(path);
 	// };
 
-	
+
 	return (
 		<>
 			{" "}
@@ -46,7 +46,7 @@ const Spots = () => {
 					<div key={spot?.id}>
 						<div className="spot-details">
 							<div
-								style={{ backgroundImage: `url('${spot.previewImage}')` }}
+								style={{ backgroundImage: `url('${spot?.previewImage}')` }}
 								className="img-size primary-text"
 							>
 								<FontAwesomeIcon className="heart" icon={faHeart} />
