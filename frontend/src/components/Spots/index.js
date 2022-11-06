@@ -48,7 +48,7 @@ const Spots = () => {
 						<div className="spot-details">
 							<div
 								style={{ backgroundImage: `url('${spot?.previewImage}')` }}
-								className="img-size primary-text"
+								className="img-size"
 							>
 								<FontAwesomeIcon className="heart" icon={faHeart} />
 							</div>
