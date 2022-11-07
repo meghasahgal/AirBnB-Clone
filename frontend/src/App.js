@@ -41,13 +41,16 @@ function App() {
 			<Navigation isLoaded={isLoaded} />
 			{isLoaded && (
 				<Switch>
-
 					<Route exact path="/signup">
 						<SignupFormPage />
 					</Route>
 
 					<Route exact path={["/", "/spots"]}>
 						<Spots />
+					</Route>
+
+					<Route exact path="/tryhosting">
+						<TryHosting />
 					</Route>
 
 					<Route exact path="/spots/create">
@@ -58,11 +61,9 @@ function App() {
 						<GetSpotsCurrentUser />
 					</Route>
 
-
 					<Route exact path="/spots/:spotId/edit">
 						<EditSpotForm />
 					</Route>
-
 
 					<Route exact path="/spots/:spotId/reviews">
 						<CreateReviewForm />

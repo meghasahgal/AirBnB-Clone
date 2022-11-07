@@ -1,0 +1,40 @@
+.large-font {
+    font-size: 64px;
+    font-weight: 600;
+    /* line-height: 20px; */
+    color: white;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    margin-left: 35px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* display: block; */
+    letter-spacing: -1.28px;
+
+
+}
+
+.button-try-hosting{
+    height: 48px;
+    width: 200px;
+    cursor: pointer;
+    background-color: #FF385C;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+    border-radius:5px;
+    margin-left: 170px;
+
+
+}
+
+.hosting-box{
+    height: 581px;
+    width: 576px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 72px 0 72px;
+    background-color: black;
+    align-items: center;
+}
