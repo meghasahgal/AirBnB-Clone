@@ -24,7 +24,7 @@ const Spots = () => {
 	// 	history.push(path);
 	// };
 
-	
+
 	return (
 		<>
 			{" "}
@@ -43,6 +43,7 @@ const Spots = () => {
 			<div></div>
 			<div className="spots-container">
 				{allSpotsArray.map((spot) => (
+				
 					<div key={spot?.id}>
 						<div className="spot-details">
 							<div
