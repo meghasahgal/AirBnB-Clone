@@ -11,19 +11,38 @@ const ReviewsBySpotId = () => {
 	const dispatch = useDispatch();
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots[spotId]);
+	console.log(spot, "spot");
 	const reviews = useSelector((state) => state.reviews);
+	// const review = useSelector(state=>state.reviews[spotId])
+	// const allReviewArray = Object.values(review)
 	//filter reviews for specific spot
-	const allReviewsArray = Object.values(reviews).filter((review)=> spotId == review.spotId);
+	const allReviewsArray = Object.values(reviews).filter(
+		(review) => spotId == review.spotId
+	);
 	const sessionUser = useSelector((state) => state.session.user);
+
 	//dispatch the thunk the get the reviews for the spotId
 	useEffect(() => {
 		dispatch(getReviews(spotId));
 	}, []);
+
+	// const routeChangetoDeleteReview = () => {
+	// 	let path = `/spots/${spotId}/reviews/${reviews.id}/delete`;
+	// 	history.push(path);
+	// };
+
 	//to prevent the page from re-loading on click and dispatching the delete action creator
 	const handleDeleteClick = (id) => {
 		dispatch(deleteReview(id));
 		history.push(`/spots/${spot.id}`);
 	};
+
+	const routeChangetoCreateReviewForm = () => {
+		let path = `/spots/${spotId}/reviews`;
+		history.push(path);
+	};
+
+	// need to conditionally render by spot id, i.e, retrieve the review by spotId below - FIXED
 	return (
 		<div>
 			<div className="primary-text">Reviews</div>
@@ -32,7 +51,9 @@ const ReviewsBySpotId = () => {
 				{allReviewsArray.map((review) => (
 					<div className="review-id" key={review.id}>
 						<div className="review-details">
-							<div className="review-font">{review?.User?.firstName} {" "} {review?.User?.lastName}</div>
+							<div className="review-font">
+								{review?.User?.firstName} {review?.User?.lastName}
+							</div>
 							<div>{review.review}</div>
 							<div>
 								<FontAwesomeIcon icon={review.stars ? faStar : null} />{" "}
@@ -40,18 +61,18 @@ const ReviewsBySpotId = () => {
 							</div>
 						</div>
 						{review.userId === sessionUser?.id && (
-							<button className="delete-spot-button" onClick={() => handleDeleteClick(review.id)}>
+							<button
+								className="delete-spot-button"
+								onClick={() => handleDeleteClick(review.id)}
+							>
 								Delete Review
 							</button>
 						)}
 						<hr></hr>
-
 					</div>
-
 				))}
 			</div>
 		</div>
 	);
 };
-
 export default ReviewsBySpotId;
