@@ -27,7 +27,6 @@ const Spots = () => {
 
 	return (
 		<>
-
 			{" "}
 			<hr></hr>
 			<div></div>
@@ -44,15 +43,16 @@ const Spots = () => {
 			<div></div>
 			<div className="spots-container">
 				{allSpotsArray.map((spot) => (
+
 					<div key={spot?.id}>
 						<div className="spot-details">
 							<div
 								style={{ backgroundImage: `url('${spot.previewImage}')` }}
-								className="img-size"
+								className="img-size primary-text"
 							>
 								<FontAwesomeIcon className="heart" icon={faHeart} />
 							</div>
-							<Link className="spot-link" to={`/spots/${spot?.id}`}>
+							<Link className="spot-link" to={`/spots/${spot.id}`}>
 								{spot.name}
 							</Link>
 							<div className="secondary-text">
@@ -73,7 +73,6 @@ const Spots = () => {
 							<br></br>
 						</div>
 					</div>
-					: <div></div>
 				))}
 			</div>
 		</>

@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 // map through all reviews based on spot id then render in Spots
-const AverageRatingCalc = ({spot}) => {
+const AverageRatingCalc = ({ spot }) => {
 	const dispatch = useDispatch();
-    const spotId = spot?.id //added ?
+	const spotId = spot.id;
 	const reviews = useSelector((state) => state.reviews);
 	//dispatch the thunk the get the reviews for the spotId
 	useEffect(() => {
@@ -33,10 +33,9 @@ const AverageRatingCalc = ({spot}) => {
 			total += Number(stars);
 		}
 		average = total / filteredReviewsForStars.length;
-        // console.log("average", average)
+		// console.log("average", average)
 		return average;
 	};
-
 
 	return (
 		<div>
@@ -45,7 +44,7 @@ const AverageRatingCalc = ({spot}) => {
 				icon={filteredReviewsForStars.length ? faStar : null}
 			/>{" "}
 			{averageStars(filteredReviewsForStars, spotId)
-				? (averageStars(filteredReviewsForStars, spotId)).toFixed(1)
+				? averageStars(filteredReviewsForStars, spotId).toFixed(1)
 				: "New"}
 		</div>
 	);

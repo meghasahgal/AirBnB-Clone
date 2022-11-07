@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useParams} from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSpotById, deleteSpot } from "../../store/spot";
 import EditSpotForm from "../EditSpotForm";
@@ -24,10 +24,10 @@ const SpotById = () => {
 	// const [showCreateReview, setShowCreateReview] = useState(false);
 
 	//map over reviews:
-	const allReviewsUserIds = review.map((review) =>review.userId)
+	const allReviewsUserIds = review.map((review) => review.userId);
 	// console.log(allReviewsUserIds, "allReviewsUserIds")
 	// returns true if user has a review, false if not
-	let check = (allReviewsUserIds.includes(sessionUser.id))
+	let check = allReviewsUserIds.includes(sessionUser.id);
 	// console.log(check, "check")
 	//returns true if not owner, false if owner
 	let owner = spot?.userId !== sessionUser?.id;
@@ -104,7 +104,10 @@ const SpotById = () => {
 							</button>
 						)}
 						{spot.userId === sessionUser?.id && (
-							<button className="add-review-button"onClick={() => handleDeleteClick(spot.id)}>
+							<button
+								className="add-review-button"
+								onClick={() => handleDeleteClick(spot.id)}
+							>
 								Delete Spot
 							</button>
 						)}
@@ -119,7 +122,7 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place and a user that already has a review can't write another one*/}
-						{sessionUser?.id && owner && !check &&(
+						{sessionUser?.id && owner && !check && (
 							<button
 								className="add-review-button"
 								onClick={routeChangetoCreateReviewForm}
