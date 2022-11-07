@@ -16,8 +16,8 @@ Frontend: ReactJS, Redux, NodeJS
 
 Code Snippets: 
 
-I enjoyed bringing together conceptual learnings of the React store, thunk and database retrievals to write the following code to get reviews by a spot's id (extracted per the param):
-<img width="1120" alt="image" src="https://user-images.githubusercontent.com/1787106/200107552-914705e6-028c-40b6-acef-b481bbaa9c8d.png">
+I enjoyed bringing together conceptual learnings of the React store, thunk and database retrievals to write the following code to all spots, which really brought the website to life. I created another componenent, AvgRatingCalc to calcualate the average ratings of each spot.
+<img width="943" alt="image" src="https://user-images.githubusercontent.com/1787106/200337777-3f20deec-50a4-4fed-bf94-b12d00e4ef49.png">
 
 
 Instructions to Launch the App Locally: TBA
