@@ -27,9 +27,9 @@ const SpotById = () => {
 	const allReviewsUserIds = review.map((review) => review.userId);
 	// console.log(allReviewsUserIds, "allReviewsUserIds")
 	// returns true if user has a review, false if not
-	let check = allReviewsUserIds.includes(sessionUser.id);
+	let check = allReviewsUserIds.includes(sessionUser?.id);
 	// console.log(check, "check")
-	//returns true if not owner, false if owner
+	//returns true if not owner, false if ownerc
 	let owner = spot?.userId !== sessionUser?.id;
 	// console.log(spot.userId, "spotUserId")
 	// console.log(sessionUser.id, "sessionUserId")
