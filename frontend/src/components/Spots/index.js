@@ -27,6 +27,7 @@ const Spots = () => {
 
 	return (
 		<>
+
 			{" "}
 			<hr></hr>
 			<div></div>
@@ -43,7 +44,7 @@ const Spots = () => {
 			<div></div>
 			<div className="spots-container">
 				{allSpotsArray.map((spot) => (
-
+					spot && spot.id ?
 					<div key={spot.id}>
 						<div className="spot-details">
 							<div
@@ -73,6 +74,7 @@ const Spots = () => {
 							<br></br>
 						</div>
 					</div>
+					: <div></div>
 				))}
 			</div>
 		</>
