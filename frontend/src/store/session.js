@@ -63,7 +63,7 @@ export const signUpThunk = (user) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(loadUser(data));
+		dispatch(loadUser(data.user)); //added .user
 		return data;
 	}
 };
