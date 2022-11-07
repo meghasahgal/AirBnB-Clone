@@ -24,23 +24,24 @@ const ReviewsBySpotId = () => {
 		dispatch(deleteReview(id));
 		history.push(`/spots/${spot.id}`);
 	};
+
 	return (
 		<div>
 			<div className="primary-text">Reviews</div>
 			<hr></hr>
 			<div className="reviews-container">
 				{allReviewsArray.map((review) => (
-					<div className="review-id" key={review?.id}>
+					<div className="review-id" key={review.id}>
 						<div className="review-details">
 							<div className="review-font">{review?.User?.firstName} {" "} {review?.User?.lastName}</div>
-							<div>{review?.review}</div>
+							<div>{review.review}</div>
 							<div>
-								<FontAwesomeIcon icon={review?.stars ? faStar : null} />{" "}
-								{review?.stars}
+								<FontAwesomeIcon icon={review.stars ? faStar : null} />{" "}
+								{review.stars}
 							</div>
 						</div>
 						{review.userId === sessionUser?.id && (
-							<button className="delete-spot-button" onClick={() => handleDeleteClick(review?.id)}>
+							<button className="delete-spot-button" onClick={() => handleDeleteClick(review.id)}>
 								Delete Review
 							</button>
 						)}
