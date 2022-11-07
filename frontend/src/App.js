@@ -15,6 +15,7 @@ import CreateReviewForm from "./components/CreateReviewForm";
 import AverageRatingCalc from "./components/AverageRatingCalc"
 // import DeleteReview from "./components/DeleteReview";
 import Navigation from "./components/Navigation";
+import TryHosting from "./components/TryHosting"; //added
 // import Profile from "./components/Profile";
 import PageNotFound from "./components/PageNotFound";
 

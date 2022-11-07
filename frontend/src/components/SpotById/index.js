@@ -72,20 +72,23 @@ const SpotById = () => {
 
 					<div className="spot-details-container">
 						{/* <div className="spot-id-intro">Entire Home Hosted By Mikel</div> */}
-						<div>
-							{spot.city}
-							{", "}
-							{spot.state}
-							{", "}
-							{spot.country}
-						</div>
-						<div>{spot.location}</div>
-						<div>
+						<div className="spot-info">
+							{/* <div> */}
 							{/* <FontAwesomeIcon icon={spot.avgRating ? faStar : null} /> */}
 							<AverageRatingCalc spot={spot} />
-							{"·"}
-							{review.length}
-							{review.length === 1 ? " review" : " reviews"}
+							<span className="blob">{" · "}</span>
+							{review.length} {review.length === 1 ? " review" : " reviews"}
+							{/* </div> */}
+							<span className="blob">{" · "}</span>
+							<div>
+								{" "}
+								{spot.city}
+								{", "}
+								{spot.state}
+								{", "}
+								{spot.country}
+							</div>
+							<div>{spot.location}</div>
 						</div>
 						<div className="img-container">
 							<div
@@ -123,8 +126,8 @@ const SpotById = () => {
 						<br></br>
 						{/* spot owner can't write a review of their own place and a user that already has a review can't write another one*/}
 						{sessionUser?.id &&
-							(spot?.userId !== sessionUser?.id) &&
-							!(allReviewsUserIds.includes(sessionUser?.id)) && (
+							spot?.userId !== sessionUser?.id &&
+							!allReviewsUserIds.includes(sessionUser?.id) && (
 								<button
 									className="add-review-button"
 									onClick={routeChangetoCreateReviewForm}
