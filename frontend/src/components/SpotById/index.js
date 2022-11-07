@@ -27,10 +27,10 @@ const SpotById = () => {
 	const allReviewsUserIds = review.map((review) => review.userId);
 	// console.log(allReviewsUserIds, "allReviewsUserIds")
 	// returns true if user has a review, false if not
-	let check = allReviewsUserIds.includes(sessionUser?.id);
+	// let check = allReviewsUserIds.includes(sessionUser?.id); //commented out for now for test
 	// console.log(check, "check")
 	//returns true if not owner, false if ownerc
-	let owner = spot?.userId !== sessionUser?.id;
+	// let owner = spot?.userId !== sessionUser?.id; //commented out for now
 	// console.log(spot.userId, "spotUserId")
 	// console.log(sessionUser.id, "sessionUserId")
 	// console.log(owner, "owner")
@@ -122,14 +122,16 @@ const SpotById = () => {
 						<br></br>
 						<br></br>
 						{/* spot owner can't write a review of their own place and a user that already has a review can't write another one*/}
-						{sessionUser?.id && owner && !check && (
-							<button
-								className="add-review-button"
-								onClick={routeChangetoCreateReviewForm}
-							>
-								Add a Review
-							</button>
-						)}
+						{sessionUser?.id &&
+							(spot?.userId !== sessionUser?.id) &&
+							!(allReviewsUserIds.includes(sessionUser?.id)) && (
+								<button
+									className="add-review-button"
+									onClick={routeChangetoCreateReviewForm}
+								>
+									Add a Review
+								</button>
+							)}
 					</div>
 				</div>
 			)}
